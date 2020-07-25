@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="Beret-81">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-24T09:33:34.000Z">
-<meta property="article:modified_time" content="2020-07-24T09:34:40.940Z">
+<meta property="article:modified_time" content="2020-07-24T10:15:39.433Z">
 <meta property="article:author" content="Beret-81">
 <meta property="article:tag" content="信息收集">
 <meta name="twitter:card" content="summary">
@@ -250,7 +250,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-07-24 17:34:40'>2020-07-24 17:33</time>
+            Created At : <time class="date" title='Updated At: 2020-07-24 18:15:39'>2020-07-24 17:33</time>
         
     </div>
     <div class="article-meta">
@@ -290,14 +290,10 @@
       
         
       
-       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
     </div>
 </article>
 
-
-<p>
-    <a  class="dashang" onclick="dashangToggle()">💰</a>
-</p>
 
 
 
@@ -324,24 +320,6 @@
     </div>
 </div>
 
-<div class="hide_box" onclick="dashangToggle()"></div>
-<div class="shang_box">
-    <a class="shang_close"  onclick="dashangToggle()">×</a>
-    <div class="shang_tit">
-        <p>Help us with donation</p>
-    </div>
-    <div class="shang_payimg">
-        <div class="pay_img">
-            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
-            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
-        </div>
-    </div>
-    <div class="shang_payselect">
-        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
-    </div>
-</div>
-
-
 </body>
 <script src="/js/jquery.pjax.js?v=1.1.0" ></script>
 
@@ -355,14 +333,6 @@
         
 
         /*渲染打赏样式*/
-        
-        $("input[name=pay]").on("click", function () {
-            if($("input[name=pay]:checked").val()=="weixin"){
-                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
-            } else {
-                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
-            }
-        })
         
 
         /*高亮代码块行号*/
@@ -381,11 +351,6 @@
     }
 
     /*打赏页面隐藏与展示*/
-    
-    function dashangToggle() {
-        $(".shang_box").fadeToggle();
-        $(".hide_box").fadeToggle();
-    }
     
 
 </script>
@@ -409,21 +374,21 @@
     
     @media screen and (max-width: 1468px) {
         .nav {
-            width: 492px;
+            width: 472px;
         }
         .nav.fullscreen {
-            margin-left: -492px;
+            margin-left: -472px;
         }
         .nav-left {
-            width: 100px;
+            width: 80px;
         }
     }
     
     
     @media screen and (max-width: 1024px) {
         .nav {
-            width: 492px;
-            margin-left: -492px
+            width: 472px;
+            margin-left: -472px
         }
         .nav.fullscreen {
             margin-left: 0;
@@ -468,6 +433,25 @@
     
 
     /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
     
 
     
