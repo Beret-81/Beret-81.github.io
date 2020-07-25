@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>信息收集--本机信息 | Beret-81</title>
+  <meta name="keywords" content=" 信息收集、学习记录 ">
+  <meta name="description" content="信息收集--本机信息 | Beret-81">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Linux 命令大全1、Linux命令– 系统信息命令代码                 注释说明   arch                  显示机器的处理器架构（1） uname -m              显示机器的处理器架构（2） uname -r              显示正在使用的内核版本 dmidecode -q         显示硬件系统部件 - (SMBIOS &#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 命令大全">
+<meta property="og:url" content="http://yoursite.com/2017/09/30/Linux-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/index.html">
+<meta property="og:site_name" content="Beret-81">
+<meta property="og:description" content="Linux 命令大全1、Linux命令– 系统信息命令代码                 注释说明   arch                  显示机器的处理器架构（1） uname -m              显示机器的处理器架构（2） uname -r              显示正在使用的内核版本 dmidecode -q         显示硬件系统部件 - (SMBIOS &#x2F;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-09-30T03:29:15.000Z">
+<meta property="article:modified_time" content="2020-07-14T10:01:48.982Z">
+<meta property="article:author" content="Beret-81">
+<meta property="article:tag" content="Linux 命令">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+</div>
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Beret-81</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/beret-81" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/weixin_42918771" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active" data-rel="All">All<small>(4)</small></div></li>
+    
+        
+            
+            <li><div data-rel="内网渗透">内网渗透<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="基础杂项">基础杂项<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="4">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" />
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux 命令</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Window 命令</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>信息收集、学习记录</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All "
+           href="/2020/07/25/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%9C%89%E5%9F%9F/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="信息收集--判断是否有域">信息收集--判断是否有域</span>
+            <span class="post-date" title="2020-07-25 15:28:49">2020/07/25</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/24/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--本机信息">信息收集--本机信息</span>
+            <span class="post-date" title="2020-01-24 17:33:34">2020/01/24</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2017/09/30/Linux-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"
+           data-tag="Linux 命令"
+           data-author="" >
+            <span class="post-title" title="Linux 命令大全">Linux 命令大全</span>
+            <span class="post-date" title="2017-09-30 11:29:15">2017/09/30</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2017/09/15/Window-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"
+           data-tag="Window 命令"
+           data-author="" >
+            <span class="post-title" title="Window 命令大全（通用）">Window 命令大全（通用）</span>
+            <span class="post-date" title="2017-09-15 15:29:35">2017/09/15</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-信息收集-本机信息收集" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">信息收集--本机信息</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="内网渗透">内网渗透</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">信息收集、学习记录</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2020-07-25 15:24:51'>2020-01-24 17:33</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#本机信息收集"><span class="toc-text">本机信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、手工信息收集"><span class="toc-text">一、手工信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-查询网络配置信息"><span class="toc-text">1. 查询网络配置信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3．查询本机服务信息"><span class="toc-text">3．查询本机服务信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4．查询进程列表"><span class="toc-text">4．查询进程列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5．查看启动程序信息"><span class="toc-text">5．查看启动程序信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6．查看计划任务"><span class="toc-text">6．查看计划任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7．查看主机开机时间"><span class="toc-text">7．查看主机开机时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8．查询用户列表"><span class="toc-text">8．查询用户列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9．列出或断开本地计算机和连接的客户端的会话"><span class="toc-text">9．列出或断开本地计算机和连接的客户端的会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10．查询端口列表"><span class="toc-text">10．查询端口列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11．查询补丁列表"><span class="toc-text">11．查询补丁列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12．查询本机共享"><span class="toc-text">12．查询本机共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13．查询路由表及所有可用接口的-ARP-缓存表"><span class="toc-text">13．查询路由表及所有可用接口的 ARP 缓存表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14．查询防火墙相关配置"><span class="toc-text">14．查询防火墙相关配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15．查看计算机代理配置情况"><span class="toc-text">15．查看计算机代理配置情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16．查询并开启远程连接服务"><span class="toc-text">16．查询并开启远程连接服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-查询当前权限、账号信息"><span class="toc-text">17.查询当前权限、账号信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、自动化信息收集"><span class="toc-text">二、自动化信息收集</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="本机信息收集"><a href="#本机信息收集" class="headerlink" title="本机信息收集"></a>本机信息收集</h1><blockquote>
+<p>不管是在外网中还是内网中，信息收集都是重要的第一步。当我们成功控制一台机器后，其内网结构如何、这台机器是什么角色的、使用机器的人是什么角色的、机器上安装的是什么杀毒软件、机器是通过什么方式上网的、机器是笔记本还是台式机等，都需要通过信息收集 来获取。 </p>
+</blockquote>
+<blockquote>
+<p>本机信息主要包括主机的系统、权限、内网分配 IP 地址段、端口、服务、共享、会话、网络连接信息、补丁更新频率、安装的软件杀毒等。如果是域内主机，系统、软件、补丁、服务、杀毒一般都是批量安装的。通过收集本机的相关信息，可以进一步了解整个域的操作系统版本、 软件、补丁、用户命名方式等。</p>
+</blockquote>
+<h2 id="一、手工信息收集"><a href="#一、手工信息收集" class="headerlink" title="一、手工信息收集"></a>一、手工信息收集</h2><h3 id="1-查询网络配置信息"><a href="#1-查询网络配置信息" class="headerlink" title="1. 查询网络配置信息"></a>1. 查询网络配置信息</h3><blockquote>
+<p>查看网络配置信息，获取当前机器是否处在内网中、有几个内网、内网段分别是多少、是否<br>是域内网、网关 IP 地址、DNS 指向的 IP 地址等信息。</p>
+</blockquote>
+<pre><code>ipconfig /all </code></pre><p>###2．查询操作系统及安装软件的版本信息</p>
+<blockquote>
+<p>获取操作系统和版本信息</p>
+</blockquote>
+<pre><code>systeminfo | findstr /B /C:&quot;OS Name&quot; /C:&quot;OS Version&quot;
+systeminfo | findstr /B /C:&quot;OS 名称&quot; /C:&quot;OS 版本&quot;</code></pre><blockquote>
+<p>查看系统体系结构</p>
+</blockquote>
+<pre><code>echo %PROCESSOR_ARCHITECTURE%</code></pre><blockquote>
+<p>查看安装的软件及版本、路径等</p>
+</blockquote>
+<pre><code>1、利用 wmic 命令，可以将结果输出到文本中
+wmic product get name,version 
+2、利用 PowerShell 命令，收集软件版本信息
+powershell &quot;Get-WmiObject -class Win32_Product |Select-Object -Property name,version&quot;</code></pre><h3 id="3．查询本机服务信息"><a href="#3．查询本机服务信息" class="headerlink" title="3．查询本机服务信息"></a>3．查询本机服务信息</h3><pre><code>wmic service list brief</code></pre><h3 id="4．查询进程列表"><a href="#4．查询进程列表" class="headerlink" title="4．查询进程列表"></a>4．查询进程列表</h3><blockquote>
+<p>当前进程列表和进程用户，分析软件、邮件客户端、VPN 和杀毒软<br>件等进程</p>
+</blockquote>
+<pre><code>tasklist /v 
+wmic process list brief</code></pre><h3 id="5．查看启动程序信息"><a href="#5．查看启动程序信息" class="headerlink" title="5．查看启动程序信息"></a>5．查看启动程序信息</h3><pre><code>wmic startup get command,caption</code></pre><h3 id="6．查看计划任务"><a href="#6．查看计划任务" class="headerlink" title="6．查看计划任务"></a>6．查看计划任务</h3><pre><code>schtasks /query /fo LIST /v</code></pre><h3 id="7．查看主机开机时间"><a href="#7．查看主机开机时间" class="headerlink" title="7．查看主机开机时间"></a>7．查看主机开机时间</h3><pre><code>net statistics workstation</code></pre><h3 id="8．查询用户列表"><a href="#8．查询用户列表" class="headerlink" title="8．查询用户列表"></a>8．查询用户列表</h3><blockquote>
+<p>查看本机用户列表,通过分析本机用户列表，可以找出内部网络机器名的命名规则。特别是个人机器，可以推测出整个域的用户命名方式</p>
+</blockquote>
+<pre><code>net user </code></pre><blockquote>
+<p>获取本地管理员（通常含有域用户）信息。默认 Domain Admins 组为域内机器的本地管理员用户。在真实环境中，为了方便管理，会有域用户被添加为域机器的本地管理员用户。</p>
+</blockquote>
+<pre><code>net localgroup administrators</code></pre><blockquote>
+<p>查看当前在线用户</p>
+</blockquote>
+<pre><code>query user || qwinsta </code></pre><h3 id="9．列出或断开本地计算机和连接的客户端的会话"><a href="#9．列出或断开本地计算机和连接的客户端的会话" class="headerlink" title="9．列出或断开本地计算机和连接的客户端的会话"></a>9．列出或断开本地计算机和连接的客户端的会话</h3><pre><code>net session</code></pre><h3 id="10．查询端口列表"><a href="#10．查询端口列表" class="headerlink" title="10．查询端口列表"></a>10．查询端口列表</h3><blockquote>
+<p>查看端口列表、本机开放的端口所对应的服务和应用程序。<br>    netstat -ano</p>
+</blockquote>
+<h3 id="11．查询补丁列表"><a href="#11．查询补丁列表" class="headerlink" title="11．查询补丁列表"></a>11．查询补丁列表</h3><blockquote>
+<p>查看系统的详细信息时,注意系统的版本、位数、域、补丁信息及跟新频率等。一般域内主机的补丁都是批量安装的，通过查看本地计算机补丁列表，可以找到未打补丁的漏洞。</p>
+</blockquote>
+<pre><code>1、使用系统命令查看
+Systeminfo
+2、使用 wmic 命令,查看更新补丁名称、描述、补丁 ID、安装时间等信息
+wmic qfe get Caption,Description,HotFixID,InstalledOn </code></pre><h3 id="12．查询本机共享"><a href="#12．查询本机共享" class="headerlink" title="12．查询本机共享"></a>12．查询本机共享</h3><blockquote>
+<p>查看本机共享列表和可访问的域共享列表（域内共享有很多时候是相同的）</p>
+</blockquote>
+<pre><code>net share
+wmic share get name,path,status </code></pre><h3 id="13．查询路由表及所有可用接口的-ARP-缓存表"><a href="#13．查询路由表及所有可用接口的-ARP-缓存表" class="headerlink" title="13．查询路由表及所有可用接口的 ARP 缓存表"></a>13．查询路由表及所有可用接口的 ARP 缓存表</h3><pre><code>route print
+Arp –A</code></pre><h3 id="14．查询防火墙相关配置"><a href="#14．查询防火墙相关配置" class="headerlink" title="14．查询防火墙相关配置"></a>14．查询防火墙相关配置</h3><pre><code>1.关闭防火墙:
+Windows Server 2003 系统及之前版本
+netsh firewall set opmode disable
+Windows Server 2003 之后系统版本
+netsh advfirewall set allprofiles state off
+
+2.查看防火墙配置
+netsh firewall show config
+
+3.修改防火墙配置
+Windows Server 2003 系统及之前版本，允许指定程序全部连接
+netsh firewall add allowedprogram c:\nc.exe &quot;allow nc&quot; enable
+
+Windows Server 2003 之后系统版本:
+允许指定程序连入，命令如下:
+netsh advfirewall firewall add rule name=&quot;pass nc&quot; dir=in action=allow program=&quot;C: \nc.exe&quot;
+允许指定程序连出，命令如下:
+netsh advfirewall firewall add rule name=&quot;Allow nc&quot; dir=out action=allow program=&quot;C: \nc.exe&quot;
+允许 3389 端口放行，命令如下:
+netsh advfirewall firewall add rule name=&quot;Remote Desktop&quot; protocol=TCP dir=in localport=3389 action=allow
+
+4.自定义防火墙日志储存位置
+netsh advfirewall set currentprofile logging filename &quot;C:\windows\temp\fw.log&quot;</code></pre><h3 id="15．查看计算机代理配置情况"><a href="#15．查看计算机代理配置情况" class="headerlink" title="15．查看计算机代理配置情况"></a>15．查看计算机代理配置情况</h3><blockquote>
+<p>执行如下命令，可以看到代理配置存在服务器为 127.0.0.1:1080 的配置信息</p>
+</blockquote>
+<pre><code>reg query &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot;</code></pre><h3 id="16．查询并开启远程连接服务"><a href="#16．查询并开启远程连接服务" class="headerlink" title="16．查询并开启远程连接服务"></a>16．查询并开启远程连接服务</h3><blockquote>
+<p>在 cmd 下使用注册表查询语句，命令如下，得到连接端口为 0xd3d，转换后为 3389.</p>
+</blockquote>
+<pre><code>1.查看远程连接端口
+REG QUERY &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; /V PortNumber
+2.在 Windows Server 2003 中开启 3389 端口
+wmic path win32_terminalservicesetting where (__CLASS !=&quot;&quot;) call setallowtsconnections 1
+3. Windows Server 2008 和 Windows Server 2012 中开启 3389 端口
+wmic /namespace:\\root\cimv2\terminalservices path win32_terminalservicesetting where (__CLASS !=&quot;&quot;) call setallowtsconnections 1
+wmic /namespace:\\root\cimv2\terminalservices path win32_tsgeneralsetting where (TerminalName=&apos;RDP-Tcp&apos;) call setuserauthenticationrequired 1
+reg add &quot;HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER&quot; /v fSingleSessionPerUser /t REG_DWORD /d 0 /f</code></pre><h3 id="17-查询当前权限、账号信息"><a href="#17-查询当前权限、账号信息" class="headerlink" title="17.查询当前权限、账号信息"></a>17.查询当前权限、账号信息</h3><pre><code>1.查看当前权限
+ whoami 
+2．获取域 SID
+whoami /all 
+3．查询指定账户的详细信息
+net user XXX /domain</code></pre><h2 id="二、自动化信息收集"><a href="#二、自动化信息收集" class="headerlink" title="二、自动化信息收集"></a>二、自动化信息收集</h2><blockquote>
+<p>WMIC（Windows Management Instrumentation Command-Line，Windows 管理工具命令行）是 Windows 下最有用的命令行工具。我们可以创建一个脚本来实现在目标机器上查询流程、服务、用户账号、用户组、 网络接口、硬盘信息、网络共享信息、安装 Windows 补丁、程序在启动运行、安装的软件列表、 操作系统、时区信息等信息。</p>
+</blockquote>
+<blockquote>
+<p>使用以下代码保存.bat为文件,执行脚本后,会将所有结果写入一个 HTML 文件。</p>
+</blockquote>
+<pre><code>for /f &quot;delims=&quot; %%A in (&apos;dir /s /b %WINDIR%\system32\*htable.xsl&apos;) do set &quot;var=%%A&quot;
+
+wmic process get CSName,Description,ExecutablePath,ProcessId /format:&quot;%var%&quot; &gt;&gt; out.html
+wmic service get Caption,Name,PathName,ServiceType,Started,StartMode,StartName /format:&quot;%var%&quot; &gt;&gt; out.html
+wmic USERACCOUNT list full /format:&quot;%var%&quot; &gt;&gt; out.html
+wmic group list full /format:&quot;%var%&quot; &gt;&gt; out.html
+wmic nicconfig where IPEnabled=&apos;true&apos; get Caption,DefaultIPGateway,Description,DHCPEnabled,DHCPServer,IPAddress,IPSubnet,MACAddress /format:&quot;%var%&quot; &gt;&gt; out.html
+wmic volume get Label,DeviceID,DriveLetter,FileSystem,Capacity,FreeSpace /format:&quot;%var%&quot; &gt;&gt; out.html
+wmic netuse list full /format:&quot;%var%&quot; &gt;&gt; out.html
+wmic qfe get Caption,Description,HotFixID,InstalledOn /format:&quot;%var%&quot; &gt;&gt; out.html
+wmic startup get Caption,Command,Location,User /format:&quot;%var%&quot; &gt;&gt; out.html
+wmic PRODUCT get Description,InstallDate,InstallLocation,PackageCache,Vendor,Version /format:&quot;%var%&quot; &gt;&gt; out.html
+wmic os get name,version,InstallDate,LastBootUpTime,LocalDateTime,Manufacturer,RegisteredUser,ServicePackMajorVersion,SystemDirectory /format:&quot;%var%&quot; &gt;&gt; out.html
+wmic Timezone get DaylightName,Description,StandardName /format:&quot;%var%&quot; &gt;&gt; out.html   </code></pre>
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Beret-81
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
