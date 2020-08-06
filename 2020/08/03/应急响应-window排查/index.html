@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>应急响应--window | Beret-81</title>
+  <meta name="keywords" content=" 应急响应 ">
+  <meta name="description" content="应急响应--window | Beret-81">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="1)什么是链接? 链接是指两个设备之间的连接。它包括用于一个设备能够与另一个设备通信的电缆类型和协议。 2)OSI 参考模型的层次是什么? 有 7 个 OSI 层：物理层，数据链路层，网络层，传输层，会话层，表示层和应用层。 3)什么是骨干网? 骨干网络是集中的基础设施，旨在将不同的路由和数据分发到各种网络。它还处理带宽管理和各种通道。4)什么是 LAN? LAN 是局域网的缩写。它是指计算机与位">
+<meta property="og:type" content="article">
+<meta property="og:title" content="100个网络基础知识">
+<meta property="og:url" content="http://yoursite.com/2020/07/15/100%E4%B8%AA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="Beret-81">
+<meta property="og:description" content="1)什么是链接? 链接是指两个设备之间的连接。它包括用于一个设备能够与另一个设备通信的电缆类型和协议。 2)OSI 参考模型的层次是什么? 有 7 个 OSI 层：物理层，数据链路层，网络层，传输层，会话层，表示层和应用层。 3)什么是骨干网? 骨干网络是集中的基础设施，旨在将不同的路由和数据分发到各种网络。它还处理带宽管理和各种通道。4)什么是 LAN? LAN 是局域网的缩写。它是指计算机与位">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-15T13:40:39.000Z">
+<meta property="article:modified_time" content="2020-07-25T13:24:39.147Z">
+<meta property="article:author" content="Beret-81">
+<meta property="article:tag" content="网络基础">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+</div>
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Beret-81</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/beret-81" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/weixin_42918771" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active" data-rel="All">All<small>(12)</small></div></li>
+    
+        
+            
+            <li><div data-rel="内网渗透">内网渗透<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="基础杂项">基础杂项<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="应急响应">应急响应<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="渗透测试">渗透测试<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="资源汇总">资源汇总<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="12">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" />
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux 命令</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Window 命令</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>信息收集</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>信息收集、学习记录</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>应急响应</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>渗透测试、信息收集</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>网络基础</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>资源汇总</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-window%E6%8E%92%E6%9F%A5/"
+           data-tag="应急响应"
+           data-author="" >
+            <span class="post-title" title="应急响应--window">应急响应--window</span>
+            <span class="post-date" title="2020-08-03 21:50:16">2020/08/03</span>
+        </a>
+        
+        <a  class="All 资源汇总 "
+           href="/2020/07/31/%E7%BA%A2%E9%98%9F%E5%92%8C%E8%93%9D%E9%98%9F%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/"
+           data-tag="资源汇总"
+           data-author="" >
+            <span class="post-title" title="红队和蓝队资料汇总">红队和蓝队资料汇总</span>
+            <span class="post-date" title="2020-07-31 14:41:49">2020/07/31</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2020/07/15/100%E4%B8%AA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
+           data-tag="网络基础"
+           data-author="" >
+            <span class="post-title" title="100个网络基础知识">100个网络基础知识</span>
+            <span class="post-date" title="2020-07-15 21:40:39">2020/07/15</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/02/%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93-%E5%88%A4%E6%96%AD%E5%86%85%E7%BD%91%E8%BF%9E%E9%80%9A%E6%80%A7/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="隐藏通信隧道-判断内网连通性">隐藏通信隧道-判断内网连通性</span>
+            <span class="post-date" title="2020-02-02 12:06:49">2020/02/02</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--域内信息收集">信息收集--域内信息收集</span>
+            <span class="post-date" title="2020-01-26 21:17:21">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E7%AB%AF%E5%8F%A3%E6%8E%A2%E6%B5%8B/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--端口探测">信息收集--端口探测</span>
+            <span class="post-date" title="2020-01-26 15:07:01">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%B8%BB%E6%9C%BA%E5%AD%98%E6%B4%BB/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--主机存活">信息收集--主机存活</span>
+            <span class="post-date" title="2020-01-26 13:06:49">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/25/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%9C%89%E5%9F%9F/"
+           data-tag="信息收集"
+           data-author="" >
+            <span class="post-title" title="信息收集--判断是否有域">信息收集--判断是否有域</span>
+            <span class="post-date" title="2020-01-25 15:28:49">2020/01/25</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/24/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--本机信息">信息收集--本机信息</span>
+            <span class="post-date" title="2020-01-24 17:33:34">2020/01/24</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2019/12/04/%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%AB%99/"
+           data-tag="渗透测试、信息收集"
+           data-author="" >
+            <span class="post-title" title="被动信息收集--在线网站">被动信息收集--在线网站</span>
+            <span class="post-date" title="2019-12-04 12:53:21">2019/12/04</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2017/09/30/Linux-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"
+           data-tag="Linux 命令"
+           data-author="" >
+            <span class="post-title" title="Linux 命令大全">Linux 命令大全</span>
+            <span class="post-date" title="2017-09-30 11:29:15">2017/09/30</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2017/09/15/Window-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"
+           data-tag="Window 命令"
+           data-author="" >
+            <span class="post-title" title="Window 命令大全">Window 命令大全</span>
+            <span class="post-date" title="2017-09-15 15:29:35">2017/09/15</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-应急响应-window排查" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">应急响应--window</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="应急响应">应急响应</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">应急响应</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2020-08-06 18:46:35'>2020-08-03 21:50</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、文件的排查"><span class="toc-text">一、文件的排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、开机启动有无异常文件启动"><span class="toc-text">1、开机启动有无异常文件启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、对系统敏感文件路径的查看"><span class="toc-text">2、对系统敏感文件路径的查看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、查看Recent"><span class="toc-text">3、查看Recent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、查看文件时间"><span class="toc-text">4、查看文件时间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、进程、端口排查"><span class="toc-text">二、进程、端口排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、查看进程"><span class="toc-text">1、查看进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、进程排查"><span class="toc-text">2、进程排查</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、检查启动项、计划任务、服务"><span class="toc-text">三、检查启动项、计划任务、服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、检查服务器是否有异常的启动项"><span class="toc-text">1、检查服务器是否有异常的启动项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、检查计划任务"><span class="toc-text">2、检查计划任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、服务自启动"><span class="toc-text">3、服务自启动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、系统账号检查"><span class="toc-text">四、系统账号检查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、查看服务器是否有弱口令，远程管理端口是否对公网开放。"><span class="toc-text">1、查看服务器是否有弱口令，远程管理端口是否对公网开放。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、查看服务器是否存在可疑账号、新增账号。"><span class="toc-text">2、查看服务器是否存在可疑账号、新增账号。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、查看安全标识符、SAM安全账户管理器"><span class="toc-text">3、查看安全标识符、SAM安全账户管理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、查看服务器是否存在隐藏账号、克隆账号"><span class="toc-text">4、查看服务器是否存在隐藏账号、克隆账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、结合日志，查看管理员登录时间、用户名是否存在异常。"><span class="toc-text">5、结合日志，查看管理员登录时间、用户名是否存在异常。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、检查系统相关信息"><span class="toc-text">六、检查系统相关信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、查看系统版本以及补丁信息"><span class="toc-text">1、查看系统版本以及补丁信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、查找可疑目录及文件"><span class="toc-text">2、查找可疑目录及文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、相关工具"><span class="toc-text">七、相关工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、病毒分析"><span class="toc-text">1、病毒分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、病毒查杀"><span class="toc-text">2、病毒查杀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、病毒动态"><span class="toc-text">3、病毒动态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、在线病毒扫描网站"><span class="toc-text">4、在线病毒扫描网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、webshell查杀"><span class="toc-text">5、webshell查杀</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、文件的排查"><a href="#一、文件的排查" class="headerlink" title="一、文件的排查"></a>一、文件的排查</h2><h3 id="1、开机启动有无异常文件启动"><a href="#1、开机启动有无异常文件启动" class="headerlink" title="1、开机启动有无异常文件启动"></a>1、开机启动有无异常文件启动</h3><pre><code>开始—运行--输入msconfig（cmd输入msconfig）</code></pre><h3 id="2、对系统敏感文件路径的查看"><a href="#2、对系统敏感文件路径的查看" class="headerlink" title="2、对系统敏感文件路径的查看"></a>2、对系统敏感文件路径的查看</h3><pre><code>开始—运行--输入下面命令：
+%WINDIR%
+%WINDIR%\system32
+%TEMP%
+%LOCALAPPDATA%
+%APPDATA%
+主要查看有无异常文件以及最新生成的.bat .exe 的文件，还要根据入侵时间来判断。</code></pre><h3 id="3、查看Recent"><a href="#3、查看Recent" class="headerlink" title="3、查看Recent"></a>3、查看Recent</h3><pre><code>Recent 是系统文件夹，里面存放着你最近使用的文档的快捷方式，查看用户recent相关文件分析可疑文件。根据文件夹文件列表时间（已知入侵时间点、文件等）进行排序，查找可疑文件。
+开始—运行--输入%UserProfile%\Recent</code></pre><h3 id="4、查看文件时间"><a href="#4、查看文件时间" class="headerlink" title="4、查看文件时间"></a>4、查看文件时间</h3><pre><code>查看文件创建时间、修改时间、访问时间，黑客通过Webshell连接工具改变的是修改时间，所以如果修改时间在创建时间之前明显是可疑文件。</code></pre><h2 id="二、进程、端口排查"><a href="#二、进程、端口排查" class="headerlink" title="二、进程、端口排查"></a>二、进程、端口排查</h2><blockquote>
+<p>检查端口连接情况，是否有远程连接、可疑连接</p>
+</blockquote>
+<h3 id="1、查看进程"><a href="#1、查看进程" class="headerlink" title="1、查看进程"></a>1、查看进程</h3><pre><code>使用netstat -ano 查看目前网络连接，定位可疑的ESTABLISHED
+Netstat 显示网络连接、路由表和网络接口信息；
+参数说明：
+ -a 显示所有网络连接、路由表和网络接口信息；
+ -n 以数字形式显示地址和端口号
+ -o 显示与每个连接相关的所属进程ID
+ -r 显示路由表
+ -s 显示按协议统计信息、默认地、显示IP
+
+  常见的状态说明
+  LISTENING 侦听状态
+  ESTABLISHED 建立连接
+  CLOSE_WAIT  对方主动关闭连接或者网络异常导致连接终端</code></pre><h3 id="2、进程排查"><a href="#2、进程排查" class="headerlink" title="2、进程排查"></a>2、进程排查</h3><pre><code>方法一：
+1、根据netstat 定位出的pid，在通过tasklist 命令进行进程定位
+   netstat -ano | findstr ESTABLISHED
+   tasklist | findstr 2528
+
+2、然后根据wmic process 获取进程的全路径
+   wmic process | findstr &quot;OfficeIm.exe&quot;
+
+3、通过任务管理器定位进程路径
+   a、任务管理器--选择对应进程--右键打开文件位置
+   b、运行输入 wmic，cmd界面 输入 process
+
+4、tasklist /svc 进程--PID--服务
+
+5、查看Windows服务所对应的端口
+   C:\Windows\System32\drivers\etc
+   %system%/system32/drivers/etc/services（一般%system%就是C:\Windows）
+
+方法二：
+通过工具，查看可疑的进程及其子进程。可以通过观察以下内容：
+   没有签名验证信息的进程
+   没有描述信息的进程
+   进程的属主
+   进程的路径是否合法
+   CPU或内存资源占用长时间过高的进程
+
+1、开始--运行--输入msinfo32，依次点击“软件环境→正在运行任务”就可以查看到进程的详细信息，比如进程路径、进程ID、文件创建日期、启动时间等。
+2、打开D盾_web查杀工具或者火绒剑，进程查看，关注没有签名信息的进程。
+3、通过微软官方提供的 Process Explorer 等工具进行排查 。</code></pre><h2 id="三、检查启动项、计划任务、服务"><a href="#三、检查启动项、计划任务、服务" class="headerlink" title="三、检查启动项、计划任务、服务"></a>三、检查启动项、计划任务、服务</h2><h3 id="1、检查服务器是否有异常的启动项"><a href="#1、检查服务器是否有异常的启动项" class="headerlink" title="1、检查服务器是否有异常的启动项"></a>1、检查服务器是否有异常的启动项</h3><pre><code>a、进入C盘查看启动目录，默认情况下此目录在是一个空目录，确认是否有非业务程序在该目录下。 
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp
+b、【运行】CMD，输入 msconfig，查看是否存在命名异常的启动项目，是则取消勾选命名异常的启动项目，并到命令中显示的路径删除文件。
+c、【运行】，输入 regedit，打开注册表，查看开机启动项是否正常，特别注意如下三个注册表项： 
+   HKEY_CURRENT_USER\software\micorsoft\windows\currentversion\run HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run 
+   HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Runonce
+   检查右侧是否有启动异常的项目，如有请删除，并建议安装杀毒软件进行病毒查杀，清除残留病毒或木马。
+d、利用安全软件查看启动项、开机时间管理等。
+e、组策略，运行gpedit.msc。查看启动项位置：用户配置 - 管理模板 - 系统 - 登录 - 在用户登录时运行这些程序</code></pre><h3 id="2、检查计划任务"><a href="#2、检查计划任务" class="headerlink" title="2、检查计划任务"></a>2、检查计划任务</h3><pre><code>a、【控制面板】&gt;（管理工具）【任务计划程序】，查看计划任务属性，便可以发现木马文件的路径。
+b、单击【开始】&gt;【运行】；输入 cmd，然后输入at（schtasks），检查计算机与网络上的其它计算机之间的会话或计划任务，如有，则确认是否为正常连接。</code></pre><h3 id="3、服务自启动"><a href="#3、服务自启动" class="headerlink" title="3、服务自启动"></a>3、服务自启动</h3><pre><code>单击【开始】&gt;【运行】，输入services.msc，注意服务状态和启动类型，检查是否有异常服务。</code></pre><h2 id="四、系统账号检查"><a href="#四、系统账号检查" class="headerlink" title="四、系统账号检查"></a>四、系统账号检查</h2><h3 id="1、查看服务器是否有弱口令，远程管理端口是否对公网开放。"><a href="#1、查看服务器是否有弱口令，远程管理端口是否对公网开放。" class="headerlink" title="1、查看服务器是否有弱口令，远程管理端口是否对公网开放。"></a>1、查看服务器是否有弱口令，远程管理端口是否对公网开放。</h3><pre><code>检查方法：据实际情况咨询相关服务器管理员。</code></pre><h3 id="2、查看服务器是否存在可疑账号、新增账号。"><a href="#2、查看服务器是否存在可疑账号、新增账号。" class="headerlink" title="2、查看服务器是否存在可疑账号、新增账号。"></a>2、查看服务器是否存在可疑账号、新增账号。</h3><pre><code>检查方法：打开 cmd 窗口，输入lusrmgr.msc命令，查看是否有新增/可疑的账号，如有管理员群组的（Administrators）里的新增账户，如有，请立即禁用或删除掉。</code></pre><h3 id="3、查看安全标识符、SAM安全账户管理器"><a href="#3、查看安全标识符、SAM安全账户管理器" class="headerlink" title="3、查看安全标识符、SAM安全账户管理器"></a>3、查看安全标识符、SAM安全账户管理器</h3><pre><code>SID 永远都是唯一的。由计算机名，当前时间，当前用户态线程的CPU耗费时间的总和三个参数决定以保证它的唯一性
+检查方法：
+a、打开cmd，然后输入 wmic useraccount get name,sid
+b、regedit打开注册表，进入HKEY_LOCAL_MACHINE\SAM\SAM；HKEY_LOCAL_MACHINE\SECURITY，进行查看</code></pre><h3 id="4、查看服务器是否存在隐藏账号、克隆账号"><a href="#4、查看服务器是否存在隐藏账号、克隆账号" class="headerlink" title="4、查看服务器是否存在隐藏账号、克隆账号"></a>4、查看服务器是否存在隐藏账号、克隆账号</h3><pre><code>检查方法：
+a、打开注册表 ，查看管理员对应键值。
+使用regedit打开注册表编辑器找到[HKEY_LOCAL_MACHINE]——[SAM]——[SAM]——[Domains]——[Account]——[Users]
+b、使用D盾_web查杀工具，集成了对克隆账号检测的功能。</code></pre><h3 id="5、结合日志，查看管理员登录时间、用户名是否存在异常。"><a href="#5、结合日志，查看管理员登录时间、用户名是否存在异常。" class="headerlink" title="5、结合日志，查看管理员登录时间、用户名是否存在异常。"></a>5、结合日志，查看管理员登录时间、用户名是否存在异常。</h3><pre><code>a、Win+R打开运行，输入“eventvwr.msc”，回车运行，打开“事件查看器”。
+b、导出Windows日志--安全，利用Log Parser进行分析。</code></pre><h2 id="六、检查系统相关信息"><a href="#六、检查系统相关信息" class="headerlink" title="六、检查系统相关信息"></a>六、检查系统相关信息</h2><h3 id="1、查看系统版本以及补丁信息"><a href="#1、查看系统版本以及补丁信息" class="headerlink" title="1、查看系统版本以及补丁信息"></a>1、查看系统版本以及补丁信息</h3><pre><code>检查方法：单击【开始】&gt;【运行】，输入systeminfo，查看系统信息</code></pre><h3 id="2、查找可疑目录及文件"><a href="#2、查找可疑目录及文件" class="headerlink" title="2、查找可疑目录及文件"></a>2、查找可疑目录及文件</h3><pre><code>检查方法：
+a、 查看用户目录，新建账号会在这个目录生成一个用户目录，查看是否有新建用户目录。
+b、单击【开始】&gt;【运行】，输入%UserProfile%\Recent，分析最近打开分析可疑文件。
+c、在服务器各个目录，可根据文件夹内文件列表时间进行排序，查找可疑文件。
+d、回收站、浏览器下载目录、浏览器历史记录
+e、修改时间在创建时间之前的为可疑文件</code></pre><h2 id="七、相关工具"><a href="#七、相关工具" class="headerlink" title="七、相关工具"></a>七、相关工具</h2><h3 id="1、病毒分析"><a href="#1、病毒分析" class="headerlink" title="1、病毒分析"></a>1、病毒分析</h3><ul>
+<li>PCHunter：<a href="http://www.xuetr.com" target="_blank" rel="noopener">http://www.xuetr.com</a></li>
+<li>火绒剑：<a href="https://www.huorong.cn" target="_blank" rel="noopener">https://www.huorong.cn</a></li>
+<li>Process Explorer：<a href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/process-explorer" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/sysinternals/downloads/process-explorer</a></li>
+<li>processhacker：<a href="https://processhacker.sourceforge.io/downloads.php" target="_blank" rel="noopener">https://processhacker.sourceforge.io/downloads.php</a></li>
+<li>autoruns：<a href="https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns</a></li>
+<li>OTL：<a href="https://www.bleepingcomputer.com/download/otl/" target="_blank" rel="noopener">https://www.bleepingcomputer.com/download/otl/</a></li>
+<li>SysInspector：<a href="http://download.eset.com.cn/download/detail/?product=sysinspector" target="_blank" rel="noopener">http://download.eset.com.cn/download/detail/?product=sysinspector</a></li>
+</ul>
+<h3 id="2、病毒查杀"><a href="#2、病毒查杀" class="headerlink" title="2、病毒查杀"></a>2、病毒查杀</h3><ul>
+<li>卡巴斯基：<a href="http://devbuilds.kaspersky-labs.com/devbuilds/KVRT/latest/full/KVRT.exe" target="_blank" rel="noopener">http://devbuilds.kaspersky-labs.com/devbuilds/KVRT/latest/full/KVRT.exe</a> （推荐理由：绿色版、最新病毒库）</li>
+<li>大蜘蛛：<a href="http://free.drweb.ru/download+cureit+free（推荐理由：扫描快、一次下载只能用1周，更新病毒库）" target="_blank" rel="noopener">http://free.drweb.ru/download+cureit+free（推荐理由：扫描快、一次下载只能用1周，更新病毒库）</a></li>
+<li>火绒安全软件：<a href="https://www.huorong.cn" target="_blank" rel="noopener">https://www.huorong.cn</a></li>
+<li>360杀毒：<a href="http://sd.360.cn/download_center.html" target="_blank" rel="noopener">http://sd.360.cn/download_center.html</a></li>
+</ul>
+<h3 id="3、病毒动态"><a href="#3、病毒动态" class="headerlink" title="3、病毒动态"></a>3、病毒动态</h3><ul>
+<li>CVERC-国家计算机病毒应急处理中心：<a href="http://www.cverc.org.cn" target="_blank" rel="noopener">http://www.cverc.org.cn</a></li>
+<li>微步在线威胁情报社区：<a href="https://x.threatbook.cn" target="_blank" rel="noopener">https://x.threatbook.cn</a></li>
+<li>火绒安全论坛：<a href="http://bbs.huorong.cn/forum-59-1.html" target="_blank" rel="noopener">http://bbs.huorong.cn/forum-59-1.html</a></li>
+<li>爱毒霸社区：<a href="http://bbs.duba.net" target="_blank" rel="noopener">http://bbs.duba.net</a></li>
+<li>腾讯电脑管家：<a href="http://bbs.guanjia.qq.com/forum-2-1.html" target="_blank" rel="noopener">http://bbs.guanjia.qq.com/forum-2-1.html</a></li>
+</ul>
+<h3 id="4、在线病毒扫描网站"><a href="#4、在线病毒扫描网站" class="headerlink" title="4、在线病毒扫描网站"></a>4、在线病毒扫描网站</h3><ul>
+<li><a href="http://www.virscan.org" target="_blank" rel="noopener">http://www.virscan.org</a> //多引擎在线病毒扫描网 v1.02，当前支持 41 款杀毒引擎</li>
+<li><a href="https://habo.qq.com" target="_blank" rel="noopener">https://habo.qq.com</a> //腾讯哈勃分析系统</li>
+<li><a href="https://virusscan.jotti.org" target="_blank" rel="noopener">https://virusscan.jotti.org</a> //Jotti恶意软件扫描系统</li>
+<li><a href="http://www.scanvir.com" target="_blank" rel="noopener">http://www.scanvir.com</a> //针对计算机病毒、手机病毒、可疑文件等进行检测分析</li>
+</ul>
+<h3 id="5、webshell查杀"><a href="#5、webshell查杀" class="headerlink" title="5、webshell查杀"></a>5、webshell查杀</h3><ul>
+<li>D盾_Web查杀：<a href="http://www.d99net.net/index.asp" target="_blank" rel="noopener">http://www.d99net.net/index.asp</a></li>
+<li>河马webshell查杀：<a href="http://www.shellpub.com" target="_blank" rel="noopener">http://www.shellpub.com</a></li>
+<li>深信服Webshell网站后门检测工具：<a href="http://edr.sangfor.com.cn/backdoor_detection.html" target="_blank" rel="noopener">http://edr.sangfor.com.cn/backdoor_detection.html</a></li>
+<li>Safe3：<a href="http://www.uusec.com/webshell.zip" target="_blank" rel="noopener">http://www.uusec.com/webshell.zip</a></li>
+</ul>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Beret-81
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

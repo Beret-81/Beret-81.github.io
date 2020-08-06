@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Beret-81</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="Beret-81">
+  <title>隐藏通信隧道-判断内网连通性 | Beret-81</title>
+  <meta name="keywords" content=" 信息收集、学习记录 ">
+  <meta name="description" content="隐藏通信隧道-判断内网连通性 | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="1)什么是链接? 链接是指两个设备之间的连接。它包括用于一个设备能够与另一个设备通信的电缆类型和协议。 2)OSI 参考模型的层次是什么? 有 7 个 OSI 层：物理层，数据链路层，网络层，传输层，会话层，表示层和应用层。 3)什么是骨干网? 骨干网络是集中的基础设施，旨在将不同的路由和数据分发到各种网络。它还处理带宽管理和各种通道。4)什么是 LAN? LAN 是局域网的缩写。它是指计算机与位">
 <meta property="og:type" content="article">
@@ -54,7 +54,7 @@
 
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/avatar.jpg" />
@@ -339,12 +339,58 @@
         </div>
     </div>
 </aside>
-<div id="post" class="index">
+<div id="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-隐藏通信隧道-判断内网连通性" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Beret-81"><span class="toc-text">Beret-81</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#靡不有初，鲜克有终！"><span class="toc-text">靡不有初，鲜克有终！</span></a></li></ol></li></ol>
+        <h1 class="article-title">隐藏通信隧道-判断内网连通性</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="内网渗透">内网渗透</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">信息收集、学习记录</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2020-08-06 16:28:14'>2020-02-02 12:06</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#隐藏通信隧道-判断内网连通性"><span class="toc-text">隐藏通信隧道-判断内网连通性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、ICMP-协议"><span class="toc-text">1、ICMP 协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、TCP-协议"><span class="toc-text">2、TCP 协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、HTTP-协议"><span class="toc-text">3、HTTP 协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、DNS-协议"><span class="toc-text">4、DNS 协议</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -357,10 +403,53 @@
     }
 </style>
 </div>
-            <h1 id="Beret-81"><a href="#Beret-81" class="headerlink" title="Beret-81"></a>Beret-81</h1><h2 id="靡不有初，鲜克有终！"><a href="#靡不有初，鲜克有终！" class="headerlink" title="靡不有初，鲜克有终！"></a>靡不有初，鲜克有终！</h2>
-        </article>
-        
-        
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="隐藏通信隧道-判断内网连通性"><a href="#隐藏通信隧道-判断内网连通性" class="headerlink" title="隐藏通信隧道-判断内网连通性"></a>隐藏通信隧道-判断内网连通性</h1><blockquote>
+<p>完成内网信息收集后，我们需要判断流量是否出得去，进得来。隐藏通信隧道技术常用于在访问受限的网络环境中追踪数据流向和在非受信任的网络中实现安全的数据传输。</p>
+<p>判断内外的连通性是指判断机器能否上外网等。要综合判断各种协议（TCP、HTTP、DNS、ICMP等）及端口通信等情况。常见的允许流量流出的端口有80、8080、443、53、110、123等。     </p>
+<p> —-《内网安全攻防–渗透测试实战指南》</p>
+</blockquote>
+<h2 id="1、ICMP-协议"><a href="#1、ICMP-协议" class="headerlink" title="1、ICMP 协议"></a>1、ICMP 协议</h2><p>使用ping 命令进行探测：ping &lt;ip地址或者域名&gt;</p>
+<p><code>kali@kali:~$ ping www.ms08067.com</code></p>
+<p><code>PING static.verycdn.net (112.90.131.59) 56(84) bytes of data.
+64 bytes from 112.90.131.59 (112.90.131.59): icmp_seq=1 ttl=54 time=23.5 ms</code></p>
+<p><code>64 bytes from 112.90.131.59 (112.90.131.59): icmp_seq=2 ttl=54 time=32.3 ms</code></p>
+<h2 id="2、TCP-协议"><a href="#2、TCP-协议" class="headerlink" title="2、TCP 协议"></a>2、TCP 协议</h2><p>使用nc工具进行探测，执行 nc &lt;IP地址 或者域名&gt; </p>
+<p><code>kali@kali:~$ nc -zv 192.168.5.101 80</code></p>
+<p><code>192.168.5.101: inverse host lookup failed: Unknown host
+(UNKNOWN) [192.168.5.101] 80 (http) open</code></p>
+<h2 id="3、HTTP-协议"><a href="#3、HTTP-协议" class="headerlink" title="3、HTTP 协议"></a>3、HTTP 协议</h2><p>使用curl 工具进行探测，执行 curl &lt;IP地址: 端口号&gt;</p>
+<p><code>kali@kali:~$ curl 192.168.5.101 80</code></p>
+<p><code>DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;</code></p>
+<h2 id="4、DNS-协议"><a href="#4、DNS-协议" class="headerlink" title="4、DNS 协议"></a>4、DNS 协议</h2><p>1、使用nslookup 工具进行探测，执行 nslookup &lt;域名 + vps-ip&gt; </p>
+<p><code>kali@kali:~$ nslookup www.ms08067.com 8.8.8.8</code><br><code>Server:         8.8.8.8</code><br><code>Address:        8.8.8.8#53</code></p>
+<p><code>Non-authoritative answer:</code><br><code>www.ms08067.com canonical name = www.ms08067.com.verygslb.com.</code><br><code>www.ms08067.com.verygslb.com    canonical name = www.ms08067.com.verycdn.net.</code><br><code>www.ms08067.com.verycdn.net     canonical name = static.verycdn.net.</code><br><code>Name:   static.verycdn.net</code><br><code>Address: 112.90.131.59</code></p>
+<p>2、使用 dig 工具进行探测，执行 dig &lt;@vps-ip + 域名 &gt;</p>
+<p><code>kali@kali:~$ dig @192.168.5.1 www.ms08067.com A</code></p>
+<p><code>; &lt;&lt;&gt;&gt; DiG 9.16.4-Debian &lt;&lt;&gt;&gt; @192.168.5.1 www.ms08067.com A</code><br><code>; (1 server found)</code><br><code>;; global options: +cmd</code><br><code>;; Got answer:</code><br><code>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 56851</code><br><code>;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 0</code></p>
+<p><code>;; QUESTION SECTION:</code><br><code>;www.ms08067.com.               IN      A</code></p>
+<p><code>;; ANSWER SECTION:</code><br><code>www.ms08067.com.        369     IN      CNAME   www.ms08067.com.verygslb.com.</code><br><code>www.ms08067.com.verygslb.com. 1 IN      CNAME   www.ms08067.com.verycdn.net.</code><br><code>www.ms08067.com.verycdn.net. 1  IN      CNAME   static.verycdn.net.</code><br><code>static.verycdn.net.     1       IN      A       112.90.131.59</code></p>
+<p><code>;; Query time: 31 msec</code><br><code>;; SERVER: 192.168.5.1#53(192.168.5.1)</code><br><code>;; WHEN: 一 8月 03 10:50:38 EDT 2020</code><br><code>;; MSG SIZE  rcvd: 150</code></p>
+<p><code>kali@kali:~$</code> </p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">
@@ -369,11 +458,11 @@
 <p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
 
     </div>
-</div>
-<div class="full-toc">
-    <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
 <a class="" id="rocket" ></a>
 
+    </div>
 </div>
 
 </body>
