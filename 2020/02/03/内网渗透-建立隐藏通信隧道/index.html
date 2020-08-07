@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>信息收集--判断是否有域 | Beret-81</title>
-  <meta name="keywords" content=" 信息收集 ">
-  <meta name="description" content="信息收集--判断是否有域 | Beret-81">
+  <title>内网渗透--建立隐藏通信隧道 | Beret-81</title>
+  <meta name="keywords" content=" 信息收集、学习记录 ">
+  <meta name="description" content="内网渗透--建立隐藏通信隧道 | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="title: 渗透测试–资源网站date: 2020-08-07 11:59:55categories:  渗透测试tags: 渗透测试  渗透测试–资源网站1、网络安全从业者安全导航 渗透师导航 HACK 学习-安全导航 纳维安全导航 APT实战资源 OSINT开源情报与侦察工具  2、 POX&amp;EXP集合 Penetration_Testing_POC  3、红队攻击资源 Red-T">
 <meta property="og:type" content="article">
@@ -372,9 +372,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-信息收集-判断是否有域" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-内网渗透-建立隐藏通信隧道" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">信息收集--判断是否有域</h1>
+        <h1 class="article-title">内网渗透--建立隐藏通信隧道</h1>
     
     <div class="article-meta">
         
@@ -392,14 +392,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color5">信息收集</a>
+            <a class="color5">信息收集、学习记录</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-08-07 15:20:54'>2020-01-25 15:28</time>
+            Created At : <time class="date" title='Updated At: 2020-08-07 15:29:25'>2020-02-03 10:36</time>
         
     </div>
     <div class="article-meta">
@@ -421,7 +421,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#判断是否有域"><span class="toc-text">判断是否有域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1．使用-ipconfig-命令"><span class="toc-text">1．使用 ipconfig 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2．查看系统详细信息"><span class="toc-text">2．查看系统详细信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3．查询当前登录域及登录用户信息"><span class="toc-text">3．查询当前登录域及登录用户信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4．判断主域"><span class="toc-text">4．判断主域</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#内网渗透-建立隐藏通信隧道"><span class="toc-text">内网渗透-建立隐藏通信隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、网络层隧道技术"><span class="toc-text">1、网络层隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、传输层隧道技术"><span class="toc-text">2、传输层隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、应用层隧道技术"><span class="toc-text">3、应用层隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、SOCKS-代理"><span class="toc-text">4、SOCKS 代理</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -437,104 +437,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="判断是否有域"><a href="#判断是否有域" class="headerlink" title="判断是否有域"></a>判断是否有域</h1><blockquote>
-<p>搜集完本机相关信息后，接下来，就要判断当前内网是否有域。如果有，需要判断所控主机<br>是否在域内。</p>
-</blockquote>
-<h3 id="1．使用-ipconfig-命令"><a href="#1．使用-ipconfig-命令" class="headerlink" title="1．使用 ipconfig 命令"></a>1．使用 ipconfig 命令</h3><blockquote>
-<p>使用以下命令,查看网关 IP 地址、DNS 的 IP 地址、本地地址是否和 DNS 服务器为同一<br>网段、域名等.</p>
-</blockquote>
-<pre><code>C:\Windows\Temp&gt;ipconfig /all
-
-Windows IP 配置
-主机名  . . . . . . . . . . . . . : Srv-DB-0day
-主 DNS 后缀 . . . . . . . . . . . : 0day.org
-节点类型  . . . . . . . . . . . . : 混合
-IP 路由已启用 . . . . . . . . . . : 否
-WINS 代理已启用 . . . . . . . . . : 否
-DNS 后缀搜索列表  . . . . . . . . : 0day.org
-
-以太网适配器 本地连接:
-
-连接特定的 DNS 后缀 . . . . . . . :
-描述. . . . . . . . . . . . . . . : Intel(R) PRO/1000 MT Network Connection
-物理地址. . . . . . . . . . . . . : 00-0C-29-72-B1-AC
-DHCP 已启用 . . . . . . . . . . . : 否
-自动配置已启用. . . . . . . . . . : 是
-本地链接 IPv6 地址. . . . . . . . : fe80::49b8:5bb4:e6eb:8501%11(首选)
-IPv4 地址 . . . . . . . . . . . . : 192.168.3.68(首选)
-子网掩码  . . . . . . . . . . . . : 255.255.255.0
-默认网关. . . . . . . . . . . . . : 192.168.3.1
-DHCPv6 IAID . . . . . . . . . . . : 234884137
-DHCPv6 客户端 DUID  . . . . . . . : 00-01-00-01-24-7A-BE-F8-00-0C-29-72-B1-AC
-DNS 服务器  . . . . . . . . . . . : 192.168.3.142
-
-TCPIP 上的 NetBIOS  . . . . . . . : 已启用</code></pre><blockquote>
-<p>然后，通过反向解析查询命令 nslookup 来解析域名的 IP 地址。使用解析出来的 IP 地址进行对比，判断域控制器和 DNS 服务器是否在同一台服务器上.</p>
-</blockquote>
-<pre><code>C:\Windows\Temp&gt;nslookup 0day.org
-DNS request timed out.
-timeout was 2 seconds.
-服务器:  UnKnown
-Address:  192.168.3.142
-
-名称:    0day.org
-Address:  192.168.3.142</code></pre><h3 id="2．查看系统详细信息"><a href="#2．查看系统详细信息" class="headerlink" title="2．查看系统详细信息"></a>2．查看系统详细信息</h3><blockquote>
-<p>使用systeminfo 命令,查看是否存在域.如果域显示为 WORKGROUP，表示当前服务器不在域内。有则显示域名;</p>
-</blockquote>
-<pre><code>C:\&gt;systeminfo
-
-主机名:           OWA2010SP3
-OS 名称:          Microsoft Windows Server 2008 R2 Datacenter
-OS 版本:          6.1.7601 Service Pack 1 Build 7601
-OS 制造商:        Microsoft Corporation
-OS 配置:          主域控制器
-OS 构件类型:      Multiprocessor Free
-注册的所有人:     Windows 用户
-....
-
-页面文件位置:     C:\pagefile.sys
-域:               0day.org
-登录服务器:       \\OWA2010SP3
-修补程序:         安装了 1 个修补程序。
-              [01]: KB976902
-网卡:             安装了 1 个 NIC。
-              [01]: Intel(R) PRO/1000 MT Network Connection</code></pre><h3 id="3．查询当前登录域及登录用户信息"><a href="#3．查询当前登录域及登录用户信息" class="headerlink" title="3．查询当前登录域及登录用户信息"></a>3．查询当前登录域及登录用户信息</h3><blockquote>
-<p>执行如下命令，工作站域 DNS 名称显示域名（如果显示为 WORKGROUP，则表示非域环境）。<br>登录域 表明当前用户是域用户登录还是本地用户登录，此处表明当前用户是域用户登录。</p>
-</blockquote>
-<pre><code>C:\&gt;net config workstation
-计算机名 \\OWA2010SP3
-计算机全名   OWA2010SP3.0day.org
-用户名   Administrator
-
-工作站正运行于
-NetBT_Tcpip_{844721C9-5263-42C7-B86A-4CB56F2F85C2} (000C299186D1)
-
-软件版本 Windows Server 2008 R2 Datacent
-
-工作站域 0DAY
-工作站域 DNS 名称0day.org
-登录域   0DAY
-
-COM 打开超时 (秒)0
-COM 发送计数 (字节)  16
-COM 发送超时 (毫秒)  250
-命令成功完成。</code></pre><h3 id="4．判断主域"><a href="#4．判断主域" class="headerlink" title="4．判断主域"></a>4．判断主域</h3><blockquote>
-<p>一般域服务器都会同时作为时间服务器,所以使用下面命令判断主域</p>
-</blockquote>
-<pre><code>运行 net time /domain 该命令后，一般会有如下三种情况:
-1.存在域，但当前用户不是域用户，提示说明权限不够
-  C:\Windows&gt;net time /domain
-  发生系统错误 5 
-  拒绝访问.
-
-2.存在域，并且当前用户是域用户
-  C:\Windows\Temp&gt;net time /domain
-  \\OWA2010SP3.0day.org 的当前时间是 2020/1/25 16:12:49
-  令成功完成。
-
-3.当前网络环境为工作组，不存在域
-  C:\Users\Administrator&gt;net time /domain
-  找不到域 WORKGROUP 的域控制器。</code></pre>
+        <h1 id="内网渗透-建立隐藏通信隧道"><a href="#内网渗透-建立隐藏通信隧道" class="headerlink" title="内网渗透-建立隐藏通信隧道"></a>内网渗透-建立隐藏通信隧道</h1><h2 id="1、网络层隧道技术"><a href="#1、网络层隧道技术" class="headerlink" title="1、网络层隧道技术"></a>1、网络层隧道技术</h2><h2 id="2、传输层隧道技术"><a href="#2、传输层隧道技术" class="headerlink" title="2、传输层隧道技术"></a>2、传输层隧道技术</h2><h2 id="3、应用层隧道技术"><a href="#3、应用层隧道技术" class="headerlink" title="3、应用层隧道技术"></a>3、应用层隧道技术</h2><h2 id="4、SOCKS-代理"><a href="#4、SOCKS-代理" class="headerlink" title="4、SOCKS 代理"></a>4、SOCKS 代理</h2>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
     </div>
