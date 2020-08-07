@@ -399,7 +399,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-08-07 15:30:00'>2020-02-04 15:16</time>
+            Created At : <time class="date" title='Updated At: 2020-08-07 17:49:03'>2020-02-04 15:16</time>
         
     </div>
     <div class="article-meta">
@@ -421,7 +421,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、使用WinRAR-工具进行解压缩"><span class="toc-text">1、使用WinRAR 工具进行解压缩</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、以RAR-格式压缩-解压"><span class="toc-text">1、以RAR 格式压缩&#x2F;解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、分卷压缩-解压"><span class="toc-text">2、分卷压缩&#x2F;解压</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、使用7-Zip-工具进行解压缩"><span class="toc-text">2、使用7-Zip 工具进行解压缩</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、普通压缩解压方式"><span class="toc-text">1、普通压缩解压方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、分卷压缩-解压方式"><span class="toc-text">2、分卷压缩&#x2F;解压方式</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -437,7 +437,109 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <blockquote>
+<p>在渗透测试中，数据的下载也是重要的一部分，通常我们使用winrar、7-zip 进行压缩数据而后进行下载。</p>
+</blockquote>
+<h2 id="1、使用WinRAR-工具进行解压缩"><a href="#1、使用WinRAR-工具进行解压缩" class="headerlink" title="1、使用WinRAR 工具进行解压缩"></a>1、使用WinRAR 工具进行解压缩</h2><blockquote>
+<p>目标机器上安装了 WinRAR，可以直接使用；如果没有安装，可以在本地下载并安装，然后把 WinRAR安装目录里的 rar.exe文件提取出来，上传到目标机器中（安装 WinRAR的操作系统版本和目标机器的操作系统版本必须相同，否则可能会出错）</p>
+<pre><code>参数说明：
+-a：添加要压缩的文件。
+-k:锁定压缩文件
+-s：生成存档文件（这样可以提高压缩比）。
+-p：指定压缩密码
+-r：递归压缩，包括子目录
+-x：指定要排除的文件
+-v：分卷打包，在打包大文件时用处很大。
+-ep：从名称中排除路径。
+-epl：从名称中排除基本目录
+-mO：存储，添加到压缩文件时不压缩文件。
+-ml：最快，使用最快压缩方式（低压缩比）
+-m2：较快，使用快速压缩方式。
+-m3：标准，使用标准压缩方式（默认）
+-m4：较好，使用较强压缩方式（速度较慢）
+-m5：最好，使用最强压缩方式（最好的压缩方式，但速度最慢）。</code></pre></blockquote>
+<h3 id="1、以RAR-格式压缩-解压"><a href="#1、以RAR-格式压缩-解压" class="headerlink" title="1、以RAR 格式压缩/解压"></a>1、以RAR 格式压缩/解压</h3><pre><code>压缩命令说明：
+把 C:\inetpub\wwwroot\ 目录下的所有内容（包括子目录）打包为test.rar，然后放在c:\inetpub\wwwroot 下。
+命令如下：
+C:\inetpub\wwwroot&gt;Rar.exe a -k -r -s -m3 c:\inetpub\wwwroot\test.rar c:\inetpub\wwwroot
+实例：
+C:\inetpub\wwwroot&gt;Rar.exe a -k -r -s -m3 c:\inetpub\wwwroot\test.rar c:\inetpub\wwwroot
+
+RAR 5.61 x64    版权所有 (C) 1993-2018 Alexander Roshal    30 九月 2018
+试用版             输入 &apos;rar -?&apos; 获得帮助
+
+评估版本。请注册。
+
+正在创建 固实archive c:\inetpub\wwwroot\chaozhou\test.rar
+正在添加  c:\inetpub\wwwroot\7z.exe                          确定
+正在添加  c:\inetpub\wwwroot\Rar.exe                         确定
+正在添加  c:\inetpub\wwwroot\conac.cn\js\20\306\0000\60153148\CA203060000601531480002.js  确定
+正在添加  c:\inetpub\wwwroot\conac.cn\js\20\306\0000\60153148  确定
+正在添加  c:\inetpub\wwwroot\conac.cn\js\20\306\0000         确定
+正在添加  c:\inetpub\wwwroot\conac.cn\js\20\306              确定
+正在添加  c:\inetpub\wwwroot\conac.cn\js\20                  确定
+正在添加  c:\inetpub\wwwroot\conac.cn\js                     确定
+正在添加  c:\inetpub\wwwroot\conac.cn                        确定
+正在添加  c:\inetpub\wwwroot\                                确定
+正在锁定压缩文件
+已完成
+
+
+解压命令说明：
+把刚刚打包的 test.rar 文件解压到当前目录下(或者指定目录)
+命令如下：
+rar.exe e c:\inetpub\wwwroot\test.rar
+rar.exe x c:\inetpub\wwwroot\test.rar c:\windows\temp 
+
+e: 解压到当前根目录下
+x: 以绝对路径解压</code></pre><h3 id="2、分卷压缩-解压"><a href="#2、分卷压缩-解压" class="headerlink" title="2、分卷压缩/解压"></a>2、分卷压缩/解压</h3><pre><code>分卷压缩C盘webcode目录下的所有文件及文件夹（使用 -r 参数进行递归压缩），设置每个分卷为20MB，结构为 test.part1.rar、test.part2.rar、test.part3.rar 
+命令如下：
+C:\WebCode&gt;Rar.exe a -m0 -r -v20m c:\WebCode\test.rar c:\WebCode
+压缩之后：
+C:\WebCode&gt;dir
+驱动器 C 中的卷没有标签。
+ 卷的序列号是 34CD-166D
+
+ C:\WebCode 的目录
+
+ 2020/02/04  12:18    &lt;DIR&gt;          .
+ 2020/02/04  12:18    &lt;DIR&gt;          ..
+ 2019/01/11  10:50    &lt;DIR&gt;          25yiqiye3.3
+ 2019/02/08  12:23    &lt;DIR&gt;          aspcheck
+ 2019/02/08  13:37    &lt;DIR&gt;          dangan
+ 2019/01/11  10:50    &lt;DIR&gt;          huiguwm_4.1
+ 2018/10/15  20:35           603,352 Rar.exe
+ 2020/02/04  12:18        20,971,520 test.part1.rar
+ 2020/02/04  12:18        20,971,520 test.part2.rar
+ 2020/02/04  12:18        20,971,520 test.part3.rar
+ 2020/02/04  12:18        18,546,950 test.part4.rar
+
+ 解压命令如下：
+ 解压命令说明：
+ 把刚刚打包的 test.rar 文件解压到当前目录下(或者指定目录)
+ 命令如下：
+ rar.exe e C:\WebCode&gt;test.part1.rar test.rar
+ rar.exe x C:\WebCode&gt;test.part1.rar c:\test
+
+ e: 解压到当前根目录下
+ x: 以绝对路径解压</code></pre><h2 id="2、使用7-Zip-工具进行解压缩"><a href="#2、使用7-Zip-工具进行解压缩" class="headerlink" title="2、使用7-Zip 工具进行解压缩"></a>2、使用7-Zip 工具进行解压缩</h2><blockquote>
+<p>7-Zip是一款免费且开源的压缩软件。与其他软件相比，7-Zp有更高的压缩比；与winrar相比，7-Zip对系统资源的消耗较少。7-Zip轻巧、无须安装，功能与同类型的收费软件相近。<br>对于ZP和GZP格式的文件，7-Zip能提供比使用PKZIP和 WinZip高2%-10%的压缩比。同时，7-ZIP使用更完善的AES-256加密算法，利用7-ZIP的内置命令，可以创建体积小巧，可自动释放的安装包。<br>7-ZIP支持7Z、XZ、BZIP2、GZIP、TAR、ZP、WIM等格式的文件的压缩和解压缩。</p>
+<pre><code>7-Zip的常用参数列举如下
+-r：递归压缩
+-o：指定输出目录。
+-p: 指定密码
+-v：分卷压缩（设置要适当，否则文件会非常多）
+-a：添加压缩文件。
+如果目标机器上装有7-Zip，可以直接使用。如果没有安装，可以在本地下载并安Zip安装目录里的7zexc文件提取出来，上传到目标机器中。</code></pre></blockquote>
+<h3 id="1、普通压缩解压方式"><a href="#1、普通压缩解压方式" class="headerlink" title="1、普通压缩解压方式"></a>1、普通压缩解压方式</h3><pre><code>把 C:\WebCode 目录下的所有内容（包括子目录）打包为test.7z，放到c:\WebCode 目录下，压缩密码为“12345”，命令如下：
+C:\WebCode&gt;7z.exe a -r -p123456 c:\WebCode\test.7z c:\WebCode\
+
+把已经打包的c:\WebCode\test.7z 文件解压到c:\test 目录下，命令如下：
+7z.exe x -p123456 c:\WebCode\test.7z -oC:\test</code></pre><h3 id="2、分卷压缩-解压方式"><a href="#2、分卷压缩-解压方式" class="headerlink" title="2、分卷压缩/解压方式"></a>2、分卷压缩/解压方式</h3><pre><code>分卷压缩C盘webcode目录下的所有文件及文件夹（使用 -r 参数进行递归压缩），指定压缩密码为“123456”，设置每个分卷为20MB，结构为 test.7z.001、 test.7z.002、test.7z.003、、、
+命令如下：
+7z.exe -r -v1m -p123456 a c:\WebCode\test.7z c:\test
+
+解压方法同上。</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
     </div>
