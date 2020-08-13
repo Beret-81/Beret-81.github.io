@@ -6,17 +6,17 @@
   <meta name="keywords" content=" 工具使用、渗透测试 ">
   <meta name="description" content="工具使用--mimikatz | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="#反弹shell的各种姿势 原文：https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;uXnPctlOBmciHM4Q-7oquw  在渗透过程中，往往因为端口限制而无法直连目标机器，此时需要通过反弹shell来获取一个交互式shell，以便继续深入。   反弹shell是打开内网通道的第一步，也是权限提升过程中至关重要的一步。本文所有姿势整理自网络，并基于同一个假设的前提下完成测试和验证。（假">
+<meta name="description" content="渗透测试–文件下载0x01 简介 在我们渗透测试的过程中，通常会需要向目标主机传送一些文件，来达到提权，维持控制等目的。因此当不方便进行直接传输时，同时目标主机是能有网络连接的，那么此时就可以通过本地下载这种方法来达到文件传输的目的。此篇文章，我会对互联网上针对win与linux大部分的下载指令来做一个汇总，可能会有疏漏，但汇总的都是经常会用的。  0x02 Linux2.1 Wget 这款工具功">
 <meta property="og:type" content="article">
-<meta property="og:title" content="反弹shell的各种姿势">
-<meta property="og:url" content="http://yoursite.com/2020/08/13/%E5%8F%8D%E5%BC%B9shell%E7%9A%84%E5%90%84%E7%A7%8D%E5%A7%BF%E5%8A%BF/index.html">
+<meta property="og:title" content="渗透测试--文件下载">
+<meta property="og:url" content="http://yoursite.com/2020/08/13/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/index.html">
 <meta property="og:site_name" content="Beret-81">
-<meta property="og:description" content="#反弹shell的各种姿势 原文：https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;uXnPctlOBmciHM4Q-7oquw  在渗透过程中，往往因为端口限制而无法直连目标机器，此时需要通过反弹shell来获取一个交互式shell，以便继续深入。   反弹shell是打开内网通道的第一步，也是权限提升过程中至关重要的一步。本文所有姿势整理自网络，并基于同一个假设的前提下完成测试和验证。（假">
+<meta property="og:description" content="渗透测试–文件下载0x01 简介 在我们渗透测试的过程中，通常会需要向目标主机传送一些文件，来达到提权，维持控制等目的。因此当不方便进行直接传输时，同时目标主机是能有网络连接的，那么此时就可以通过本地下载这种方法来达到文件传输的目的。此篇文章，我会对互联网上针对win与linux大部分的下载指令来做一个汇总，可能会有疏漏，但汇总的都是经常会用的。  0x02 Linux2.1 Wget 这款工具功">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-08-13T00:59:42.000Z">
-<meta property="article:modified_time" content="2020-08-13T01:13:23.154Z">
+<meta property="article:published_time" content="2020-08-13T08:54:42.000Z">
+<meta property="article:modified_time" content="2020-08-13T10:12:28.390Z">
 <meta property="article:author" content="Beret-81">
-<meta property="article:tag" content="反弹shell">
+<meta property="article:tag" content="文件下载">
 <meta name="twitter:card" content="summary">
 
 
@@ -127,15 +127,7 @@
     
         
             
-            <li><div data-rel="渗透测试">渗透测试<small>(2)</small></div>
-                
-            </li>
-            
-        
-    
-        
-            
-            <li><div data-rel="渗透渗透">渗透渗透<small>(1)</small></div>
+            <li><div data-rel="渗透测试">渗透测试<small>(3)</small></div>
                 
             </li>
             
@@ -256,7 +248,7 @@
     
     <nav id="title-list-nav">
         
-        <a  class="All 渗透渗透 "
+        <a  class="All 渗透测试 "
            href="/2020/08/13/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/"
            data-tag="文件下载"
            data-author="" >
