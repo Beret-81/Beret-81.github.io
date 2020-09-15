@@ -6,45 +6,18 @@
   <meta name="keywords" content=" Linux 命令 ">
   <meta name="description" content="Linux 命令大全 | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="IIS 漏洞总结 IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。  1、文件解析漏洞1.1 目录解析漏洞在 IIS5.x&#x2F;6.0 中，默认会将 *.asp（.asa、.cer、.cdx ）目录下的所有文件当成As">
+<meta name="description" content="渗透测试–文件下载0x01 简介 在我们渗透测试的过程中，通常会需要向目标主机传送一些文件，来达到提权，维持控制等目的。因此当不方便进行直接传输时，同时目标主机是能有网络连接的，那么此时就可以通过本地下载这种方法来达到文件传输的目的。此篇文章，我会对互联网上针对win与linux大部分的下载指令来做一个汇总，可能会有疏漏，但汇总的都是经常会用的。  0x02 Linux2.1 Wget 这款工具功">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IIS 漏洞总结">
-<meta property="og:url" content="http://yoursite.com/2020/08/16/IIS-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="渗透测试--文件下载">
+<meta property="og:url" content="http://yoursite.com/2020/08/13/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/index.html">
 <meta property="og:site_name" content="Beret-81">
-<meta property="og:description" content="IIS 漏洞总结 IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。  1、文件解析漏洞1.1 目录解析漏洞在 IIS5.x&#x2F;6.0 中，默认会将 *.asp（.asa、.cer、.cdx ）目录下的所有文件当成As">
+<meta property="og:description" content="渗透测试–文件下载0x01 简介 在我们渗透测试的过程中，通常会需要向目标主机传送一些文件，来达到提权，维持控制等目的。因此当不方便进行直接传输时，同时目标主机是能有网络连接的，那么此时就可以通过本地下载这种方法来达到文件传输的目的。此篇文章，我会对互联网上针对win与linux大部分的下载指令来做一个汇总，可能会有疏漏，但汇总的都是经常会用的。  0x02 Linux2.1 Wget 这款工具功">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142648132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142912889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142938674.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142946226.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032914503617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145243481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145405754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145828764.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145843318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150114518.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150332318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150353404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032915040683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150444629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150450861.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150505400.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150510867.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151627797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150540836.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150737904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151152313.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151204570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151216379.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151229304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151239891.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032915124591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-08-16T09:03:53.000Z">
-<meta property="article:modified_time" content="2020-08-21T06:40:40.163Z">
+<meta property="article:published_time" content="2020-08-13T08:54:42.000Z">
+<meta property="article:modified_time" content="2020-08-13T10:12:28.390Z">
 <meta property="article:author" content="Beret-81">
-<meta property="article:tag" content="IIS 漏洞、中间件漏洞">
+<meta property="article:tag" content="文件下载">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200329142648132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
 
 
 <link rel="icon" href="/img/avatar.jpg">
