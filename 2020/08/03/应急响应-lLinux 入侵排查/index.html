@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>应急响应--Linux 入侵排查 | Beret-81</title>
+  <meta name="keywords" content=" 应急响应 ">
+  <meta name="description" content="应急响应--Linux 入侵排查 | Beret-81">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="IIS 漏洞总结 IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。  1、文件解析漏洞1.1 目录解析漏洞在 IIS5.x&#x2F;6.0 中，默认会将 *.asp（.asa、.cer、.cdx ）目录下的所有文件当成As">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IIS 漏洞总结">
+<meta property="og:url" content="http://yoursite.com/2020/08/16/IIS-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Beret-81">
+<meta property="og:description" content="IIS 漏洞总结 IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。  1、文件解析漏洞1.1 目录解析漏洞在 IIS5.x&#x2F;6.0 中，默认会将 *.asp（.asa、.cer、.cdx ）目录下的所有文件当成As">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142648132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142912889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142938674.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142946226.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032914503617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145243481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145405754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145828764.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145843318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150114518.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150332318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150353404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032915040683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150444629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150450861.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150505400.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150510867.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151627797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150540836.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150737904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151152313.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151204570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151216379.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151229304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151239891.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032915124591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-08-16T09:03:53.000Z">
+<meta property="article:modified_time" content="2020-08-21T06:40:40.163Z">
+<meta property="article:author" content="Beret-81">
+<meta property="article:tag" content="IIS 漏洞、中间件漏洞">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200329142648132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+</div>
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Beret-81</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/beret-81" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/weixin_42918771" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active" data-rel="All">All<small>(31)</small></div></li>
+    
+        
+            
+            <li><div data-rel="内网渗透">内网渗透<small>(11)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="基础杂项">基础杂项<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="工具使用">工具使用<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="应急响应">应急响应<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="渗透测试">渗透测试<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="漏洞集合">漏洞集合<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="资源汇总">资源汇总<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="31">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" />
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>IIS 漏洞、中间件漏洞</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux 命令</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Tomcat 漏洞、中间件漏洞</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Window 命令</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>信息收集</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>信息收集、学习记录</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>反弹shell</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>密码抓取</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>工具使用、日志分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>工具使用、渗透测试</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>应急响应</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>应急响应、日志分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>文件下载</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>渗透测试、信息收集</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>网络基础</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>资源汇总</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 漏洞集合 "
+           href="/2020/08/16/IIS-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"
+           data-tag="IIS 漏洞、中间件漏洞"
+           data-author="" >
+            <span class="post-title" title="IIS 漏洞总结">IIS 漏洞总结</span>
+            <span class="post-date" title="2020-08-16 17:03:53">2020/08/16</span>
+        </a>
+        
+        <a  class="All 漏洞集合 "
+           href="/2020/08/14/Tomcat-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"
+           data-tag="Tomcat 漏洞、中间件漏洞"
+           data-author="" >
+            <span class="post-title" title="Tomcat 漏洞总结">Tomcat 漏洞总结</span>
+            <span class="post-date" title="2020-08-14 16:03:52">2020/08/14</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2020/08/13/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/"
+           data-tag="文件下载"
+           data-author="" >
+            <span class="post-title" title="渗透测试--文件下载">渗透测试--文件下载</span>
+            <span class="post-date" title="2020-08-13 16:54:42">2020/08/13</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2020/08/13/%E5%8F%8D%E5%BC%B9shell%E7%9A%84%E5%90%84%E7%A7%8D%E5%A7%BF%E5%8A%BF/"
+           data-tag="反弹shell"
+           data-author="" >
+            <span class="post-title" title="反弹shell的各种姿势">反弹shell的各种姿势</span>
+            <span class="post-date" title="2020-08-13 08:59:42">2020/08/13</span>
+        </a>
+        
+        <a  class="All "
+           href="/2020/08/07/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E8%B5%84%E6%BA%90%E7%BD%91%E7%AB%99/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="渗透测试-资源网站">渗透测试-资源网站</span>
+            <span class="post-date" title="2020-08-07 11:59:55">2020/08/07</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90-Log-Parser-%E5%B7%A5%E5%85%B7/"
+           data-tag="工具使用、日志分析"
+           data-author="" >
+            <span class="post-title" title="日志分析-Log Parser 工具">日志分析-Log Parser 工具</span>
+            <span class="post-date" title="2020-08-04 22:50:16">2020/08/04</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90-Windows-%E6%97%A5%E5%BF%97/"
+           data-tag="应急响应、日志分析"
+           data-author="" >
+            <span class="post-title" title="日志分析--windows日志">日志分析--windows日志</span>
+            <span class="post-date" title="2020-08-03 22:30:56">2020/08/03</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90-%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6%EF%BC%88EVENT-ID%EF%BC%89/"
+           data-tag="应急响应、日志分析"
+           data-author="" >
+            <span class="post-title" title="日志分析- 安全事件（EVENT ID）">日志分析- 安全事件（EVENT ID）</span>
+            <span class="post-date" title="2020-08-03 22:30:56">2020/08/03</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-lLinux%20%E5%85%A5%E4%BE%B5%E6%8E%92%E6%9F%A5/"
+           data-tag="应急响应"
+           data-author="" >
+            <span class="post-title" title="应急响应--Linux 入侵排查">应急响应--Linux 入侵排查</span>
+            <span class="post-date" title="2020-08-03 21:50:30">2020/08/03</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-window%E5%85%A5%E4%BE%B5%E6%8E%92%E6%9F%A5/"
+           data-tag="应急响应"
+           data-author="" >
+            <span class="post-title" title="应急响应--window入侵排查">应急响应--window入侵排查</span>
+            <span class="post-date" title="2020-08-03 21:50:16">2020/08/03</span>
+        </a>
+        
+        <a  class="All 资源汇总 "
+           href="/2020/07/31/%E7%BA%A2%E9%98%9F%E5%92%8C%E8%93%9D%E9%98%9F%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/"
+           data-tag="资源汇总"
+           data-author="" >
+            <span class="post-title" title="红队和蓝队资料汇总">红队和蓝队资料汇总</span>
+            <span class="post-date" title="2020-07-31 14:41:49">2020/07/31</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2020/07/15/100%E4%B8%AA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
+           data-tag="网络基础"
+           data-author="" >
+            <span class="post-title" title="100个网络基础知识">100个网络基础知识</span>
+            <span class="post-date" title="2020-07-15 21:40:39">2020/07/15</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/08/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E5%9F%9F%E5%86%85%E6%A8%AA%E5%90%91/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透-域内横向">内网渗透-域内横向</span>
+            <span class="post-date" title="2020-02-08 22:11:45">2020/02/08</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2020/02/08/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E8%8E%B7%E5%8F%96Windows%E7%B3%BB%E7%BB%9F%E6%95%A3%E5%88%97%E5%80%BC/"
+           data-tag="密码抓取"
+           data-author="" >
+            <span class="post-title" title="渗透测试-获取Windows系统散列值">渗透测试-获取Windows系统散列值</span>
+            <span class="post-date" title="2020-02-08 22:11:45">2020/02/08</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/05/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E6%8F%90%E6%9D%83/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透-提权">内网渗透-提权</span>
+            <span class="post-date" title="2020-02-05 12:46:34">2020/02/05</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/04/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E4%B8%8A%E4%BC%A0%E4%B8%8E%E4%B8%8B%E8%BD%BD/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透--上传与下载">内网渗透--上传与下载</span>
+            <span class="post-date" title="2020-02-04 16:46:34">2020/02/04</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/04/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E5%8E%8B%E7%BC%A9%E6%95%B0%E6%8D%AE/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透--压缩数据">内网渗透--压缩数据</span>
+            <span class="post-date" title="2020-02-04 15:16:04">2020/02/04</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E5%BB%BA%E7%AB%8B%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透--建立隐藏通信隧道">内网渗透--建立隐藏通信隧道</span>
+            <span class="post-date" title="2020-02-03 10:36:29">2020/02/03</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/02/%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93-%E5%88%A4%E6%96%AD%E5%86%85%E7%BD%91%E8%BF%9E%E9%80%9A%E6%80%A7/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="隐藏通信隧道-判断内网连通性">隐藏通信隧道-判断内网连通性</span>
+            <span class="post-date" title="2020-02-02 12:06:49">2020/02/02</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--域内信息收集">信息收集--域内信息收集</span>
+            <span class="post-date" title="2020-01-26 21:17:21">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E7%AB%AF%E5%8F%A3%E6%8E%A2%E6%B5%8B/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--端口探测">信息收集--端口探测</span>
+            <span class="post-date" title="2020-01-26 15:07:01">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%B8%BB%E6%9C%BA%E5%AD%98%E6%B4%BB/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--主机存活">信息收集--主机存活</span>
+            <span class="post-date" title="2020-01-26 13:06:49">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/25/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%9C%89%E5%9F%9F/"
+           data-tag="信息收集"
+           data-author="" >
+            <span class="post-title" title="信息收集--判断是否有域">信息收集--判断是否有域</span>
+            <span class="post-date" title="2020-01-25 15:28:49">2020/01/25</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/24/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--本机信息">信息收集--本机信息</span>
+            <span class="post-date" title="2020-01-24 17:33:34">2020/01/24</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2019/12/04/%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%AB%99/"
+           data-tag="渗透测试、信息收集"
+           data-author="" >
+            <span class="post-title" title="被动信息收集--在线网站">被动信息收集--在线网站</span>
+            <span class="post-date" title="2019-12-04 12:53:21">2019/12/04</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/05/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--mimikatz/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--mimikatz">工具使用--mimikatz</span>
+            <span class="post-date" title="2019-03-05 12:56:21">2019/03/05</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/04/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--MSF/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--MSF">工具使用--MSF</span>
+            <span class="post-date" title="2019-03-04 22:06:21">2019/03/04</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/04/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--Msfvenom/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--Msfvenom">工具使用--Msfvenom</span>
+            <span class="post-date" title="2019-03-04 21:06:21">2019/03/04</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/03/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--NetCat/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--NetCat">工具使用--NetCat</span>
+            <span class="post-date" title="2019-03-03 12:36:29">2019/03/03</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2017/09/30/Linux-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"
+           data-tag="Linux 命令"
+           data-author="" >
+            <span class="post-title" title="Linux 命令大全">Linux 命令大全</span>
+            <span class="post-date" title="2017-09-30 11:29:15">2017/09/30</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2017/09/15/Window-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"
+           data-tag="Window 命令"
+           data-author="" >
+            <span class="post-title" title="Window 命令大全">Window 命令大全</span>
+            <span class="post-date" title="2017-09-15 15:29:35">2017/09/15</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-应急响应-lLinux 入侵排查" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">应急响应--Linux 入侵排查</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="应急响应">应急响应</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">应急响应</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2020-10-29 16:54:18'>2020-08-03 21:50</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、文件排查"><span class="toc-text">1、文件排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-敏感目录文件"><span class="toc-text">1.1 敏感目录文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-查看某个（可疑）文件是否被修改过"><span class="toc-text">1.2 查看某个（可疑）文件是否被修改过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-查看历史命令记录文件"><span class="toc-text">1.3 查看历史命令记录文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-查看用户信息文件"><span class="toc-text">1.4 查看用户信息文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-查看新增文件"><span class="toc-text">1.5 查看新增文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-查看特殊权限的文件"><span class="toc-text">1.6 查看特殊权限的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-查看隐藏、木马等文件"><span class="toc-text">1.7 查看隐藏、木马等文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、进程排查"><span class="toc-text">2、进程排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-检查异常端口"><span class="toc-text">2.1 检查异常端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-检查异常进程"><span class="toc-text">2.2 检查异常进程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、系统信息排查"><span class="toc-text">3、系统信息排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-账号安全"><span class="toc-text">3.1 账号安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-查看系统用户登录信息"><span class="toc-text">3.2 查看系统用户登录信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-查看开机启动项"><span class="toc-text">3.3 查看开机启动项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-查看定时任务"><span class="toc-text">3.4 查看定时任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-检查服务"><span class="toc-text">3.5 检查服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-查看配置shell-配置文件"><span class="toc-text">3.6 查看配置shell 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-系统路径分析"><span class="toc-text">3.7 系统路径分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-指定信息检索"><span class="toc-text">3.8 指定信息检索</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、日志排查"><span class="toc-text">4、日志排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-常用日志文件"><span class="toc-text">4.1 常用日志文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Linux-日志分析"><span class="toc-text">4.2 Linux 日志分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-日志分析"><span class="toc-text">Apache 日志分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、后门排查"><span class="toc-text">5、后门排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Rootkit查杀"><span class="toc-text">5.1 Rootkit查杀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-病毒查杀"><span class="toc-text">5.2 病毒查杀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-webshell-查杀"><span class="toc-text">5.3 webshell 查杀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-RPM-check检查"><span class="toc-text">5.4 RPM check检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-linux-安全检查脚本"><span class="toc-text">5.5 linux 安全检查脚本</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1、文件排查"><a href="#1、文件排查" class="headerlink" title="1、文件排查"></a>1、文件排查</h2><h3 id="1-1-敏感目录文件"><a href="#1-1-敏感目录文件" class="headerlink" title="1.1 敏感目录文件"></a>1.1 敏感目录文件</h3><blockquote>
+<p>查看敏感目录文件，如 tmp目录、可执行程序目录/usr/bin ，/usr/sbin等</p>
+</blockquote>
+<pre><code>ls 用来显示目录列表
+ -a 显示所有档案及目录
+ -l 以长格式显示目录下的内容列表
+ -t 用文件和目录的更改时间排序
+ 如： 查看tmp 目录下的文件 ls -alt /tmp</code></pre><h3 id="1-2-查看某个（可疑）文件是否被修改过"><a href="#1-2-查看某个（可疑）文件是否被修改过" class="headerlink" title="1.2 查看某个（可疑）文件是否被修改过"></a>1.2 查看某个（可疑）文件是否被修改过</h3><blockquote>
+<p>针对可以文件可以使用stat 进行创建修改时间、访问时间的详细查看，若修改时间距离时间日期接近，有线性关联，说明可以被篡改。</p>
+</blockquote>
+<pre><code>[root@beret-81 bin]# stat su
+  File: ‘su’
+  Size: 32128         Blocks: 64         IO Block: 4096   regular file
+Device: fd01h/64769d    Inode: 274174      Links: 1
+Access: (4755/-rwsr-xr-x)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2019-12-03 01:46:28.000000000 +0800
+Modify: 2019-12-03 01:46:28.000000000 +0800
+Change: 2020-02-13 08:53:18.721097527 +0800</code></pre><h3 id="1-3-查看历史命令记录文件"><a href="#1-3-查看历史命令记录文件" class="headerlink" title="1.3 查看历史命令记录文件"></a>1.3 查看历史命令记录文件</h3><p>查看~/.bash_history 命令执行记录文件，主要分析是否有账户执行过恶意操作系统。每个用户都有历史记录文件，如果发现哪个用户执行过恶意文件，那么我们就可以锁定这个线索，进一步排查。</p>
+<pre><code>直接查看：
+cat /root/.bash_history | more
+进入用户目录下:
+cat .bash_history &gt;&gt; history.txt</code></pre><h3 id="1-4-查看用户信息文件"><a href="#1-4-查看用户信息文件" class="headerlink" title="1.4 查看用户信息文件"></a>1.4 查看用户信息文件</h3><blockquote>
+<p>查看/etc/passwd 用户信息文件，查找有没有攻击者创建的用户，或者存在异常的用户。主要查看第3、4列的用户标识号和组标识号，和倒数一二列的用户主目录和命令解析程序。然后结合history 文件的排查方法进行排查。</p>
+</blockquote>
+<pre><code>cat /etc/passwd</code></pre><h3 id="1-5-查看新增文件"><a href="#1-5-查看新增文件" class="headerlink" title="1.5 查看新增文件"></a>1.5 查看新增文件</h3><blockquote>
+<p>使用find命令，在指定目录文件下查找新增文件</p>
+</blockquote>
+<pre><code>-type b/d/c/p/l/f 分别是指块设备、目录、字符设备、管道、符号链接、普通文件
+-mtime -n +n 按文件更改时间来查找文件，-n 指n天以内，+n 指n天前
+-atime -n +n 按文件访问时间来查找文件，-n 指n天以内，+n 指n天前
+-ctime -n +n 按文件创建时间来查找文件，-n 指n天以内，+n 指n天前
+
+例子：
+find -type f -mtime -3 #最近3天修改过的文件
+find -type f -ctime -3 #最近3天创建的文件</code></pre><h3 id="1-6-查看特殊权限的文件"><a href="#1-6-查看特殊权限的文件" class="headerlink" title="1.6 查看特殊权限的文件"></a>1.6 查看特殊权限的文件</h3><blockquote>
+<p>查找777的权限的文件</p>
+</blockquote>
+<pre><code>find / *.jsp -perm 777
+find / -perm 777 | more</code></pre><h3 id="1-7-查看隐藏、木马等文件"><a href="#1-7-查看隐藏、木马等文件" class="headerlink" title="1.7 查看隐藏、木马等文件"></a>1.7 查看隐藏、木马等文件</h3><blockquote>
+<p>查看隐藏文件（以“.” 开头的具有隐藏属性的文件）</p>
+</blockquote>
+<pre><code>[root@beret-81 html]# ls -ar | grep &quot;^\.&quot;
+.test.php
+..
+.</code></pre><blockquote>
+<p>查找根目录下所有.jsp后缀文件</p>
+</blockquote>
+<pre><code>find / -name *.jsp</code></pre><blockquote>
+<p>查看根目录下后缀为.jsp .jspx文件，并从大到小排列</p>
+</blockquote>
+<pre><code>grep -nr -v &quot;404&quot; ./ | grep -E &quot;\.jsp | \.jspx&quot; | more  </code></pre><h2 id="2、进程排查"><a href="#2、进程排查" class="headerlink" title="2、进程排查"></a>2、进程排查</h2><blockquote>
+<p>netstat 用于显示与IP、TCP、UDP和ICMP协议相关的统计数据，一般用于检验本机端口的网络连接情况。<br>用netstat 网络连接命令，分析可疑端口、可疑IP、可疑PID及程序进程</p>
+</blockquote>
+<pre><code>选项参数：
+ -a 显示所有连线中的Socket
+ -n 直接使用IP地址，而不通过域名服务器
+ -t 显示TCP 传输协议的连线状况
+ -u 显示UDP 传输协议的连线状况
+ -v 显示指令执行过程
+ -p 显示正在使用Socket 的程序识别码和程序名称
+ -s 显示网络工作信息统计表</code></pre><h3 id="2-1-检查异常端口"><a href="#2-1-检查异常端口" class="headerlink" title="2.1 检查异常端口"></a>2.1 检查异常端口</h3><blockquote>
+<p>使用netstat 网络连接命令，分析可疑端口、IP、PID</p>
+</blockquote>
+<pre><code>netstat -antlp|more
+
+查看下pid所对应的进程文件路径，
+运行ls -l /proc/$PID/exe或file /proc/$PID/exe（$PID 为对应的pid 号）</code></pre><blockquote>
+<p>查看某个端口是哪个进程打开的</p>
+</blockquote>
+<pre><code>lsof -i:8080</code></pre><h3 id="2-2-检查异常进程"><a href="#2-2-检查异常进程" class="headerlink" title="2.2 检查异常进程"></a>2.2 检查异常进程</h3><blockquote>
+<p>使用ps命令，分析进程。根据netstat 定位出pid ，使用ps命令，分析进程</p>
+</blockquote>
+<pre><code> ps aux | grep pid
+ ps -aux --sort -pcpu | less  根据cpu使用率进行排序
+
+-a 代表all,同时加上x参数会显示没有控制终端的进程
+-aux 显示所有包含其他使用者的行程
+-C 显示某个进行的信息
+-axjf 以树状结构显示进程
+-e 显示所有进程。和-A相同
+-f 额外全格式
+-t ttylist by tty 显示终端ID在ttylist 列表中的进程</code></pre><blockquote>
+<p>查看某个用户启动了什么进程</p>
+</blockquote>
+<pre><code>lsof -u root</code></pre><blockquote>
+<p>查看隐藏进程</p>
+</blockquote>
+<pre><code>ps -ef | awk &apos;{print $2}&apos; | sort -n | uniq &gt;1
+ls /proc | sort -n | uniq &gt;2
+diff 1 2</code></pre><blockquote>
+<p>查看进程cpu占比（动态任务，可实时查看最高cpu占有率）<br>top 命令是Linux系统常用的性能分析工具，能够实时显示系统中进程的资料占用状况，类似于Windows的任务管理器。</p>
+</blockquote>
+<pre><code>top</code></pre><h2 id="3、系统信息排查"><a href="#3、系统信息排查" class="headerlink" title="3、系统信息排查"></a>3、系统信息排查</h2><h3 id="3-1-账号安全"><a href="#3-1-账号安全" class="headerlink" title="3.1 账号安全"></a>3.1 账号安全</h3><blockquote>
+<p>基本使用：</p>
+</blockquote>
+<pre><code>1、用户信息文件/etc/passwd
+root:x:0:0:root:/root:/bin/bash
+account:password:UID:GID:GECOS:directory:shell
+用户名：密码：用户ID：组ID：用户说明：家目录：登陆之后shell
+注意：无密码只允许本机登陆，远程不允许登陆
+
+2、影子文件/etc/shadow
+root:$6$oGs1PqhL2p3ZetrE$X7o7bzoouHQVSEmSgsYN5UD4.kMHx6qgbTqwNVC5oOAouXvcjQSt.Ft7ql1WpkopY0UV9ajBwUt1DpYxTCVvI/:16809:0:99999:7:::
+用户名：加密密码：密码最后一次修改日期：两次密码的修改时间间隔：密码有效期：密码修改到期到的警告天数：密码过期之后的宽限天数：账号失效时间：保留
+
+who     查看当前登录用户（tty本地登陆  pts远程登录）
+w       查看系统信息，想知道某一时刻用户的行为
+uptime  查看登陆多久、多少用户，负载</code></pre><blockquote>
+<p>入侵排查</p>
+</blockquote>
+<pre><code>1、查询特权用户特权用户(uid 为0)
+[root@localhost ~]# awk -F: &apos;$3==0{print $1}&apos; /etc/passwd
+2、查询可以远程登录的帐号信息
+[root@localhost ~]# awk &apos;/\$1|\$6/{print $1}&apos; /etc/shadow
+3、除root帐号外，其他帐号是否存在sudo权限。如非管理需要，普通帐号应删除sudo权限
+[root@localhost ~]# more /etc/sudoers | grep -v &quot;^#\|^$&quot; | grep &quot;ALL=(ALL)&quot;
+4、禁用或删除多余及可疑的帐号
+usermod -L user    禁用帐号，帐号无法登录，/etc/shadow第二栏为!开头
+userdel user       删除user用户
+userdel -r user    将删除user用户，并且将/home目录下的user目录一并删除</code></pre><h3 id="3-2-查看系统用户登录信息"><a href="#3-2-查看系统用户登录信息" class="headerlink" title="3.2 查看系统用户登录信息"></a>3.2 查看系统用户登录信息</h3><pre><code>utmp 文件中保存的是当前正在系统中的用户信息
+wtmp 文件中保存的是登录过本系统的用户信息
+/var/log/wtmp 文件结构和 /var/run/utmp 文件结构一样，都是应用/usr/include/bits/utmp.h 中的strut utmp</code></pre><blockquote>
+<p>使用lastlog 命令，查看系统中所有用户最近一次登录信息</p>
+</blockquote>
+<pre><code>[root@beret-81 profile.d]# lastlog
+Username         Port     From             Latest
+root             pts/1    213.85.70.71    Wed Mar 28 14:39:14 +0800 2020
+bin                                        **Never logged in**
+daemon                                     **Never logged in**
+adm                                        **Never logged in**</code></pre><blockquote>
+<p>使用lastb 命令，用于显示用户错误的登录列表</p>
+</blockquote>
+<pre><code>[root@beret-81 ~]# lastb | more
+dbuser   ssh:notty    106.13.112.221   Wed Mar 28 18:17 - 18:17  (00:00)    
+dbuser   ssh:notty    106.13.112.221   Wed Mar 28 18:17 - 18:17  (00:00)    
+root     ssh:notty    142.93.179.2     Wed Mar 28 18:17 - 18:17  (00:00)    
+polaris  ssh:notty    188.165.56.214   Wed Mar 28 18:17 - 18:17  (00:00)  </code></pre><blockquote>
+<p>使用last 命令，显示用户最近登录信息（数据源为/var/log/wtmp, /var/log/btmp）</p>
+</blockquote>
+<pre><code>[root@beret-81 ~]# last | more
+root     pts/1        213.85.70.71    Wed Mar 28 14:39   still logged in   
+root     pts/0        213.85.70.71    Wed Mar 28 09:01 - 15:45  (06:44)    
+root     pts/0        213.85.70.71    Tue Mar 27 14:37 - 20:02  (05:24)   </code></pre><h3 id="3-3-查看开机启动项"><a href="#3-3-查看开机启动项" class="headerlink" title="3.3 查看开机启动项"></a>3.3 查看开机启动项</h3><blockquote>
+<p>查看rc.local 文件（/etc/init.d/rc.local /etc/rc.local）<br>/etc/init.d 是 /etc/rc.d/init.d 的软链接</p>
+</blockquote>
+<pre><code>系统运行级别示意图：
+运行级别     含义
+  0       关机
+  1       单用户模式，可以想象为windows的安全模式，主要用于系统修复
+  2       不完全的命令行模式，不含NFS服务
+  3       完全的命令行模式，就是标准字符界面
+  4       系统保留
+  5       图形模式
+  6         重启动
+
+查看运行级别命令 runlevel
+
+系统默认允许级别
+
+vi  /etc/inittab
+id=3：initdefault  系统开机后直接进入哪个运行级别
+
+开机启动配置文件
+/etc/rc.local
+/etc/rc.d/rc[0~6].d</code></pre><blockquote>
+<p>入侵排查：</p>
+</blockquote>
+<pre><code>查看rc.local 文件（/etc/init.d/rc.local /etc/rc.local ）
+ls -alt /etc/init.d
+more /etc/rc.local /etc/rc.d/rc[0~6].d 
+ls -l /etc/rc.d/rc3.d/
+
+[root@beret-81 ~]# ls -alt /etc/init.d
+lrwxrwxrwx. 1 root root 11 Aug  8  2018 /etc/init.d -&gt; rc.d/init.d</code></pre><h3 id="3-4-查看定时任务"><a href="#3-4-查看定时任务" class="headerlink" title="3.4 查看定时任务"></a>3.4 查看定时任务</h3><blockquote>
+<p>查找以下目录中是否存在恶意脚本</p>
+</blockquote>
+<pre><code>/var/spool/cron/* 
+/etc/crontab
+/etc/cron.d/*
+/etc/cron.daily/* 
+/etc/cron.hourly/* 
+/etc/cron.monthly/*
+/etc/cron.weekly/
+/etc/anacrontab
+/var/spool/anacron/*
+例：
+more /etc/cron.daily/*  查看目录下所有文件</code></pre><blockquote>
+<p>通过crontab -l 查看当前的任务计划，是否有后门木马程序启动相关信息</p>
+</blockquote>
+<pre><code>crontab -u &lt;-l,-r,-e&gt;
+ -u,指定一个用户
+ -l 列出某个用户的任务计划
+ -r 删除某个用户的任务
+ -e 编辑某个用户的任务（编辑的是/var/spool/cron下对应用户的cron文件，也可以直接修改/etc/crontab文件）
+ 例：
+ crontab -u root -l 
+ crontab -u xxx  -l</code></pre><h3 id="3-5-检查服务"><a href="#3-5-检查服务" class="headerlink" title="3.5 检查服务"></a>3.5 检查服务</h3><pre><code>chkconfig 是管理系统服务的命令行工具，对开机启动的可疑程序进行更改：
+设置service 启动信息：
+chkconfig name on/off/reset
+设置service 运行级别
+chkconfig  --level levels</code></pre><blockquote>
+<p>入侵排查：</p>
+</blockquote>
+<pre><code>1、查询已安装的服务：
+
+RPM包安装的服务
+
+chkconfig  --list  查看服务自启动状态，可以看到所有的RPM包安装的服务
+ps aux | grep crond 查看当前服务
+
+系统在3与5级别下的启动项 
+中文环境
+chkconfig --list | grep &quot;3:启用\|5:启用&quot;
+英文环境
+chkconfig --list | grep &quot;3:on\|5:on&quot;
+
+源码包安装的服务
+
+查看服务安装位置 ，一般是在/user/local/
+service httpd start
+搜索/etc/rc.d/init.d/  查看是否存在</code></pre><h3 id="3-6-查看配置shell-配置文件"><a href="#3-6-查看配置shell-配置文件" class="headerlink" title="3.6 查看配置shell 配置文件"></a>3.6 查看配置shell 配置文件</h3><blockquote>
+<p>查看shell 的配置文件 .bashrc 和 .bash_profile 等文件是否有恶意的alias问题</p>
+</blockquote>
+<pre><code>使用命令查看shell 配置文件
+cat .bashrc
+cat .bash_profile
+
+/etc/profile 该文件为系统的每个用户设置环境配置信息
+/etc/profile.d 目录的配置文件中收集shell的设置
+/etc/bashrc   为每一个运行bash shell 的用户执行此文件，当bash shell 被打开时，该文件被读取
+.bash_profile 每个用户都可使用该文件输入专用于自己使用的shell信息，当用户登录时，该文件仅仅执行一次，默认情况下，它设置一些环境变量，执行用户的.bashrc 文件
+.bashrc 该文件包含专用于你的bash shell 的bash 信息，当登录时以及每次打开新的shell时，该文件被读取
+.bash_logout 当每次退出系统（退出bash shell），执行该文件</code></pre><h3 id="3-7-系统路径分析"><a href="#3-7-系统路径分析" class="headerlink" title="3.7 系统路径分析"></a>3.7 系统路径分析</h3><blockquote>
+<p>系统路径分析，查看有无敏感可疑信息</p>
+</blockquote>
+<pre><code>[root@beret-81 ~]# echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin</code></pre><h3 id="3-8-指定信息检索"><a href="#3-8-指定信息检索" class="headerlink" title="3.8 指定信息检索"></a>3.8 指定信息检索</h3><blockquote>
+<p>strings命令在对象文件或二进制文件中查找可打印的字符串。字符串是4个或更多可打印字符的任意序列，以换行符或空字符结束。 strings命令对识别随机对象文件很有用。</p>
+</blockquote>
+<pre><code>分析sshd 文件，是否包括IP信息
+strings /usr/bin/.sshd | grep &apos;[1-9]{1,3}.[1-9].{1,3}.&apos;
+
+查看ssh 相关目录有无可疑的公钥存在
+Redis(6379) 未授权恶意入侵，即可直接通过redis 到目标主机导入公钥
+目录：/etc/ssh ./.ssh/</code></pre><h2 id="4、日志排查"><a href="#4、日志排查" class="headerlink" title="4、日志排查"></a>4、日志排查</h2><pre><code>日志默认存放位置：/var/log/
+日志配置位置：/etc/rsyslog.conf</code></pre><h3 id="4-1-常用日志文件"><a href="#4-1-常用日志文件" class="headerlink" title="4.1 常用日志文件"></a>4.1 常用日志文件</h3><pre><code>  日志文件             说明
+/var/log/cron         记录了系统定时任务相关的日志
+/var/log/mailog     记录邮件信息
+/var/log/auth.log   包含系统授权信息，包括用户登录和使用的权限机制等
+/var/log/userlog    记录所有等级用户信息的日志
+/var/log/vsftpd.log 记录Linux ftp 日志
+/var/log/message     记录系统重要信息的日志。这个日志文件中会记录Linux系统的绝大多数重要信息，如果系统出现问题时，首先要检查的就应该是这个日志文件
+/var/log/btmp       记录错误登录日志，这个文件是二进制文件，不能直接vi查看，而要使用lastb命令查看
+/var/log/lastlog     记录系统中所有用户最后一次登录时间的日志，这个文件是二进制文件，不能直接vi，而要使用lastlog命令查看
+/var/log/wtmp         永久记录所有用户的登录、注销信息，同时记录系统的启动、重启、关机事件。同样这个文件也是一个二进制文件，不能直接vi，而需要使用last命令来查看
+/var/run/utmp         记录当前已经登录的用户信息，这个文件会随着用户的登录和注销不断变化，只记录当前登录用户的信息。同样这个文件不能直接vi，而要使用w,who,users等命令来查询
+/var/log/secure     记录验证和授权方面的信息，只要涉及账号和密码的程序都会记录，比如SSH登录
+/var/log/faillog    记录系统登录不成功的账户信息，一般会被黑客删除。</code></pre><h3 id="4-2-Linux-日志分析"><a href="#4-2-Linux-日志分析" class="headerlink" title="4.2 Linux 日志分析"></a>4.2 Linux 日志分析</h3><pre><code>1、查看登录信息
+
+查看用户最近登录信息
+last -f /var/log/wtmp
+
+查看当前登录系统和用户信息,可用who命令显示当中的内容
+last -f /var/run/utmp
+
+查看用户最后登录的信息
+lastlog
+
+查看登录失败的日志
+lastb
+strings /var/log/btmp
+
+2、定位有多少IP在爆破主机的root帐号：
+
+grep &quot;Failed password for root&quot; /var/log/secure | awk &apos;{print $11}&apos; | sort | uniq -c | sort -nr | more
+
+定位有哪些IP在爆破：
+
+grep &quot;Failed password&quot; /var/log/secure|grep -E -o &quot;(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)&quot;|uniq -c
+
+爆破用户名字典是什么？
+grep &quot;Failed password&quot; /var/log/secure|perl -e &apos;while($_=&lt;&gt;){ /for(.*?) from/; print &quot;$1\n&quot;;}&apos;|uniq -c|sort -nr
+
+3、登录成功的IP有哪些： 
+
+grep &quot;Accepted &quot; /var/log/secure | awk &apos;{print $11}&apos; | sort | uniq -c | sort -nr | more
+
+登录成功的日期、用户名、IP：
+grep &quot;Accepted &quot; /var/log/secure | awk &apos;{print $1,$2,$3,$9,$11}&apos; 
+
+
+4、增加一个用户kali日志：
+Jul 10 00:12:15 localhost useradd[2382]: new group: name=kali, GID=1001
+Jul 10 00:12:15 localhost useradd[2382]: new user: name=kali, UID=1001, GID=1001, home=/home/kali, shell=/bin/bash
+Jul 10 00:12:58 localhost passwd: pam_unix(passwd:chauthtok): password changed for kali
+#grep &quot;useradd&quot; /var/log/secure 
+
+5、删除用户kali日志：
+Jul 10 00:14:17 localhost userdel[2393]: delete user &apos;kali&apos;
+Jul 10 00:14:17 localhost userdel[2393]: removed group &apos;kali&apos; owned by &apos;kali&apos;
+Jul 10 00:14:17 localhost userdel[2393]: removed shadow group &apos;kali&apos; owned by &apos;kali&apos;
+# grep &quot;userdel&quot; /var/log/secure
+
+6、su切换用户：
+Jul 10 00:38:13 localhost su: pam_unix(su-l:session): session opened for user good by root(uid=0)
+
+sudo授权执行:
+sudo -l
+Jul 10 00:43:09 localhost sudo:    good : TTY=pts/4 ; PWD=/home/good ; USER=root ; COMMAND=/sbin/shutdown -r now</code></pre><h3 id="Apache-日志分析"><a href="#Apache-日志分析" class="headerlink" title="Apache 日志分析"></a>Apache 日志分析</h3><blockquote>
+<p>Apache 默认自动生成两个日志文件，访问日志access_log 和 error_log</p>
+</blockquote>
+<pre><code>1、查询访问量前十的IP地址：
+   cat access_log | cut -f 1 -d &apos; &apos; | sort | uniq -c | sort -k 1 -n -r | head -10
+
+2、查询访问量前十的URL：   
+   cat access_log | cut -f 7 -d &apos; &apos; | sort | uniq -c | sort -k 1 -n -r | head -10
+
+3、统计访问量前十QPS的时间点：
+   cat access_log | cut -f 4 -d &apos; &apos; | sort | uniq -c | sort -k 1 -n -r | head -10</code></pre><h2 id="5、后门排查"><a href="#5、后门排查" class="headerlink" title="5、后门排查"></a>5、后门排查</h2><h3 id="5-1-Rootkit查杀"><a href="#5-1-Rootkit查杀" class="headerlink" title="5.1 Rootkit查杀"></a>5.1 Rootkit查杀</h3><blockquote>
+<p>chkrootkit</p>
+</blockquote>
+<p>网址：<a href="http://www.chkrootkit.org" target="_blank" rel="noopener">http://www.chkrootkit.org</a></p>
+<pre><code>安装使用：
+wget ftp://ftp.pangeia.com.br/pub/seg/pac/chkrootkit.tar.gz
+tar zxvf chkrootkit.tar.gz
+cd chkrootkit-0.53
+make sense
+#编译完成没有报错的话执行检查
+./chkrootkit</code></pre><blockquote>
+<p>rkhunter </p>
+</blockquote>
+<p>网址：<a href="http://rkhunter.sourceforge.net" target="_blank" rel="noopener">http://rkhunter.sourceforge.net</a></p>
+<pre><code>安装使用：
+wget https://udomain.dl.sourceforge.net/project/rkhunter/rkhunter/1.4.6/rkhunter-1.4.6.tar.gz
+tar -zxvf rkhunter-1.4.6.tar.gz
+cd rkhunter-1.4.6
+./installer.sh --install
+rkhunter -c</code></pre><h3 id="5-2-病毒查杀"><a href="#5-2-病毒查杀" class="headerlink" title="5.2 病毒查杀"></a>5.2 病毒查杀</h3><blockquote>
+<p>Clamav</p>
+</blockquote>
+<p>网址：<a href="http://www.clamav.net/download.html" target="_blank" rel="noopener">http://www.clamav.net/download.html</a></p>
+<pre><code>安装使用：
+#安装
+yum install -y clamav
+#更新病毒库
+freshclam
+#扫描方法
+clamscan -r /etc --max-dir-recursion=5 -l /root/etcclamav.log
+clamscan -r /bin --max-dir-recursion=5 -l /root/binclamav.log
+clamscan -r /usr --max-dir-recursion=5 -l /root/usrclamav.log
+#扫描并杀毒
+clamscan -r  --remove  /usr/bin/bsd-port
+clamscan -r  --remove  /usr/bin/
+clamscan -r --remove  /usr/local/zabbix/sbin
+#查看日志发现
+cat /root/usrclamav.log |grep FOUND</code></pre><h3 id="5-3-webshell-查杀"><a href="#5-3-webshell-查杀" class="headerlink" title="5.3 webshell 查杀"></a>5.3 webshell 查杀</h3><blockquote>
+<p>手工排查webshell</p>
+</blockquote>
+<p>webshell的排查可以通过文件、流量、日志三种方式进行分析，基于文件的命名特征和内容特征相对操作性较高，在入侵后应急过程中频率也比较高。</p>
+<pre><code>根据webshell 特征进行命令查找
+find /var/www/html/ -type f -name &apos;*.php&apos; | xargs egrep &apos;assert|phpspy|c99sh|milw0rm|eval|\(gunerpress|\(base64_decoolcode|spider_bc|shell_exec|passthru|\)\$\_\POST\[eval\(str_rot13|.chr\(|\&quot;\_R|file_put_contents\(\.\*\$_|base64_decode&apos;
+find /var/www/html/ -type f -name &apos;*.php&apos; | xargs grep &apos;eval&apos; | more</code></pre><blockquote>
+<p>河马webshell查杀</p>
+</blockquote>
+<p>网址:<a href="https://www.shellpub.com" target="_blank" rel="noopener">https://www.shellpub.com</a></p>
+<pre><code>安装使用：
+wget http://dl.shellpub.com/hm/latest/hm-linux-amd64.tgz?version=1.8.2
+tar xvf hm-linux.tgz
+#查看帮助
+./hm -h
+#查看版本
+./hm version
+#扫描后门
+./hm scan 你的web目录，扫描完成之后结果会保存为result.csv文件，使用记事本或者excel打开查看
+./hm deepscan 你的web目录，扫描时开启深度解码 
+#升级
+./hm update</code></pre><h3 id="5-4-RPM-check检查"><a href="#5-4-RPM-check检查" class="headerlink" title="5.4 RPM check检查"></a>5.4 RPM check检查</h3><pre><code>系统完整性可以通过rpm自带的-Va来校验检查所有的rpm软件包，查看哪些命令是否被替换了：
+rpm -Va &gt; rpm.log</code></pre><blockquote>
+<p>如果一切均校验正常将不会产生任何输出，如果有不一致的地方，就会显示出来，输出格式是8位长字符串，每个字符都用以表示文件与RPM数据库中一种属性的比较结果 ，如果是. (点) 则表示测试通过。</p>
+</blockquote>
+<pre><code>验证内容中的8个信息的具体内容如下：
+   S         文件大小是否改变
+   M         文件的类型或文件的权限（rwx）是否被改变
+   5         文件MD5校验是否改变（可以看成文件内容是否改变）
+   D         设备中，从代码是否改变
+   L         文件路径是否改变
+   U         文件的属主（所有者）是否改变
+   G         文件的属组是否改变
+   T         文件的修改时间是否改变</code></pre><blockquote>
+<p>如果命令被替换了，如果还原回来：</p>
+</blockquote>
+<pre><code>文件提取还原案例：
+rpm  -qf /bin/ls  查询ls命令属于哪个软件包
+mv  /bin/ls /tmp  先把ls转移到tmp目录下，造成ls命令丢失的假象
+rpm2cpio /mnt/cdrom/Packages/coreutils-8.4-19.el6.i686.rpm | cpio -idv ./bin/ls 提取rpm包中ls命令到当前目录的/bin/ls下
+cp /root/bin/ls  /bin/ 把ls命令复制到/bin/目录 修复文件丢失</code></pre><h3 id="5-5-linux-安全检查脚本"><a href="#5-5-linux-安全检查脚本" class="headerlink" title="5.5 linux 安全检查脚本"></a>5.5 linux 安全检查脚本</h3><pre><code>https://github.com/grayddq/GScan
+
+https://github.com/ppabc/security_check
+
+https://github.com/T0xst/linux</code></pre><p>参考链接：<a href="https://bypass007.github.io" target="_blank" rel="noopener">https://bypass007.github.io</a></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Beret-81
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

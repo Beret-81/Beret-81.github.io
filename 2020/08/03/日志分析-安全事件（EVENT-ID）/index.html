@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>日志分析- 安全事件（EVENT ID） | Beret-81</title>
+  <meta name="keywords" content=" 应急响应、日志分析 ">
+  <meta name="description" content="日志分析- 安全事件（EVENT ID） | Beret-81">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="IIS 漏洞总结 IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。  1、文件解析漏洞1.1 目录解析漏洞在 IIS5.x&#x2F;6.0 中，默认会将 *.asp（.asa、.cer、.cdx ）目录下的所有文件当成As">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IIS 漏洞总结">
+<meta property="og:url" content="http://yoursite.com/2020/08/16/IIS-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Beret-81">
+<meta property="og:description" content="IIS 漏洞总结 IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。  1、文件解析漏洞1.1 目录解析漏洞在 IIS5.x&#x2F;6.0 中，默认会将 *.asp（.asa、.cer、.cdx ）目录下的所有文件当成As">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142648132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142912889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142938674.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142946226.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032914503617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145243481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145405754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145828764.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145843318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150114518.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150332318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150353404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032915040683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150444629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150450861.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150505400.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150510867.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151627797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150540836.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150737904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151152313.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151204570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151216379.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151229304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151239891.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032915124591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-08-16T09:03:53.000Z">
+<meta property="article:modified_time" content="2020-08-21T06:40:40.163Z">
+<meta property="article:author" content="Beret-81">
+<meta property="article:tag" content="IIS 漏洞、中间件漏洞">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200329142648132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+</div>
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Beret-81</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/beret-81" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/weixin_42918771" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active" data-rel="All">All<small>(31)</small></div></li>
+    
+        
+            
+            <li><div data-rel="内网渗透">内网渗透<small>(11)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="基础杂项">基础杂项<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="工具使用">工具使用<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="应急响应">应急响应<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="渗透测试">渗透测试<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="漏洞集合">漏洞集合<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="资源汇总">资源汇总<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="31">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" />
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>IIS 漏洞、中间件漏洞</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux 命令</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Tomcat 漏洞、中间件漏洞</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Window 命令</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>信息收集</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>信息收集、学习记录</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>反弹shell</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>密码抓取</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>工具使用、日志分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>工具使用、渗透测试</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>应急响应</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>应急响应、日志分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>文件下载</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>渗透测试、信息收集</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>网络基础</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>资源汇总</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 漏洞集合 "
+           href="/2020/08/16/IIS-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"
+           data-tag="IIS 漏洞、中间件漏洞"
+           data-author="" >
+            <span class="post-title" title="IIS 漏洞总结">IIS 漏洞总结</span>
+            <span class="post-date" title="2020-08-16 17:03:53">2020/08/16</span>
+        </a>
+        
+        <a  class="All 漏洞集合 "
+           href="/2020/08/14/Tomcat-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"
+           data-tag="Tomcat 漏洞、中间件漏洞"
+           data-author="" >
+            <span class="post-title" title="Tomcat 漏洞总结">Tomcat 漏洞总结</span>
+            <span class="post-date" title="2020-08-14 16:03:52">2020/08/14</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2020/08/13/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/"
+           data-tag="文件下载"
+           data-author="" >
+            <span class="post-title" title="渗透测试--文件下载">渗透测试--文件下载</span>
+            <span class="post-date" title="2020-08-13 16:54:42">2020/08/13</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2020/08/13/%E5%8F%8D%E5%BC%B9shell%E7%9A%84%E5%90%84%E7%A7%8D%E5%A7%BF%E5%8A%BF/"
+           data-tag="反弹shell"
+           data-author="" >
+            <span class="post-title" title="反弹shell的各种姿势">反弹shell的各种姿势</span>
+            <span class="post-date" title="2020-08-13 08:59:42">2020/08/13</span>
+        </a>
+        
+        <a  class="All "
+           href="/2020/08/07/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E8%B5%84%E6%BA%90%E7%BD%91%E7%AB%99/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="渗透测试-资源网站">渗透测试-资源网站</span>
+            <span class="post-date" title="2020-08-07 11:59:55">2020/08/07</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/04/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90-Log-Parser-%E5%B7%A5%E5%85%B7/"
+           data-tag="工具使用、日志分析"
+           data-author="" >
+            <span class="post-title" title="日志分析-Log Parser 工具">日志分析-Log Parser 工具</span>
+            <span class="post-date" title="2020-08-04 22:50:16">2020/08/04</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90-Windows-%E6%97%A5%E5%BF%97/"
+           data-tag="应急响应、日志分析"
+           data-author="" >
+            <span class="post-title" title="日志分析--windows日志">日志分析--windows日志</span>
+            <span class="post-date" title="2020-08-03 22:30:56">2020/08/03</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90-%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6%EF%BC%88EVENT-ID%EF%BC%89/"
+           data-tag="应急响应、日志分析"
+           data-author="" >
+            <span class="post-title" title="日志分析- 安全事件（EVENT ID）">日志分析- 安全事件（EVENT ID）</span>
+            <span class="post-date" title="2020-08-03 22:30:56">2020/08/03</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-lLinux%20%E5%85%A5%E4%BE%B5%E6%8E%92%E6%9F%A5/"
+           data-tag="应急响应"
+           data-author="" >
+            <span class="post-title" title="应急响应--Linux 入侵排查">应急响应--Linux 入侵排查</span>
+            <span class="post-date" title="2020-08-03 21:50:30">2020/08/03</span>
+        </a>
+        
+        <a  class="All 应急响应 "
+           href="/2020/08/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-window%E5%85%A5%E4%BE%B5%E6%8E%92%E6%9F%A5/"
+           data-tag="应急响应"
+           data-author="" >
+            <span class="post-title" title="应急响应--window入侵排查">应急响应--window入侵排查</span>
+            <span class="post-date" title="2020-08-03 21:50:16">2020/08/03</span>
+        </a>
+        
+        <a  class="All 资源汇总 "
+           href="/2020/07/31/%E7%BA%A2%E9%98%9F%E5%92%8C%E8%93%9D%E9%98%9F%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/"
+           data-tag="资源汇总"
+           data-author="" >
+            <span class="post-title" title="红队和蓝队资料汇总">红队和蓝队资料汇总</span>
+            <span class="post-date" title="2020-07-31 14:41:49">2020/07/31</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2020/07/15/100%E4%B8%AA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
+           data-tag="网络基础"
+           data-author="" >
+            <span class="post-title" title="100个网络基础知识">100个网络基础知识</span>
+            <span class="post-date" title="2020-07-15 21:40:39">2020/07/15</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/08/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E5%9F%9F%E5%86%85%E6%A8%AA%E5%90%91/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透-域内横向">内网渗透-域内横向</span>
+            <span class="post-date" title="2020-02-08 22:11:45">2020/02/08</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2020/02/08/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E8%8E%B7%E5%8F%96Windows%E7%B3%BB%E7%BB%9F%E6%95%A3%E5%88%97%E5%80%BC/"
+           data-tag="密码抓取"
+           data-author="" >
+            <span class="post-title" title="渗透测试-获取Windows系统散列值">渗透测试-获取Windows系统散列值</span>
+            <span class="post-date" title="2020-02-08 22:11:45">2020/02/08</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/05/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E6%8F%90%E6%9D%83/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透-提权">内网渗透-提权</span>
+            <span class="post-date" title="2020-02-05 12:46:34">2020/02/05</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/04/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E4%B8%8A%E4%BC%A0%E4%B8%8E%E4%B8%8B%E8%BD%BD/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透--上传与下载">内网渗透--上传与下载</span>
+            <span class="post-date" title="2020-02-04 16:46:34">2020/02/04</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/04/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E5%8E%8B%E7%BC%A9%E6%95%B0%E6%8D%AE/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透--压缩数据">内网渗透--压缩数据</span>
+            <span class="post-date" title="2020-02-04 15:16:04">2020/02/04</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F-%E5%BB%BA%E7%AB%8B%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="内网渗透--建立隐藏通信隧道">内网渗透--建立隐藏通信隧道</span>
+            <span class="post-date" title="2020-02-03 10:36:29">2020/02/03</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/02/02/%E9%9A%90%E8%97%8F%E9%80%9A%E4%BF%A1%E9%9A%A7%E9%81%93-%E5%88%A4%E6%96%AD%E5%86%85%E7%BD%91%E8%BF%9E%E9%80%9A%E6%80%A7/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="隐藏通信隧道-判断内网连通性">隐藏通信隧道-判断内网连通性</span>
+            <span class="post-date" title="2020-02-02 12:06:49">2020/02/02</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--域内信息收集">信息收集--域内信息收集</span>
+            <span class="post-date" title="2020-01-26 21:17:21">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E7%AB%AF%E5%8F%A3%E6%8E%A2%E6%B5%8B/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--端口探测">信息收集--端口探测</span>
+            <span class="post-date" title="2020-01-26 15:07:01">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/26/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E4%B8%BB%E6%9C%BA%E5%AD%98%E6%B4%BB/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--主机存活">信息收集--主机存活</span>
+            <span class="post-date" title="2020-01-26 13:06:49">2020/01/26</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/25/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%9C%89%E5%9F%9F/"
+           data-tag="信息收集"
+           data-author="" >
+            <span class="post-title" title="信息收集--判断是否有域">信息收集--判断是否有域</span>
+            <span class="post-date" title="2020-01-25 15:28:49">2020/01/25</span>
+        </a>
+        
+        <a  class="All 内网渗透 "
+           href="/2020/01/24/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"
+           data-tag="信息收集、学习记录"
+           data-author="" >
+            <span class="post-title" title="信息收集--本机信息">信息收集--本机信息</span>
+            <span class="post-date" title="2020-01-24 17:33:34">2020/01/24</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2019/12/04/%E8%A2%AB%E5%8A%A8%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%AB%99/"
+           data-tag="渗透测试、信息收集"
+           data-author="" >
+            <span class="post-title" title="被动信息收集--在线网站">被动信息收集--在线网站</span>
+            <span class="post-date" title="2019-12-04 12:53:21">2019/12/04</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/05/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--mimikatz/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--mimikatz">工具使用--mimikatz</span>
+            <span class="post-date" title="2019-03-05 12:56:21">2019/03/05</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/04/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--MSF/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--MSF">工具使用--MSF</span>
+            <span class="post-date" title="2019-03-04 22:06:21">2019/03/04</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/04/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--Msfvenom/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--Msfvenom">工具使用--Msfvenom</span>
+            <span class="post-date" title="2019-03-04 21:06:21">2019/03/04</span>
+        </a>
+        
+        <a  class="All 工具使用 "
+           href="/2019/03/03/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8--NetCat/"
+           data-tag="工具使用、渗透测试"
+           data-author="" >
+            <span class="post-title" title="工具使用--NetCat">工具使用--NetCat</span>
+            <span class="post-date" title="2019-03-03 12:36:29">2019/03/03</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2017/09/30/Linux-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"
+           data-tag="Linux 命令"
+           data-author="" >
+            <span class="post-title" title="Linux 命令大全">Linux 命令大全</span>
+            <span class="post-date" title="2017-09-30 11:29:15">2017/09/30</span>
+        </a>
+        
+        <a  class="All 基础杂项 "
+           href="/2017/09/15/Window-%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"
+           data-tag="Window 命令"
+           data-author="" >
+            <span class="post-title" title="Window 命令大全">Window 命令大全</span>
+            <span class="post-date" title="2017-09-15 15:29:35">2017/09/15</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-日志分析-安全事件（EVENT-ID）" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">日志分析- 安全事件（EVENT ID）</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="应急响应">应急响应</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">应急响应、日志分析</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2020-09-27 17:06:42'>2020-08-03 22:30</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安全事件（EVENT-ID）查询表"><span class="toc-text">安全事件（EVENT ID）查询表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、类别︰-帐户登录"><span class="toc-text">1、类别︰ 帐户登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、类别︰-帐户管理"><span class="toc-text">2、类别︰ 帐户管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、类别︰-详细的跟踪"><span class="toc-text">3、类别︰ 详细的跟踪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、类别︰-DS-访问"><span class="toc-text">4、类别︰ DS 访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、类别︰-登录-注销"><span class="toc-text">5、类别︰ 登录&#x2F;注销</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、类别︰-对象访问"><span class="toc-text">6、类别︰ 对象访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、类别︰-策略更改"><span class="toc-text">7、类别︰ 策略更改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、类别︰-特权使用"><span class="toc-text">8、类别︰ 特权使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9、类别︰-系统"><span class="toc-text">9、类别︰ 系统</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="安全事件（EVENT-ID）查询表"><a href="#安全事件（EVENT-ID）查询表" class="headerlink" title="安全事件（EVENT ID）查询表"></a>安全事件（EVENT ID）查询表</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>Windows 7和Windows Server 2008 R2 安全事件的说明。适用于： Windows Server 2008 R2 DatacenterWindows Server 2008 R2 EnterpriseWindows Server 2008 R2 StandardWindows 7 EnterpriseWindows 7 ProfessionalWindows 7 UltimateWindows Server 2008 R2 Service Pack 1</p>
+</blockquote>
+<h2 id="1、类别︰-帐户登录"><a href="#1、类别︰-帐户登录" class="headerlink" title="1、类别︰ 帐户登录"></a>1、类别︰ 帐户登录</h2><pre><code>子类别︰ 凭据验证
+标识    消息
+4774    帐户已登录映射。
+4775    无法映射的登录帐户。
+4776    计算机试图验证的帐户凭据。
+4777    域控制器无法验证帐户的凭据。
+
+子类别︰ Kerberos 身份验证服务
+标识    消息
+4768    Kerberos 身份验证票证 (TGT) 请求。
+4771    Kerberos 预身份验证失败。
+4772    Kerberos 身份验证票证请求失败。
+
+子类别︰ Kerberos 服务票据操作
+标识    消息
+4769    Kerberos 服务票证请求。
+4770    Kerberos 服务票证续订。
+4773    Kerberos 服务票证请求失败。</code></pre><h2 id="2、类别︰-帐户管理"><a href="#2、类别︰-帐户管理" class="headerlink" title="2、类别︰ 帐户管理"></a>2、类别︰ 帐户管理</h2><pre><code>子类别︰ 应用程序组管理
+标识    消息
+4783    基本应用程序组已创建。
+4784    基本应用程序组已更改。
+4785    已将成员添加到基本应用程序组。
+4786    已从基本应用程序组中删除成员。
+4787    非成员被添加到基本应用程序组。
+4788    非成员已从基本应用程序组。
+4789    基本应用程序组已被删除。
+4790    创建 LDAP 查询组。
+4791    基本应用程序组已更改。
+4792    LDAP 查询组已被删除。
+
+子类别︰ 计算机帐户管理
+标识    消息
+4741    计算机帐户已创建。
+4742    计算机帐户已更改。
+4743    计算机帐户已被删除。
+
+子类别︰ 通讯组管理
+标识    消息
+4744    已创建禁用安全的本地组。
+4745    禁用安全的本地组已更改。
+4746    成员已添加至禁用安全的本地组。
+4747    成员已从禁用安全的本地组中删除。
+4748    已删除禁用安全的本地组。
+4749    已创建禁用安全的全局组。
+4750    禁用安全的全局组已更改。
+4751    成员已添加至禁用安全的全局组。
+4752    成员已从禁用安全的全局组删除。
+4753    已删除禁用安全的全局组。
+4759    已创建禁用安全的通用组。
+4760    禁用安全的通用组已更改。
+4761    成员已添加至禁用安全的通用组。
+4762    成员已从禁用安全的通用组删除。
+
+子类别︰ 其他帐户管理事件
+标识    消息
+4782    访问帐户的密码哈希。
+4793    密码策略检查 API 被调用。
+
+子类别︰ 安全组管理
+标识    消息
+4727    启用安全的全局组已创建。
+4728    成员已添加至已启用安全的全局组。
+4729    已从启用安全的全局组中删除成员。
+4730    启用安全的全局组已删除。
+4731    启用安全的本地组已创建。
+4732    已将成员添加到启用安全的本地组。
+4733    已从启用安全的本地组中删除成员。
+4734    启用安全的本地组已删除。
+4735    启用安全的本地组已更改。
+4737    启用安全的全局组已更改。
+4754    启用安全的通用组已创建。
+4755    启用安全的通用组已更改。
+4756    成员已添加至已启用安全的通用组。
+4757    成员已从启用安全的通用组删除。
+4758    启用安全的通用组已删除。
+4764    组的类型已更改。
+
+子类别︰ 用户帐户管理
+标识    消息
+4720    用户帐户已创建。
+4722    用户帐户被启用。
+4723    尝试更改帐户密码。
+4724    尝试重置帐户密码。
+4725    已禁用的用户帐户。
+4726    用户帐户已被删除。
+4738    用户帐户已更改。
+4740    用户帐户被锁定。
+4765    SID 历史记录已添加到帐户。
+4766    要添加到帐户的 SID 历史记录的尝试失败。
+4767    用户帐户的锁定。
+4780    在管理员组成员的帐户上设置 ACL。
+4781    帐户名称已更改︰
+4794    尝试设置目录服务还原模式。
+5376    凭据管理器凭据进行备份。
+5377    凭据管理器凭据已从备份中还原。</code></pre><h2 id="3、类别︰-详细的跟踪"><a href="#3、类别︰-详细的跟踪" class="headerlink" title="3、类别︰ 详细的跟踪"></a>3、类别︰ 详细的跟踪</h2><pre><code>子类别︰ DPAPI 活动
+标识    消息
+4692    尝试进行备份的数据保护主密钥。
+4693    尝试恢复数据保护主密钥。
+4694    试图进行可审核的受保护数据的保护。
+4695    Unprotection 可审核的受保护数据的尝试。
+
+子类别︰ 进程创建
+标识    消息
+4688    已创建一个新的进程。
+4696    一个主令牌被分配来处理。
+
+子类别︰ 终止进程
+标识    消息
+4689    进程已退出。
+
+子类别︰ RPC 事件
+标识    消息
+5712    尝试执行远程过程调用 (RPC)。
+类别︰ DS 访问</code></pre><h2 id="4、类别︰-DS-访问"><a href="#4、类别︰-DS-访问" class="headerlink" title="4、类别︰ DS 访问"></a>4、类别︰ DS 访问</h2><pre><code>子类别︰ 详细的目录服务复制
+标识    消息
+4928    建立一个 Active Directory 复制副本源命名上下文。
+4929    已删除 Active Directory 复制副本源命名上下文。
+4930    Active Directory 复制副本源命名上下文已被修改。
+4931    Active Directory 复制目标命名上下文已被修改。
+4934    Active Directory 对象的属性被复制。
+4935    开始复制失败。
+4936    复制失败结束。
+4937    从副本中删除延迟对象。
+
+子类别︰ 目录服务访问
+标识    消息
+4662    在对象上执行操作。
+
+子类别︰ 目录服务更改
+标识    消息
+5136    目录服务对象已被修改。
+5137    创建目录服务对象。
+5138    未删除目录服务对象。
+5139    目录服务对象已移动。
+5141    目录服务对象已被删除。
+
+子类别︰ 目录服务复制
+标识    消息
+4932    Active Directory 命名上下文的副本的同步已开始。
+4933    Active Directory 命名上下文的副本的同步已结束。</code></pre><h2 id="5、类别︰-登录-注销"><a href="#5、类别︰-登录-注销" class="headerlink" title="5、类别︰ 登录/注销"></a>5、类别︰ 登录/注销</h2><pre><code>子类别︰ IPsec 扩展模式
+标识    消息
+4978    在扩展的模式协商期间 IPsec 收到无效的协商数据包。如果此问题仍然存在，它可能表明存在网络问题或试图修改或重放此协商。
+4979    建立 IPsec 主模式与扩展的模式安全关联。
+4980    建立 IPsec 主模式与扩展的模式安全关联。
+4981    建立 IPsec 主模式与扩展的模式安全关联。
+4982    建立 IPsec 主模式与扩展的模式安全关联。
+4983    IPsec 的扩展模式协商失败。相应的主模式安全关联已被删除。
+4984    IPsec 的扩展模式协商失败。相应的主模式安全关联已被删除。
+
+子类别︰ IPsec 主模式
+标识    消息
+4646    启动 IKE DoS 保护模式。
+4650    建立 IPsec 主模式安全关联。未启用扩展的模式。 不使用证书身份验证。
+4651    建立 IPsec 主模式安全关联。未启用扩展的模式。 证书用于身份验证。
+4652    主模式协商失败，IPsec。
+4653    主模式协商失败，IPsec。
+4655    结束了 IPsec 主模式安全关联。
+4976    在主模式协商期间 IPsec 收到无效的协商数据包。如果此问题仍然存在，它可能表明存在网络问题或试图修改或重放此协商。
+5049    已删除 IPsec 安全关联。
+5453    IPsec 策略代理在计算机上应用了 Active Directory IPsec 策略存储。
+
+子类别︰ IPsec 快速模式
+标识    消息
+4654    快速模式协商失败，IPsec。
+4977    在快速模式协商期间 IPsec 收到无效的协商数据包。如果此问题仍然存在，它可能表明存在网络问题或试图修改或重放此协商。
+5451    建立 IPsec 快速模式安全关联。
+5452    结束的 IPsec 快速模式安全关联。
+
+子类别︰ 注销
+标识    消息
+4634    帐户被注销。
+4647    用户启动注销过程。
+
+子类别︰ 登录
+标识    消息
+4624    成功登录帐户。
+4625    帐户登录失败。
+4648    试图使用显式凭据登录。
+4675    已筛选的 Sid。
+
+子类别︰ 网络策略服务器
+标识    消息
+6272    网络策略服务器向用户授予访问权限。
+6273    网络策略服务器拒绝用户访问。
+6274    网络策略服务器放弃用户的请求。
+6275    网络策略服务器丢弃用户记帐请求。
+6276    网络策略服务器隔离用户。
+6277    网络策略服务器授予访问权限的用户，但将其放上试用，因为主机不符合该定义的健康策略。
+6278    网络策略服务器向用户授予完全访问权限，因为主机满足定义的运行状况策略。
+6279    网络策略服务器锁定由于重复失败的验证尝试的用户帐户。
+6280    网络策略服务器已解锁用户帐户。
+
+子类别︰ 其他登录/注销事件
+标识    消息
+4649    检测到的重播攻击。
+4778    到窗口站重新连接会话。
+4779    从窗口站，会话已断开连接。
+4800    锁定工作站。
+4801    交互式地使用计算机。
+4802    屏幕保护程序被调用。
+4803    已关闭屏幕保护程序。
+5378    请求的凭据委派是不允许的策略。
+5632    请求对无线网络进行身份验证。
+5633    请求进行身份验证的有线网络。
+
+子类别︰ 特殊登录
+标识    消息
+4964    特殊组已分配到一个新的登录帐户。</code></pre><h2 id="6、类别︰-对象访问"><a href="#6、类别︰-对象访问" class="headerlink" title="6、类别︰ 对象访问"></a>6、类别︰ 对象访问</h2><pre><code>子类别︰ 应用程序生成
+标识    消息
+4665    尝试创建应用程序客户端上下文。
+4666    应用程序试图执行的操作︰
+4667    应用程序客户端上下文已被删除。
+4668    应用程序已初始化。
+
+子类别︰ 证书服务
+标识    消息
+4868    证书管理器拒绝了挂起的证书请求。
+4869    证书服务收到重新提交的证书申请。
+4870    证书服务吊销了证书。
+4871    证书服务收到发行证书吊销列表 (CRL) 的请求。
+4872    证书服务发行了证书吊销列表 (CRL)。
+4873    更改了证书申请扩展。
+4874    更改一个或多个证书申请属性。
+4875    证书服务收到关闭请求。
+4876    证书服务备份已启动。
+4877    证书服务备份已完成。
+4878    已开始证书服务还原。
+4879    证书服务还原已完成。
+4880    证书服务已启动。
+4881    证书服务已停止。
+4882    证书服务的安全权限已更改。
+4883    证书服务检索到存档的密钥。
+4884    证书服务将证书导入它的数据库。
+4885    证书服务的审核筛选已更改。
+4886    证书服务收到了一个证书申请。
+4887    证书服务批准了证书申请并颁发了证书。
+4888    证书服务拒绝证书请求。
+4889    证书服务将证书请求状态设置为挂起。
+4890    证书服务的证书管理器设置已更改。
+4891    证书服务更改的配置项。
+4892    证书服务的属性已更改。
+4893    证书服务存档了密钥。
+4894    证书服务导入和存档了密钥。
+4895    证书服务发布到 Active Directory 域服务的 CA 证书。
+4896    已从证书数据库删除一行或多行。
+4897    启用角色分离︰
+4898    证书服务加载模板。
+4899    证书服务模板进行更新。
+4900    证书服务模板安全性已更新。
+5120    OCSP 响应程序服务已启动。
+5121    OCSP 响应程序服务停止。
+5122    OCSP 响应程序服务中更改的配置项。
+5123    OCSP 响应程序服务中更改的配置项。
+5124    OCSP 响应程序服务已更新安全设置。
+5125    请求已提交到 OCSP 响应程序服务。
+5126    OCSP 响应程序服务已自动更新签名证书。
+5127    OCSP 吊销提供程序已成功更新的吊销信息。
+
+子类别︰ 详细的文件共享
+标识    消息
+5145    网络共享对象已检查以查看是否客户机可以被授予所需访问权限。
+
+子类别︰ 文件共享
+标识    消息
+5140    访问网络共享对象。
+5142    已添加网络共享对象。
+5143    网络共享对象被修改。
+5144    已删除网络共享对象。
+5168    SMB/SMB2 的 Spn 检查失败。
+
+子类别︰ 文件系统
+标识    消息
+4664    尝试创建硬链接。
+4985    交易记录的状态已更改。
+5051    文件的虚拟化。
+
+子类别︰ 筛选平台连接
+标识    消息
+5031    Windows 防火墙服务阻止接受传入连接在网络上的应用程序。
+5148    Windows 筛选平台已检测到 DoS 攻击并进入防御模式;与这种攻击相关的数据包将被丢弃。
+5149    DoS 攻击减少，并正在继续正常处理。
+5150    Windows 筛选平台已阻止的数据包。
+5151    限制性更强的 Windows 筛选平台过滤器已阻止数据包。
+5154    要在端口上侦听传入连接的应用程序或服务允许 Windows 筛选平台。
+5155    Windows 筛选平台已阻止的应用程序或服务在端口上侦听传入的连接。
+5156    Windows 筛选平台允许连接。
+5157    Windows 筛选平台已阻止连接。
+5158    Windows 筛选平台允许绑定到本地端口。
+5159    Windows 筛选平台已阻止绑定到本地端口。
+
+子类别︰ 筛选平台数据包丢弃
+标识    消息
+5152    Windows 筛选平台已阻止的数据包。
+5153    限制性更强的 Windows 筛选平台过滤器已阻止数据包。
+子类别︰ 句柄操作
+标识    消息
+4656    请求的对象的句柄。
+4658    已关闭的对象句柄。
+4690    尝试复制一个对象的句柄。
+
+子类别︰ 其他对象访问事件
+标识    消息
+4671    应用程序试图访问被阻止的序号通过进行 tbs。
+4691    请求的对象的间接访问。
+4698    创建计划的任务。
+4699    计划的任务已被删除。
+4700    计划的任务已启用。
+4701    已禁用计划的任务。
+4702    已更新计划的任务。
+4702    已更新计划的任务。
+5888    在 COM + 目录中的对象已被修改。
+5889    从 COM + 目录中删除对象。
+5890    对象已添加到 COM + 目录中。
+
+子类别︰ 注册表
+标识    消息
+4657    修改注册表值。
+5039    注册表项被虚拟化。
+特殊的多用途子类别的子类别︰
+注意：任何资源管理器可能会生成下面的事件及其子类别启用。
+例如，通过注册表资源管理器或文件系统资源管理器，可能会生成下面的事件。对象访问︰ 内核对象和对象访问︰ SAM
+
+子类别是以独占方式使用这些事件的子类别的示例。
+标识    消息
+4659    旨在通过删除请求的对象的句柄。
+4660    对象已被删除。
+4661    请求的对象的句柄。
+4663    试图访问的对象。</code></pre><h2 id="7、类别︰-策略更改"><a href="#7、类别︰-策略更改" class="headerlink" title="7、类别︰ 策略更改"></a>7、类别︰ 策略更改</h2><pre><code>子类别︰ 审核策略更改
+标识    消息
+4715    已更改对象上的审核策略 (SACL)。
+4719    系统审核策略已更改。
+4817    已更改对象上的审核设置。
+4902    每用户审核策略表已创建。
+4904    尝试注册安全事件源。
+4905    尝试取消安全事件源注册。
+4906    禁用组值已更改。
+4907    已更改对象上的审核设置。
+4908    修改特殊组登录表格。
+4912    每个用户审核策略已更改。
+
+子类别︰ 身份验证策略更改
+标识    消息
+4706    向域创建新的信任。
+4707    已删除对一个域的信任。
+4713    Kerberos 策略已更改。
+4716    已修改受信任的域的信息。
+4717    系统安全访问权限授予帐户。
+4718    帐户已删除系统安全访问权限。
+4739    域策略已更改。
+4864    检测到的命名空间冲突。
+4865    添加受信任的林信息条目。
+4866    已删除受信任的林信息项。
+4867    已修改受信任的林信息项。
+
+子类别︰ 授权策略更改
+标识    消息
+4704    已分配用户权限。
+4705    已删除了用户权限。
+4714    已更改的数据恢复代理组策略的加密文件系统 (EFS)。新的更改尚未应用。
+
+子类别︰ 筛选平台策略更改
+标识    消息
+4709    IPsec 策略代理服务已启动。
+4710    已禁用 IPsec 策略代理服务。
+4711    可能包含下列之一︰
+PAStore 引擎的计算机上应用 IPsec 策略的 Active Directory 存储的本地缓存的副本。
+PAStore 引擎的计算机上应用 IPsec 策略的 Active Directory 存储。
+PAStore 引擎的计算机上应用 IPsec 策略的本地注册表存储。
+PAStore 引擎无法在计算机上应用 IPsec 策略的 Active Directory 存储的本地缓存的副本。
+PAStore 引擎无法在计算机上应用 IPsec 策略的 Active Directory 存储。
+PAStore 引擎无法在计算机上应用 IPsec 策略的本地注册表存储。
+PAStore 引擎无法应用在计算机上的活动 IPsec 策略的某些规则。
+PAStore 引擎无法加载目录存储在计算机上的 IPsec 策略。
+PAStore 引擎加载目录存储在计算机上的 IPsec 策略。
+PAStore 引擎无法加载本地存储在计算机上的 IPsec 策略。
+PAStore 引擎加载本地存储在计算机上的 IPsec 策略。
+PAStore 引擎对活动的 IPsec 策略更改轮询并检测到任何更改。
+4712    IPsec 策略代理遇到潜在的严重问题。
+5040    IPsec 设置已更改。已添加身份验证集。
+5041    IPsec 设置已更改。身份验证设置已被修改。
+5042    IPsec 设置已更改。身份验证设置已被删除。
+5043    IPsec 设置已更改。已添加的连接安全规则。
+5044    IPsec 设置已更改。连接安全规则已被修改。
+5045    IPsec 设置已更改。连接安全规则已被删除。
+5046    IPsec 设置已更改。添加加密设置。
+5047    IPsec 设置已更改。加密设置已被修改。
+5048    IPsec 设置已更改。加密设置已被删除。
+5440    下面标注时 Windows 筛选平台基本筛选引擎启动时出现。
+5441    下面的筛选器是 Windows 筛选平台基本筛选引擎启动时出现。
+5442    下列提供程序是 Windows 筛选平台基本筛选引擎启动时出现。
+5443    当 Windows 筛选平台基本筛选引擎启动时存在下列提供程序上下文。
+5444    下面的子图层时 Windows 筛选平台基本筛选引擎启动时出现。
+5446    已更改 Windows 筛选平台标注。
+5448    已更改 Windows 筛选平台提供商。
+5449    Windows 筛选平台提供程序上下文已被更改。
+5450    已更改 Windows 筛选平台的子图层。
+5456    PAStore 引擎的计算机上应用 IPsec 策略的 Active Directory 存储。
+5457    IPsec 策略代理在计算机上应用 IPsec 策略的 Active Directory 存储失败。
+5458    本地应用的 IPsec 策略代理缓存中的活动目录存储在计算机上的 IPsec 策略的副本。
+5459    IPsec 策略代理无法在计算机上应用 IPsec 策略的 Active Directory 存储的本地缓存的副本。
+5460    IPsec 策略代理在计算机上应用 IPsec 策略的本地注册表存储。
+5461    IPsec 策略代理在计算机上应用 IPsec 策略的本地注册表存储失败。
+5462    IPsec 策略代理无法应用在计算机上的活动 IPsec 策略的某些规则。IP 安全监视器管理单元中使用，用来诊断问题。
+5463    IPsec 策略代理轮询的活动 IPsec 策略的更改，并检测到任何更改。
+5464    IPsec 策略代理对活动的 IPsec 策略更改轮询、 检测到更改，并且应用它们。
+5465    IPsec 策略代理收到用于 IPsec 策略的强制重新加载的控件，成功地处理该控件。
+5466    IPsec 策略代理轮询到活动目录 IPsec 策略中，已确定 Active Directory 无法访问，并将改为使用活动目录 IPsec 策略缓存的副本的更改。由于上次轮询不能应用到活动目录 IPsec 策略中做的任何更改。
+5467    IPsec 策略代理轮询更改活动目录 IPsec 策略，确定可以达到，并且找到策略没有更改 Active Directory 中。活动目录 IPsec 策略缓存的副本不再被使用。
+5468    IPsec 策略代理轮询更改到活动目录 IPsec 策略中，已确定 Active Directory 可以达到，找到更改策略，并应用这些更改。活动目录 IPsec 策略缓存的副本不再被使用。
+5471    IPsec 策略代理加载本地存储在计算机上的 IPsec 策略。
+5472    IPsec 策略代理无法加载本地存储在计算机上的 IPsec 策略。
+5473    IPsec 策略代理加载目录存储在计算机上的 IPsec 策略。
+5474    IPsec 策略代理无法加载目录存储在计算机上的 IPsec 策略。
+5477    IPsec 策略代理无法添加快速模式筛选器。
+
+子类别︰ mpssvc 规则级别策略更改
+标识    消息
+4944    当启动 Windows 防火墙时，以下策略处于活动状态。
+4945    当启动 Windows 防火墙已列出规则。
+4946    Windows 防火墙例外列表已更改。添加的规则。
+4947    Windows 防火墙例外列表已更改。修改规则的。
+4948    Windows 防火墙例外列表已更改。规则已被删除。
+4949    Windows 防火墙设置都恢复为默认值。
+4950    更改 Windows 防火墙设置。
+4951    Windows 防火墙忽略规则，因为无法识别的主要版本号。
+4952    Windows 防火墙忽略规则的部分，因为无法识别它的次要版本号。将强制执行该规则的其他部分。
+4953    由于无法分析，Windows 防火墙将忽略规则。
+4954    Windows 防火墙组策略设置已更改，并且未应用新设置。
+4956    Windows 防火墙更改活动配置文件。
+4957    Windows 防火墙未应用以下规则：
+4958    因为规则引用的项目未在此计算机上配置 Windows 防火墙未应用以下规则︰
+5050    尝试以编程方式禁用 Windows 防火墙使用 INetFwProfile.FirewallEnabled(FALSE) 接口的调用被拒绝，因为此 API 不支持此版本的 Windows 上。这是最可能的原因是与此版本的 Windows 不兼容的程序。请联系该程序的制造商联系，以确保您具有兼容的程序版本。
+
+子类别︰ 其他策略更改事件
+标识    消息
+4909    TBS 的本地策略设置已更改。
+4910    TBS 的组策略设置已更改。
+5063    加密提供程序操作。
+5064    尝试加密上下文操作。
+5065    试图执行加密上下文修改。
+5066    加密函数操作。
+5067    试图执行的加密函数修改。
+5068    试图进行加密的功能提供程序操作。
+5069    尝试加密函数属性操作。
+5070    试图执行的加密函数属性修改。
+5447    Windows 筛选平台筛选器已更改。
+6144    已成功应用的组策略对象中的安全策略。
+6145    处理组策略对象中的安全策略时出现一个或多个错误。
+
+特殊的多用途子类别的子类别︰
+注意：任何资源管理器可能会生成下面的事件及其子类别启用。例如，通过注册表资源管理器或文件系统资源管理器，可能会生成下面的事件。
+标识    消息
+4670    已更改对象上的权限。</code></pre><h2 id="8、类别︰-特权使用"><a href="#8、类别︰-特权使用" class="headerlink" title="8、类别︰ 特权使用"></a>8、类别︰ 特权使用</h2><pre><code>子类别︰ 敏感权限使用 / 非敏感权限使用
+标识    消息
+4672    分配给新的登录特权。
+4673    特权的服务被调用。
+4674    试图在特权对象上执行操作。</code></pre><h2 id="9、类别︰-系统"><a href="#9、类别︰-系统" class="headerlink" title="9、类别︰ 系统"></a>9、类别︰ 系统</h2><pre><code>子类别︰ IPsec 驱动程序
+标识    消息
+4960    IPsec 丢弃入站的数据包的完整性检查失败。如果此问题仍然存在，它可能表明存在网络问题或该数据包正在修改传输到这台计算机中。验证来自远程计算机所发送的数据包接收到这台计算机的相同。此错误还可能指示与其他 IPsec 实现互操作性问题。
+4961    IPsec 丢弃无法重播检查入站的数据包。如果此问题仍然存在，它可能表明针对此计算机的重播攻击。
+4962    IPsec 丢弃无法重播检查入站的数据包。入站的数据包所太低的序列号，以确保它不是重播。
+4963    IPsec 丢弃应该保护的入站的明文数据包。如果远程计算机请求出站 IPsec 策略配置，这可能是良性和预期。 这也可以致其 IPsec 策略更改而不通知此计算机的远程计算机。这也可能是欺骗的攻击企图。
+4965    IPsec 将数据包来自远程计算机具有不正确的安全参数索引 (SPI)。这通常是由有故障正在损坏数据包的硬件引起的。如果这些错误仍然存在，请验证来自远程计算机所发送的数据包接收到这台计算机的相同。此错误还可能指示与其他 IPsec 实现互操作性问题。在这种情况下，如果不被阻碍的连接，然后这些事件可以忽略。
+5478    IPsec 策略代理服务已启动。
+5479    IPsec 服务已成功关闭。IPsec 服务的关闭可以将网络攻击的风险更高的计算机或使计算机面临安全隐患。
+5480    IPsec 策略代理无法获取该计算机上的网络接口的完整列表。这会造成潜在的安全风险，因为某些网络接口可能得不到通过应用 IPsec 筛选器提供的保护。IP 安全监视器管理单元中使用，用来诊断问题。
+5483    IPsec 策略代理服务未能初始化其 RPC 服务器。无法启动该服务。
+5484    IPsec 策略代理服务遇到严重错误，已关闭。关闭此服务，可以将网络攻击的风险更高的计算机或使计算机面临安全隐患。
+5485    IPsec 策略代理无法处理网络接口插件播放事件上的一些 IPsec 筛选器。这会造成潜在的安全风险，因为某些网络接口可能得不到通过应用 IPsec 筛选器提供的保护。IP 安全监视器管理单元中使用，用来诊断问题。
+
+子类别︰ 其他系统事件
+标识    消息
+5024    Windows 防火墙服务已成功启动。
+5025    Windows 防火墙服务已停止。
+5027    Windows 防火墙服务无法从本地存储区中检索的安全策略。Windows 防火墙将继续执行当前的策略。
+5028    Windows 防火墙无法分析新的安全策略。Windows 防火墙将继续执行当前的策略。
+5029    Windows 防火墙服务无法初始化该驱动程序。Windows 防火墙将继续执行当前的策略。
+5030    Windows 防火墙服务无法启动。
+5032    Windows 防火墙不能通知用户它阻止接受传入连接在网络上的应用程序。
+5033    Windows 防火墙驱动程序已成功启动。
+5034    Windows 防火墙驱动程序已停止。
+5035    Windows 防火墙驱动程序启动失败。
+5037    Windows 防火墙驱动程序检测到严重的运行时错误，正在终止。
+5058    密钥文件操作。
+5059    键迁移操作。
+6400    发现内容的可用性时，分支缓存︰ 收到格式不正确的响应。
+6401    分支缓存︰ 来自对等方接收到无效的数据。数据丢失。
+6403    分支缓存︰ 托管的缓存发送格式不正确的响应客户端。
+6404    分支缓存︰ 托管的缓存无法验证使用已设置的 SSL 证书。
+6405    分支缓存中: %2 实例 id 为 %1 的事件的发生。
+6406    到 Windows 防火墙注册为以下用于筛选的控件的 %1: %2
+6407    1%
+
+子类别︰ 安全状态更改
+标识    消息
+4608    Windows 正在启动。
+4616    更改系统时间。
+4621    管理员已禁用组从恢复系统。现在将允许用户不是管理员登录。可能不记录一些可审核的活动。
+
+子类别︰ 安全系统扩展
+标识    消息
+4610    已由本地安全机构加载身份验证程序包。
+4611    受信任的登录进程已与本地安全机构注册。
+4614    安全帐户管理器已加载通知程序包。
+4622    安全程序包已由本地安全机构加载。
+4697    在系统中已安装的服务。
+
+子类别︰ 系统完整性
+标识    消息
+4612    进行的审核消息进行排队而分配的内部资源已用尽，从而导致丢失的一些审计。
+4615    使用 LPC 端口无效。
+4618    监视的安全事件模式出现。
+4816    RPC 检测到解密传入消息时存在完整性冲突。
+5038    代码完整性取决于文件的图像哈希是无效。该文件可能会损坏原因是未经授权的修改或无效哈希可能表明存在潜在的磁盘设备错误。
+5056    执行加密的自我测试。
+5057    当加密基元操作失败。
+5060    验证操作失败。
+5061    加密操作。
+5062    内核模式加密自检未执行。
+6281    代码完整性确定图像文件的网页哈希值无效。该文件可能会不正确地签名而无需页面哈希或损坏原因是未经授权的修改。无效的哈希值可能表明存在潜在的磁盘设备错误</code></pre><p>原文链接：<a href="https://support.microsoft.com/zh-cn/help/977519/description-of-security-events-in-windows-7-and-in-windows-server-2008" target="_blank" rel="noopener">https://support.microsoft.com/zh-cn/help/977519/description-of-security-events-in-windows-7-and-in-windows-server-2008</a></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Beret-81
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
