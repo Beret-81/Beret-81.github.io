@@ -6,20 +6,18 @@
   <meta name="keywords" content=" 信息收集、学习记录 ">
   <meta name="description" content="内网渗透--压缩数据 | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="Windows下登录凭证窃取技巧1、Windows 本地密码Hash Windows的系统密码hash默认情况下一般由两部分组成：第一部分是LM-hash，第二部分是NTLM-hash。Windows系统下hash密码格式用户名称:RID:LM-HASH值:NT-HASH值。  例如： Administrator:500:AF01DF70036EBACFAAD3B435B51404EE:44F07">
+<meta name="description" content="Linux下登录凭证窃取技巧 当获得一台主机的root权限，我们总是会想办法通过收集各种密码凭证，以便继续扩大战果。Linux下的环境，相对比更纯粹一些，介绍几个比较常见的技巧和工具。  1、history记录敏感操作Linux系统会自动把用户的操作命令记录到历史列表中，当用户在命令行中输入账号、密码进行登录时，将会导致敏感信息泄露。 [root@centos ~]# history | grep">
 <meta property="og:type" content="article">
-<meta property="og:title" content="渗透测试--Windows下登录凭证窃取技巧">
-<meta property="og:url" content="http://yoursite.com/2020/10/11/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-Windows%E4%B8%8B%E7%99%BB%E5%BD%95%E5%87%AD%E8%AF%81%E7%AA%83%E5%8F%96%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:title" content="渗透测试--Linux下登录凭证窃取技巧">
+<meta property="og:url" content="http://yoursite.com/2020/10/11/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-Linux%E4%B8%8B%E7%99%BB%E5%BD%95%E5%87%AD%E8%AF%81%E7%AA%83%E5%8F%96%E6%8A%80%E5%B7%A7%20/index.html">
 <meta property="og:site_name" content="Beret-81">
-<meta property="og:description" content="Windows下登录凭证窃取技巧1、Windows 本地密码Hash Windows的系统密码hash默认情况下一般由两部分组成：第一部分是LM-hash，第二部分是NTLM-hash。Windows系统下hash密码格式用户名称:RID:LM-HASH值:NT-HASH值。  例如： Administrator:500:AF01DF70036EBACFAAD3B435B51404EE:44F07">
+<meta property="og:description" content="Linux下登录凭证窃取技巧 当获得一台主机的root权限，我们总是会想办法通过收集各种密码凭证，以便继续扩大战果。Linux下的环境，相对比更纯粹一些，介绍几个比较常见的技巧和工具。  1、history记录敏感操作Linux系统会自动把用户的操作命令记录到历史列表中，当用户在命令行中输入账号、密码进行登录时，将会导致敏感信息泄露。 [root@centos ~]# history | grep">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ia0LvkyJzB4k7S2FiaDDryLRgEzJMdOZnuZXSnoCjV1wN4icics6d1Z57koBJJFeianibEtwyMBg8AkodRlJtzlkFm8Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="article:published_time" content="2020-10-11T08:54:33.000Z">
-<meta property="article:modified_time" content="2020-10-30T03:12:51.070Z">
+<meta property="article:published_time" content="2020-10-11T08:54:42.000Z">
+<meta property="article:modified_time" content="2020-10-30T03:43:13.358Z">
 <meta property="article:author" content="Beret-81">
 <meta property="article:tag" content="登录凭证窃取技巧">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/ia0LvkyJzB4k7S2FiaDDryLRgEzJMdOZnuZXSnoCjV1wN4icics6d1Z57koBJJFeianibEtwyMBg8AkodRlJtzlkFm8Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
 
 
 <link rel="icon" href="/img/avatar.jpg">
