@@ -6,45 +6,20 @@
   <meta name="keywords" content=" 工具使用、渗透测试 ">
   <meta name="description" content="工具使用--NetCat | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="IIS 漏洞总结 IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。  1、文件解析漏洞1.1 目录解析漏洞在 IIS5.x&#x2F;6.0 中，默认会将 *.asp（.asa、.cer、.cdx ）目录下的所有文件当成As">
+<meta name="description" content="Windows下登录凭证窃取技巧1、Windows 本地密码Hash Windows的系统密码hash默认情况下一般由两部分组成：第一部分是LM-hash，第二部分是NTLM-hash。Windows系统下hash密码格式用户名称:RID:LM-HASH值:NT-HASH值。  例如： Administrator:500:AF01DF70036EBACFAAD3B435B51404EE:44F07">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IIS 漏洞总结">
-<meta property="og:url" content="http://yoursite.com/2020/08/16/IIS-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="渗透测试--Windows下登录凭证窃取技巧">
+<meta property="og:url" content="http://yoursite.com/2020/10/11/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-Windows%E4%B8%8B%E7%99%BB%E5%BD%95%E5%87%AD%E8%AF%81%E7%AA%83%E5%8F%96%E6%8A%80%E5%B7%A7/index.html">
 <meta property="og:site_name" content="Beret-81">
-<meta property="og:description" content="IIS 漏洞总结 IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。 IIS目前只适用于Windows系统，不适用于其他操作系统。  1、文件解析漏洞1.1 目录解析漏洞在 IIS5.x&#x2F;6.0 中，默认会将 *.asp（.asa、.cer、.cdx ）目录下的所有文件当成As">
+<meta property="og:description" content="Windows下登录凭证窃取技巧1、Windows 本地密码Hash Windows的系统密码hash默认情况下一般由两部分组成：第一部分是LM-hash，第二部分是NTLM-hash。Windows系统下hash密码格式用户名称:RID:LM-HASH值:NT-HASH值。  例如： Administrator:500:AF01DF70036EBACFAAD3B435B51404EE:44F07">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142648132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142912889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142938674.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329142946226.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032914503617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145243481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145405754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145828764.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329145843318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150114518.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150332318.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150353404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032915040683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150444629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150450861.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150505400.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150510867.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151627797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150540836.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329150737904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151152313.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151204570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151216379.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151229304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200329151239891.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032915124591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-08-16T09:03:53.000Z">
-<meta property="article:modified_time" content="2020-08-21T06:40:40.163Z">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ia0LvkyJzB4k7S2FiaDDryLRgEzJMdOZnuZXSnoCjV1wN4icics6d1Z57koBJJFeianibEtwyMBg8AkodRlJtzlkFm8Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="article:published_time" content="2020-10-11T08:54:33.000Z">
+<meta property="article:modified_time" content="2020-10-30T03:12:51.070Z">
 <meta property="article:author" content="Beret-81">
-<meta property="article:tag" content="IIS 漏洞、中间件漏洞">
+<meta property="article:tag" content="登录凭证窃取技巧">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200329142648132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkxODc3MQ==,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/ia0LvkyJzB4k7S2FiaDDryLRgEzJMdOZnuZXSnoCjV1wN4icics6d1Z57koBJJFeianibEtwyMBg8AkodRlJtzlkFm8Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -118,7 +93,7 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="All">All<small>(31)</small></div></li>
+    <li><div class="all active" data-rel="All">All<small>(33)</small></div></li>
     
         
             
@@ -154,7 +129,7 @@
     
         
             
-            <li><div data-rel="渗透测试">渗透测试<small>(4)</small></div>
+            <li><div data-rel="渗透测试">渗透测试<small>(6)</small></div>
                 
             </li>
             
@@ -186,7 +161,7 @@
     </div>
     <div></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="31">
+<input type="hidden" id="yelog_site_posts_number" value="33">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -289,6 +264,10 @@
             </li>
         
             <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>登录凭证窃取技巧</a>
+            </li>
+        
+            <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>网络基础</a>
             </li>
         
@@ -302,6 +281,22 @@
 
     
     <nav id="title-list-nav">
+        
+        <a  class="All 渗透测试 "
+           href="/2020/10/11/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-Linux%E4%B8%8B%E7%99%BB%E5%BD%95%E5%87%AD%E8%AF%81%E7%AA%83%E5%8F%96%E6%8A%80%E5%B7%A7%20/"
+           data-tag="登录凭证窃取技巧"
+           data-author="" >
+            <span class="post-title" title="渗透测试--Linux下登录凭证窃取技巧">渗透测试--Linux下登录凭证窃取技巧</span>
+            <span class="post-date" title="2020-10-11 16:54:42">2020/10/11</span>
+        </a>
+        
+        <a  class="All 渗透测试 "
+           href="/2020/10/11/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-Windows%E4%B8%8B%E7%99%BB%E5%BD%95%E5%87%AD%E8%AF%81%E7%AA%83%E5%8F%96%E6%8A%80%E5%B7%A7/"
+           data-tag="登录凭证窃取技巧"
+           data-author="" >
+            <span class="post-title" title="渗透测试--Windows下登录凭证窃取技巧">渗透测试--Windows下登录凭证窃取技巧</span>
+            <span class="post-date" title="2020-10-11 16:54:33">2020/10/11</span>
+        </a>
         
         <a  class="All 漏洞集合 "
            href="/2020/08/16/IIS-%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"

